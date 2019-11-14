@@ -1,13 +1,3 @@
-Sources:
-
-https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Route.md
-https://github.com/MacKentoch/react-bootstrap-webpack-ssr-starter
-https://github.com/Ovardov/JavaScript-SoftUni/tree/master/ReactJS/E-Commerce
-https://github.com/IliaIdakiev/angular-material-timepicker
-
-___
-
-
 # *Shake it*
 You are looking at ***the final project*** of the course ReactJS at SoftUni.
 
