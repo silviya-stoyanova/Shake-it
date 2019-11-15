@@ -1,0 +1,145 @@
+.content-wrapper {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.product-wrapper {
+    width: 15%;
+    margin: 35px;
+    display: inline-block;
+    text-align: center;
+}
+
+.product-details-wrapper {
+    width: 24%;
+    text-align: center;
+    display: inline-block;
+}
+
+.product-title {
+    display: inline-block;
+    font-size: 17pt;
+   /* cursor: pointer; */
+    margin-left: 6%;
+    padding-bottom: 5px;
+    color: black;
+}
+
+.product-img {
+    /* width: 95%; */
+    /* border-radius: 5%; */
+    width: 99%;
+    height: 95%;
+    border-radius: 27px;
+    border: 1px solid rgb(163, 133, 140);
+   /* cursor: pointer; */
+}
+
+.product-img:hover {
+    border: 1px solid wheat;
+}
+
+
+.upload-img-text-wrapper {
+  background-color: rgb(109, 31, 31);
+}
+
+.upload-img-text {
+    position: absolute;
+    top: 5%;
+    right: 25%;
+    /* background: #ac9198;; */
+    /* opacity: 0.75; */
+    border-radius: inherit;
+}
+
+
+
+
+
+.img-visualiser {
+    display: flex;
+}
+
+.opacity-img{
+    filter: opacity(0.1);
+}
+
+.product-actions-btn {
+    font: inherit;
+    font-size: 15pt;
+    padding: 1px;
+    margin-left: 2%;
+    border: 1px solid rgb(163, 133, 140);
+    border-radius: 30%;
+    color: white;
+    background: rgb(109, 31, 31);
+    /* margin-right: 10px; */
+}
+
+.add-to-cart-btn {
+    display: block;
+    border-radius: 10px;
+}
+
+.product-actions-btn:hover {
+    border: 1px solid rgb(109, 31, 31);
+/*    border-radius: 30%;
+    color: rgb(109, 31, 31);
+    background: white; */
+}
+
+.product-actions {
+    text-align: center;
+}
+
+.product-likes {
+   color: rgb(109, 31, 31);
+   font-weight: 900;
+   padding-left: 27px;
+}
+
+.product-price {
+    display: block;
+}
+
+.product-price-details {
+    display: inline;
+}
+
+.price-sign {
+    font-size: 15pt;
+    color: rgb(109, 31, 31);
+}
+
+.no-products-container {
+    position: relative;
+}
+
+.no-products-img {
+    width: 100%;
+    height: 635px;
+    background-image: url("../../static/images/no-products-left.png");
+    background-position: center;
+    /*position: relative;*/
+    /*left: 0;
+    top: 0;*/
+    border-radius: 5%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-size: contain;*/
+    filter: contrast(0.5) blur(0px);
+}
+
+.no-products-text-container > h1 {
+    z-index: 100;
+    position: absolute;
+    padding-left: 15px
+}
+.no-products-text-container > h2{
+    z-index: 100;
+    position: absolute;
+    padding-top: 45px;
+    padding-left: 30px
+}

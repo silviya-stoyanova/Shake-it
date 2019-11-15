@@ -1,0 +1,28 @@
+.content-wrapper {
+    text-align: center;
+    width: 100%;
+    display: flex;
+}
+
+.profile-wrapper {
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    width: 25%;
+}
+
+.profile-wrapper > span {
+    display: block;
+    text-align: center;
+}
+
+.profile-img {
+    width: 50%;
+    height: 50%;
+    border-radius: 20px;
+    filter: drop-shadow(4px 6px 8px pink);
+}
+
+.profile-img:hover {
+    filter: opacity(0.8);
+}

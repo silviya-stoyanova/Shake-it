@@ -1,0 +1,26 @@
+.cart-form {
+    width: 95%;
+}
+
+.cart-table {
+    display: inline-block;
+    font-size: 20pt;
+    border: 1px dotted black;
+    /* padding-left: 20%;
+    padding-right: 20%; */
+}
+
+.cart-header{
+    text-decoration: underline;
+}
+
+.cart-product-qty {
+    width: 15%;
+    text-align: center;
+}
+
+.cart-del-product-img {
+    width: 8%;
+    /* height: 10%; */
+    /* position: relative; */
+}

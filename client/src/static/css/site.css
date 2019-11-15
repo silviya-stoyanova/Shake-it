@@ -1,0 +1,45 @@
+body {
+    background-color: rgb(163, 133, 140);
+    font-family: 'Lobster Two', cursive;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(109, 31, 31);
+}
+
+a:active{
+    color: black;
+}
+
+h2 {
+    font-size: 20pt;
+}
+
+p {
+    font-size: 15pt;
+}
+
+hr {
+   border-color: rgb(109, 31, 31);
+}
+
+.main-container {
+    width: 60%;
+    background: rgb(184, 158, 158);
+    left: 100px;
+    border-radius: 40px;
+    margin-left: 20%;
+}
+
+::selection {
+    color: rgb(163, 133, 140);
+    background: black;
+    border-radius: 5px;
+}
+
+::-moz-selection {
+    color: rgb(163, 133, 140);
+    background: black;
+    border-radius: 5px;
+}

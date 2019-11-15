@@ -1,0 +1,11 @@
+.success-toast {
+    background: rgba(65, 97, 54);
+}
+
+.error-toast {
+    background: rgb(80, 44, 44);
+}
+
+.loading-toast {
+    background: rgb(54, 104, 109);
+}

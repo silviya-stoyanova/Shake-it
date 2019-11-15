@@ -1,0 +1,36 @@
+header > ul > li {
+    display: inline-block;
+    list-style: none;
+    padding: 10px;
+}
+
+/* .left-align {
+    float: left;
+} */
+
+.right-align {
+    float: right;
+}
+
+li > a {
+    text-decoration: none;
+    font-size: 17pt;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: inherit
+}
+
+ul {
+    margin-top: 0%;
+    padding-left: 0px;
+    margin-left: 70px;
+}
+
+.logo {
+    background-image: url('../../images/fav-icon.ico');
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 35px;
+    padding-top: 0px;
+    padding-bottom: 50px;
+}

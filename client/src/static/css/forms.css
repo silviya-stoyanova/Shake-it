@@ -1,0 +1,139 @@
+div.form {
+    display: flex;
+}
+
+form {
+    font-family: inherit;
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    /* width: 300px;*/
+    width: 30%;
+    margin: auto;
+}
+
+input, label, textarea {
+    display: inline-block;
+    width: 100%;
+    /* border-radius: 10px; */
+    font-size: 17pt;
+
+    background: none;
+    border: none;
+}
+
+input, textarea {
+    font: inherit;
+    font-size: 17pt;
+    border-bottom: 1px solid black;
+}
+
+td {
+    font-size: 17pt;
+}
+
+.price {
+    text-align: left;
+}
+
+.price > label, .price > input, .price > span {
+    display: inline;
+}
+
+.price > input {
+    margin-left: 10px;
+    width: 30%;
+}
+
+.error {
+    border-bottom: 2px solid darkred;
+}
+
+.correct {
+    border-bottom: 2px solid darkgreen;
+}
+
+.button {
+    width: 100%;
+    display: inline-block;
+    font-family: inherit;
+    /* border-radius: 30px; */
+    border: none;
+    /* margin-top: 15px; */
+    font-size: 17pt;
+    background: none;
+    cursor: pointer;
+    color: rgb(109, 31, 31);
+}
+
+.btn-del {
+    width: 10%;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+div.form-type {
+    font-size: 20pt;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+input[type="file"] {
+    display: none;
+}
+
+.input-file-container {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
+.update-img-content {
+    text-decoration: black underline;
+    border-radius: 0px;
+    cursor: pointer;
+    /* width: 50%; */
+    font-size: 15px;
+   /* display: inline; */
+}
+
+.update-img-container {
+    position: relative;
+}
+
+.update-img {
+    background-color: white;
+    opacity: 0.75;
+    border-radius: 10px;
+    width: 8%;
+    position: absolute;
+    bottom: 12%;
+    right: 27%;
+}
+
+.update-img:hover {
+    opacity: 1;
+}
+
+/* .update-img:hover + .profile-img {
+    filter: opacity(0.8);
+} */
+
+/* .test-big:hover + .test-lil {
+    filter: opacity(0.8);
+} */
+
+.form-fields-wrapper {
+    width: 80%;
+    display: inline-block;
+}
