@@ -19,7 +19,7 @@
 
 .product-title {
     display: inline-block;
-    font-size: 17pt;
+    font-size: 1.42em;
    /* cursor: pointer; */
     margin-left: 6%;
     padding-bottom: 5px;
@@ -68,7 +68,7 @@
 
 .product-actions-btn {
     font: inherit;
-    font-size: 15pt;
+    font-size: 1.255em;
     padding: 1px;
     margin-left: 2%;
     border: 1px solid rgb(163, 133, 140);
@@ -109,7 +109,7 @@
 }
 
 .price-sign {
-    font-size: 15pt;
+    font-size: 1.255em;
     color: rgb(109, 31, 31);
 }
 

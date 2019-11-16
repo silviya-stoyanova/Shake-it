@@ -16,7 +16,7 @@ input, label, textarea {
     display: inline-block;
     width: 100%;
     /* border-radius: 10px; */
-    font-size: 17pt;
+    font-size: 1.42em;
 
     background: none;
     border: none;
@@ -24,12 +24,12 @@ input, label, textarea {
 
 input, textarea {
     font: inherit;
-    font-size: 17pt;
+    font-size: 1.42em;
     border-bottom: 1px solid black;
 }
 
 td {
-    font-size: 17pt;
+    font-size: 1.42em;
 }
 
 .price {
@@ -60,7 +60,7 @@ td {
     /* border-radius: 30px; */
     border: none;
     /* margin-top: 15px; */
-    font-size: 17pt;
+    font-size: 1.42em;
     background: none;
     cursor: pointer;
     color: rgb(109, 31, 31);
@@ -73,7 +73,7 @@ td {
 }
 
 div.form-type {
-    font-size: 20pt;
+    font-size: 1.67em;
 }
 
 

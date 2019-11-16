@@ -9,7 +9,7 @@ class Cart extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            productsInCart: []
+            productsInCart: [],
         }
     }
 
@@ -26,11 +26,12 @@ class Cart extends Component {
     tableHeader = () => {
         return (
             <thead>
-                <tr className="cart-header">
-                    <td>Product</td>
-                    <td>Quantity</td>
-                    <td>Price</td>
-                    <td>Total</td>
+                <tr>
+                    <td className="cart-header">Product</td>
+                    <td className="cart-header">Quantity</td>
+                    <td className="cart-header">Price</td>
+                    <td className="cart-header">Total</td>
+                    <td> </td>
                 </tr>
             </thead>
         )
@@ -38,10 +39,10 @@ class Cart extends Component {
 
     tableBody = () => {
         const { productsInCart } = this.state
-
         return (
             <tbody>
                 {productsInCart.map(p => {
+
                     return (
                         <tr key={p._id}>
                             <td>
@@ -52,16 +53,20 @@ class Cart extends Component {
                                 </Link>
                             </td>
                             <td>
-                                <input className="cart-product-qty" onChange={this.handleInputChange} type="number" min="1" value={p.quantity} />
+                                <span className="change-qty">-</span>
+                                <input className="cart-product-qty" onChange={this.handleInputChange} value={p.quantity} />
+                                <span className="change-qty">+</span>
                             </td>
                             <td>{p.product.price}<span className="price-sign">$</span></td>
                             <td>{p.quantity * p.product.price}<span className="price-sign">$</span></td>
                             <td>
-                                <Link to={{
-                                    pathname: `/cart/remove/${p._id}`
-                                }}>
-                                    <img src={require('../../static/images/cart-del-product.png')} alt="cart-del-product-img" className="cart-del-product-img" />
-                                </Link>
+                                <span>
+                                    <Link className="cart-del-product-img" to={{
+                                        pathname: `/cart/remove/${p._id}`
+                                    }}>
+                                        <img src={require('../../static/images/cart-del-product.png')} alt="cart-del-product-img" className="cart-del-product-img" />
+                                    </Link>
+                                </span>
                             </td>
                         </tr>
                     )

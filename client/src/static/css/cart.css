@@ -4,13 +4,13 @@
 
 .cart-table {
     display: inline-block;
-    font-size: 20pt;
+    font-size: 0.8em;
     border: 1px dotted black;
     /* padding-left: 20%;
     padding-right: 20%; */
 }
 
-.cart-header{
+.cart-header {
     text-decoration: underline;
 }
 
@@ -19,8 +19,27 @@
     text-align: center;
 }
 
+.change-qty {
+    font-size: 1.1em;
+    border: 1px solid pink;
+    border-radius: 20%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .cart-del-product-img {
-    width: 8%;
-    /* height: 10%; */
-    /* position: relative; */
+    height: 2.5%;
+    vertical-align: bottom;
+}
+
+td {
+    width: 15%
+}
+
+td:first-child {
+    width: 35%;
+}
+
+td:last-child {
+    width: 5%;
 }

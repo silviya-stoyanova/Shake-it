@@ -24,7 +24,7 @@ function Header() {
                             ? <Fragment>
                                 <li className="right-align"><Link to='/user/logout'>logout</Link></li>
                                 <li className="right-align"><Link to='/user/profile'>wellcome, {data.username}</Link></li>
-                                <li className="right-align"><Link to='/cart'>my cart</Link></li>
+                                <li className="right-align"><Link className="my-cart-img" to='/cart'></Link></li>
                             </Fragment>
                             : <Fragment>
                                 <li className="right-align"><Link to='/user/register'>register</Link></li>
