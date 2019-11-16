@@ -3,16 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@hapi/hoek": "^8.5.0",
-    "@hapi/topo": "^4.0.1",
-    "json-parse-better-errors": "^1.0.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.1.2",
-    "react-toastify": "^5.4.0",
-    "react-toastr": "^3.0.0",
-    "toastr": "^2.1.4"
+    "react-toastify": "^5.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +29,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0"
   }
 }

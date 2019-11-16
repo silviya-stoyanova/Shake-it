@@ -2,10 +2,6 @@ const passport = require('passport')
 const LocalPassport = require('passport-local')
 const User = require('./../models/User')
 
-// const passportJWT = require('passport-jwt')
-// const jwtStrategy = passportJWT.Strategy
-// const extractJWT = passportJWT.ExtractJwt
-
 const authenticateUser = (username, password, done) => {
     User.findOne({ username }).then(user => {
         if (!user) {

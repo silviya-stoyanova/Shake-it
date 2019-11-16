@@ -92,7 +92,8 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        const jwtToken = sessionManager.getAuthtoken()
+        // const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.getCart(jwtToken)
             .then(res => {

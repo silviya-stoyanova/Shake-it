@@ -5,7 +5,7 @@ import sessionManager from '../utilities/session-util'
 
 const LikeProduct = (props) => {
     const { productId } = props.match.params
-    const jwtToken = sessionManager.getAuthtoken()
+    const jwtToken = sessionManager.getUserInfo().authtoken
 
     requester.likeProduct(productId, jwtToken)
         .then(res => !res.ok ? Promise.reject(res) : res.json())

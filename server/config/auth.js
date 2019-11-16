@@ -47,5 +47,16 @@ module.exports = {
                 return res.status(400).send({ message: 'You are unauthorized!' })
             }
         }
+    },
+    isNotLogged: (req, res, next) => {
+        const user = getUserInfo(req, res)
+
+        if (!user) {
+            next()
+
+        } else {
+            return res.status(400).send({ message: 'You are alredy logged in! Please logout and try again.' })
+        }
+
     }
 }

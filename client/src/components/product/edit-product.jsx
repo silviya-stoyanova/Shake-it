@@ -70,7 +70,7 @@ class EditProduct extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault()
-        const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
         const { productId, title, description, newImage, price } = this.state
         const isInputValid = this.validateInputFields(title, description, price)
 

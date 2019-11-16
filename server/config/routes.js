@@ -4,9 +4,9 @@ const restrictedPages = require('../config/auth')
 module.exports = (app) => {
 
     // user routes
-    app.post('/user/register', controllers.user.register)
-    app.post('/user/login', controllers.user.login)
-    app.post('/user/logout', controllers.user.logout)
+    app.post('/user/register', restrictedPages.isNotLogged, controllers.user.register)
+    app.post('/user/login', restrictedPages.isNotLogged, controllers.user.login)
+    app.post('/user/logout', restrictedPages.isAuthed, controllers.user.logout)
     app.get('/user/profile', restrictedPages.isAuthed, controllers.user.getProfile)
     app.post('/user/profile', restrictedPages.isAuthed, controllers.user.updateProfile)
 

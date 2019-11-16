@@ -80,7 +80,8 @@ class CreateProduct extends Component {
 
     handleFormSubmit = async (event) => {
         event.preventDefault()
-        const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
+
         const { title, description, image, price } = this.state
         const isInputValid = this.validateInputFields(title, description, image, price)
 

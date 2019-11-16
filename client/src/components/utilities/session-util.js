@@ -12,6 +12,15 @@ const sessionManager = {
         // should this be !== undefined ?
     },
 
+    getUserInfo: () => {
+        const userInfo = {
+            username: sessionStorage.getItem('username'),
+            authtoken: sessionStorage.getItem('authtoken'),
+            role: sessionStorage.getItem('role'),
+        }
+        return userInfo
+    },
+
     getUsername: () => {
         return sessionStorage.getItem('username')
     },

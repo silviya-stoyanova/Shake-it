@@ -5,7 +5,7 @@ import sessionManager from '../utilities/session-util'
 
 const AddToCart = (props) => {
     const { productId } = props.match.params
-    const jwtToken = sessionManager.getAuthtoken()
+    const jwtToken = sessionManager.getUserInfo().authtoken
 
     requester.addToCart(productId, jwtToken)
         .then(res => {
@@ -22,7 +22,7 @@ const AddToCart = (props) => {
         .catch(err => {
             err.json().then(error => {
                 console.log(error)
-                
+
                 toast.info(error.message, {
                     className: 'error-toast'
                 })

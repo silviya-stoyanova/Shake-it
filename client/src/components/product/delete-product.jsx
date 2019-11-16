@@ -18,7 +18,7 @@ class DeleteProduct extends Component {
     handleFormSubmit = (event) => {
         event.preventDefault()
         const { productId } = this.props.match.params
-        const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.deleteProduct(productId, jwtToken)
             .then(res => {

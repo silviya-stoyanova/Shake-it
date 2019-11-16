@@ -37,7 +37,7 @@ class UserProfile extends Component {
 
     handleFormSumbit = (event) => {
         event.preventDefault()
-        const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
         const { profilePic, firstName, lastName, email, adress, phoneNumber } = this.state
 
         requester.updateProfileInfo(profilePic, firstName, lastName, email, adress, phoneNumber, jwtToken)

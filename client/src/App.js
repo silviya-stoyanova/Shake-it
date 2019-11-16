@@ -20,8 +20,8 @@ class App extends Component {
     super(props)
     this.state = {
       isLogged: sessionManager.isUserLogged(),
-      username: sessionManager.getUsername(),
-      role: sessionManager.getUserRole()
+      username: sessionManager.getUserInfo().username,
+      role: sessionManager.getUserInfo().role
     }
 
     observer.subscribe('userLogin', this.onUserLogin)
@@ -31,8 +31,8 @@ class App extends Component {
   onUserLogin = () => {
     this.setState(prevState => ({ // asyncronous
       isLogged: true,
-      username: sessionManager.getUsername(),
-      role: sessionManager.getUserRole()
+      username: sessionManager.getUserInfo().username,
+      role: sessionManager.getUserInfo().role
     }))
   }
 
@@ -46,8 +46,6 @@ class App extends Component {
 
   render() {
     const { isLogged, username, role } = this.state
-
-    // console.log(this.props.navigation)
 
     return (
       <UserInfoProvider value={{ isLogged, username, role }}>
