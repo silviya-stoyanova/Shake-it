@@ -5,13 +5,10 @@ module.exports = {
     getCart: async (req, res) => {
         const cartId = req.session.user.myCart
         const cart = await Cart.findById(cartId).populate('products.product')
-        // to send products' info, not just their ids from the cart
 
         if (!cart) {
             return res.status(500).send({ message: 'Something went wrong' })
         }
-
-        console.log(cart.products)
         res.send(cart.products)
     },
 
@@ -41,7 +38,31 @@ module.exports = {
             console.log(err, 'at server/controllers/cart.js, at function addToCart')
             return res.send({ message: err.message })
         }
-    }
+    },
+
+    updateQty: async (req, res) => {
+        const { productInfoId } = req.params
+        const action = req.body
+        let cart = await Cart.findOne({ 'products._id': productInfoId })
+            .populate('products.product')
+
+        if (!cart) {
+            return res.status(400).send({ message: 'Product was not found!' })
+        }
+
+        let index = cart.products.findIndex(p => p._id.toString() === productInfoId.toString())
+
+        if (action.actionType === 'increment') {
+            cart.products[index].quantity++
+
+        } else if (action.actionType === 'decrement') {
+            cart.products[index].quantity--
+        }
+
+        cart.save()
+        return res.send({ products: cart.products, success: `Product was ${action.actionType}ed successfully!` })
+    },
+
 
 
 

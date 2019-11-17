@@ -179,6 +179,19 @@ const requester = {
         })
     },
 
+    updateQty: (productInfoId, actionType, jwtToken) => {
+        return fetch(baseUrl + '/cart/update-qty/' + productInfoId, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Request-Origin': 'http://localhost:3000',
+                'Access-Control-Request-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+                'Authorization': jwtToken
+            },
+            method: 'POST',
+            body: JSON.stringify({ actionType })
+        })
+    }
+
 
 }
 

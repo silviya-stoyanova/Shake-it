@@ -59,9 +59,10 @@ class AllProducts extends Component {
                     products.map(p => {
                         return (
                             <div key={p._id} className="product-wrapper" >
-                                <Link to={{
-                                    pathname: `/product/details/${p._id}`,
-                                }} className="product-title">{p.title}
+                                <Link className="product-title" to={{
+                                    pathname: `/product/details/${p._id}`
+                                }}>
+                                    {p.title}
                                 </Link>
 
                                 <Link to={{

@@ -34,7 +34,7 @@ module.exports = (app, config) => {
         next()
     })
 
-    // middleware that allows the access of this domain (http://lohalhost:3000)
+    // middleware that allows access of this domain (http://lohalhost:3000)
     // and restricts all the others due to CORS
     app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "http://localhost:3000") // update to match the domain you will make the request from

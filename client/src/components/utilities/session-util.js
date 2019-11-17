@@ -7,36 +7,36 @@ const sessionManager = {
         sessionStorage.setItem('role', role)
     },
 
+    clearSession: () => {
+        sessionStorage.clear()
+    },
+
     isUserLogged: () => {
         return sessionStorage.getItem('authtoken') !== null
         // should this be !== undefined ?
     },
 
     getUserInfo: () => {
-        const userInfo = {
+        return {
             username: sessionStorage.getItem('username'),
             authtoken: sessionStorage.getItem('authtoken'),
             role: sessionStorage.getItem('role'),
         }
-        return userInfo
     },
 
-    getUsername: () => {
-        return sessionStorage.getItem('username')
-    },
+    // getUsername: () => {
+    // return sessionStorage.getItem('username')
+    // },
+    // 
+    // getAuthtoken: () => {
+    // return sessionStorage.getItem('authtoken')
+    // },
+    // 
+    // getUserRole: () => {
+    // let role = sessionStorage.getItem('role')
+    // return role
+    // },
 
-    getAuthtoken: () => {
-        return sessionStorage.getItem('authtoken')
-    },
-
-    getUserRole: () => {
-        let role = sessionStorage.getItem('role')
-        return role
-    },
-
-    clearSession: () => {
-        sessionStorage.clear()
-    }
 }
 
 export default sessionManager

@@ -13,6 +13,34 @@ class Cart extends Component {
         }
     }
 
+    updateQty = (event, actionType) => {
+        const productInfoId = event.target.id
+        const jwtToken = sessionManager.getUserInfo().authtoken
+
+        requester.updateQty(productInfoId, actionType, jwtToken)
+            .then(res => {
+                if (!res.ok) {
+                    return Promise.reject(res)
+                }
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ productsInCart: res.products })
+                toast.info(res.success, {
+                    className: 'success-toast'
+                })
+
+            })
+            .catch(err => {
+                err.json()
+                    .then(error => {
+                        toast.info(error.message, {
+                            className: 'error-toast'
+                        })
+                    })
+            })
+    }
+
     handleInputChange = () => {
 
 
@@ -53,12 +81,12 @@ class Cart extends Component {
                                 </Link>
                             </td>
                             <td>
-                                <span className="change-qty">-</span>
+                                <span onClick={(e) => { this.updateQty(e, 'decrement') }} id={p._id} className="change-qty" >-</span>
                                 <input className="cart-product-qty" onChange={this.handleInputChange} value={p.quantity} />
-                                <span className="change-qty">+</span>
+                                <span onClick={(e) => { this.updateQty(e, 'increment') }} id={p._id} className="change-qty">+</span>
                             </td>
                             <td>{p.product.price}<span className="price-sign">$</span></td>
-                            <td>{p.quantity * p.product.price}<span className="price-sign">$</span></td>
+                            <td>{(p.quantity * p.product.price).toFixed(2)}<span className="price-sign">$</span></td>
                             <td>
                                 <span>
                                     <Link className="cart-del-product-img" to={{
@@ -97,7 +125,6 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        // const jwtToken = sessionManager.getAuthtoken()
         const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.getCart(jwtToken)
@@ -108,14 +135,10 @@ class Cart extends Component {
                 return res.json()
             })
             .then(res => {
-                console.log(res)
-
                 this.setState({ productsInCart: res })
             })
             .catch(err => {
                 err.json().then(error => {
-                    console.log(error)
-
                     return toast.info(error.message, {
                         className: 'error-toast',
                     })
