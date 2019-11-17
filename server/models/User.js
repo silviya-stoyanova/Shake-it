@@ -17,7 +17,6 @@ let userSchema = mongoose.Schema({
     purchasedProducts: { type: Number, default: 0 }, // boughtProducts ?
 
     myCart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' },
-    // productsInCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     roles: [{ required: true, default: 'User', type: mongoose.Schema.Types.String }],
     passwordHash: { type: String, required: true },
     salt: { type: String, required: true }

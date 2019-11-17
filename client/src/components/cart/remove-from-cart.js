@@ -1,7 +1,8 @@
 import React from 'react'
 
-const RemoveFromCart = () => {
-
+const RemoveFromCart = (props) => {
+    const { productId } = props.match.params
+    console.log(productId)
 
     return null
 }

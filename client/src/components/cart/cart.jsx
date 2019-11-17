@@ -41,13 +41,8 @@ class Cart extends Component {
             })
     }
 
-    handleInputChange = () => {
-
-
-    }
-
-    handleFormSubmit = () => {
-
+    handleFormSubmit = (e) => {
+        e.preventDefault()
 
     }
 
@@ -82,7 +77,7 @@ class Cart extends Component {
                             </td>
                             <td>
                                 <span onClick={(e) => { this.updateQty(e, 'decrement') }} id={p._id} className="change-qty" >-</span>
-                                <input className="cart-product-qty" onChange={this.handleInputChange} value={p.quantity} />
+                                <label className="cart-product-qty">{p.quantity}</label>
                                 <span onClick={(e) => { this.updateQty(e, 'increment') }} id={p._id} className="change-qty">+</span>
                             </td>
                             <td>{p.product.price}<span className="price-sign">$</span></td>
