@@ -14,7 +14,7 @@ class EditProduct extends Component {
             title: '',
             description: '',
             image: '',
-            newImage: '',
+            uploadedImg: '',
             price: '',
 
             titleClass: 'correct',
@@ -51,16 +51,18 @@ class EditProduct extends Component {
         return result
     }
 
-    onInputChange = async ({ target }) => {
+    handleInputChange = async ({ target }) => {
         let newState
         if (target.files) {
             newState = {
                 [target.name]: target.files,
-                newImage: URL.createObjectURL(target.files[0])
+                uploadedImg: URL.createObjectURL(target.files[0])
             }
         } else {
             newState = { [target.name]: target.value.trim() }
         }
+
+        console.log(newState);
 
         await this.setState(newState)
 
@@ -68,10 +70,10 @@ class EditProduct extends Component {
         this.validateInputFields(title, description, price)
     }
 
-    onFormSubmit = (event) => {
+    handleFormSumbit = (event) => {
         event.preventDefault()
         const jwtToken = sessionManager.getUserInfo().authtoken
-        const { productId, title, description, newImage, price } = this.state
+        const { productId, title, description, image, price } = this.state
         const isInputValid = this.validateInputFields(title, description, price)
 
         if (isInputValid.title === 'invalid') {
@@ -90,7 +92,8 @@ class EditProduct extends Component {
             })
         }
 
-        requester.editProduct(productId, title, description, newImage, price, jwtToken)
+        console.log(image)
+        requester.editProduct(productId, title, description, image, price, jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
@@ -118,41 +121,41 @@ class EditProduct extends Component {
     }
 
     render() {
-        const { title, description, image, newImage, price, titleClass, descriptionClass, priceClass, isEditted, productExists } = this.state
+        const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists } = this.state
 
         return (
             <div className="form" >
                 {isEditted ? <Redirect to='/' /> : null}
                 {productExists ? null : <Redirect to='/' />}
 
-                <form onSubmit={this.onFormSubmit} encType="multipart/form-data">
+                <form onSubmit={this.handleFormSumbit} encType="multipart/form-data">
                     <div className="form-type">Edit a product</div>
                     <hr />
 
                     {image
                         ? <div className="form-fields-wrapper">
-                            <input autoFocus onChange={this.onInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
+                            <input autoFocus onChange={this.handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
 
 
                             <div className="update-img-container">
 
-                                <img src={newImage ? newImage : `data:image/png;base64, ${image}`} alt={title} className="product-img" />
+                                <img src={uploadedImg ? uploadedImg : `data:image/png;base64, ${image}`} alt={title} className="product-img" />
 
                                 <div>
-                                    <label className="input-file-container update-img-content" htmlFor="newImage">
+                                    <label className="input-file-container update-img-content" htmlFor="uploadedImg">
                                         <img src={require('../../static/images/update-pic.png')} alt="update-product-picture" className="update-img" />
                                     </label>
-                                    <input onChange={this.onInputChange} name="newImage" type="file" accept="image/*" id="newImage" />
+                                    <input onChange={this.handleInputChange} name="image" type="file" accept="image/*" id="uploadedImg" />
                                 </div>
 
                             </div>
 
                             <label htmlFor="description">Description:</label>
-                            <textarea onChange={this.onInputChange} name="description" value={description} type="text" className={descriptionClass} id="description"></textarea>
+                            <textarea onChange={this.handleInputChange} name="description" value={description} type="text" className={descriptionClass} id="description"></textarea>
 
                             <div className="price">
                                 <label htmlFor="price">Price:</label>
-                                <input onChange={this.onInputChange} name="price" defaultValue={price} type="number" step='0.01' className={priceClass} id="price" />
+                                <input onChange={this.handleInputChange} name="price" defaultValue={price} type="number" step='0.01' className={priceClass} id="price" />
                                 <span className="price-sign">$</span>
                             </div>
                         </div>

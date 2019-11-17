@@ -37,7 +37,7 @@ function MyRoutes() {
 
             <Route exact path="/cart" component={Cart} />
             <Route path="/cart/add/:productId" component={AddToCart} />
-            <Route path="/cart/remove/:productId" component={RemoveFromCart} />
+            <Route path="/cart/remove/:productInfoId" component={RemoveFromCart} />
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />

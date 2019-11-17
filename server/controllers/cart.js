@@ -40,9 +40,23 @@ module.exports = {
         }
     },
 
+    removeFromCart: async (req, res) => {
+        const { productInfoId } = req.params
+        try {           
+            let cart = await Cart.findOne({ 'products._id': productInfoId })
+            cart.products = cart.products.filter(p => p._id.toString() !== productInfoId.toString())
+            cart.save()
+            return res.send({ products: cart.products, success: `This product was removed from your cart successfully!` })
+
+        } catch (err) {
+            return res.status(400).send({ message: err.message })
+        }
+    },
+
     updateQty: async (req, res) => {
         const { productInfoId } = req.params
         const action = req.body
+        let successVerb = action.actionType === 'increment' ? 'increased' : 'decreased'
 
         try {
             let cart = await Cart.findOne({ 'products._id': productInfoId }).populate('products.product')
@@ -58,14 +72,15 @@ module.exports = {
                     // remove the product from the cart
                     cart.products = cart.products.filter(p => p._id.toString() !== productInfoId.toString())
                 }
+            } else {
+                throw new Error('Wrong operation provided during updating the product quantity!')
             }
 
             cart.save()
-            return res.send({ products: cart.products, success: `Product was ${action.actionType}ed successfully!` })
-        }
+            return res.send({ products: cart.products, success: `Product count was ${successVerb} successfully!` })
 
-        catch (err) {
-            return res.status(400).send({ message: 'Product was not found!' })
+        } catch (err) {
+            return res.status(400).send({ message: err.message })
         }
     },
 

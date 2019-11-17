@@ -146,6 +146,8 @@ module.exports = {
 
             let newFileName = ''
             if (image) {
+                console.log('New image is provided');
+                
                 newFileName = image.path.split('\\').reverse()[0]
 
                 await mv(image.path, uploadFilesPath + newFileName,

@@ -130,7 +130,7 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const jwtToken = sessionManager.getAuthtoken()
+        const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.getProfileInfo(jwtToken)
             .then(res => {
