@@ -1,140 +1,29 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
 import '../../static/css/products.css'
+import withProcessProductForm from './with-product-forms-hoc'
 
 class EditProduct extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            productId: this.props.match.params.productId,
-
-            title: '',
-            description: '',
-            image: '',
-            uploadedImg: '',
-            price: '',
-
-            titleClass: 'correct',
-            descriptionClass: 'correct',
-            priceClass: 'correct',
-
-            isEditted: false,
-            productExists: true
-        }
-    }
-
-    validateInputFields = (title, description, price) => {
-        let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
-        let result = {
-            title: 'invalid',
-            description: 'invalid',
-            price: 'invalid',
-        }
-
-        if (title && title.length > 2 && title.length <= 50) {
-            titleClass = 'correct'
-            result.title = 'valid'
-        }
-        if (description && description.length > 9 && description.length <= 250) {
-            descriptionClass = 'correct'
-            result.description = 'valid'
-        }
-        if (price && Number(price) > 0) {
-            priceClass = 'correct'
-            result.price = 'valid'
-        }
-
-        this.setState({ titleClass, descriptionClass, priceClass })
-        return result
-    }
-
-    handleInputChange = async ({ target }) => {
-        let newState
-        if (target.files) {
-            newState = {
-                [target.name]: target.files,
-                uploadedImg: URL.createObjectURL(target.files[0])
-            }
-        } else {
-            newState = { [target.name]: target.value.trim() }
-        }
-
-        console.log(newState);
-
-        await this.setState(newState)
-
-        const { title, description, price } = this.state
-        this.validateInputFields(title, description, price)
-    }
-
-    handleFormSumbit = (event) => {
-        event.preventDefault()
-        const jwtToken = sessionManager.getUserInfo().authtoken
-        const { productId, title, description, image, price } = this.state
-        const isInputValid = this.validateInputFields(title, description, price)
-
-        if (isInputValid.title === 'invalid') {
-            return toast.info('The title length must be between 3 and 50 symbols including.', {
-                className: 'error-toast',
-            })
-        }
-        if (isInputValid.description === 'invalid') {
-            return toast.info('The description must be at least 10 symbols long.', {
-                className: 'error-toast',
-            })
-        }
-        if (isInputValid.price === 'invalid') {
-            return toast.info('Please enter a valid price.', {
-                className: 'error-toast',
-            })
-        }
-
-        console.log(image)
-        requester.editProduct(productId, title, description, image, price, jwtToken)
-            .then(res => {
-                if (!res.ok) {
-                    return Promise.reject(res)
-                }
-                return res.json()
-            })
-            .then(res => {
-                this.setState({ isEditted: true })
-
-                toast.info(res.success, {
-                    className: 'success-toast'
-                })
-            })
-            .catch(error => {
-                error.json()
-                    .then(err => {
-                        if (!err.titleIsTaken) {
-                            this.setState({ productExists: false })
-                        }
-                        return toast.info(err.message, {
-                            className: 'error-toast',
-                        })
-                    })
-            })
     }
 
     render() {
-        const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists } = this.state
+        const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = this.props // this.state
+        console.log(handleFormSubmit)
 
         return (
             <div className="form" >
-                {isEditted ? <Redirect to='/' /> : null}
-                {productExists ? null : <Redirect to='/' />}
+                {isEditted && <Redirect to='/' />}
+                {!productExists && <Redirect to='/' />}
 
-                <form onSubmit={this.handleFormSumbit} encType="multipart/form-data">
+                <form onSubmit={handleFormSubmit} encType="multipart/form-data">
                     <div className="form-type">Edit a product</div>
                     <hr />
 
                     {image
                         ? <div className="form-fields-wrapper">
-                            <input autoFocus onChange={this.handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
+                            <input autoFocus onChange={handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
 
 
                             <div className="update-img-container">
@@ -145,17 +34,17 @@ class EditProduct extends Component {
                                     <label className="input-file-container update-img-content" htmlFor="uploadedImg">
                                         <img src={require('../../static/images/update-pic.png')} alt="update-product-picture" className="update-img" />
                                     </label>
-                                    <input onChange={this.handleInputChange} name="image" type="file" accept="image/*" id="uploadedImg" />
+                                    <input onChange={handleInputChange} name="image" type="file" accept="image/*" id="uploadedImg" />
                                 </div>
 
                             </div>
 
                             <label htmlFor="description">Description:</label>
-                            <textarea onChange={this.handleInputChange} name="description" value={description} type="text" className={descriptionClass} id="description"></textarea>
+                            <textarea onChange={handleInputChange} name="description" value={description} type="text" className={descriptionClass} id="description"></textarea>
 
                             <div className="price">
                                 <label htmlFor="price">Price:</label>
-                                <input onChange={this.handleInputChange} name="price" defaultValue={price} type="number" step='0.01' className={priceClass} id="price" />
+                                <input onChange={handleInputChange} name="price" defaultValue={price} type="number" step='0.01' className={priceClass} id="price" />
                                 <span className="price-sign">$</span>
                             </div>
                         </div>
@@ -167,29 +56,7 @@ class EditProduct extends Component {
             </div>
         )
     }
-
-    async componentDidMount() {
-        await requester.getProductInfo(this.state.productId)
-            .then(res => {
-                if (!res.ok) {
-                    return Promise.reject(res)
-                }
-                return res.json()
-            })
-            .then(product => {
-                this.setState(product)
-            })
-            .catch(error => {
-                error.json()
-                    .then(err => {
-                        this.setState({ productExists: false })
-
-                        toast.info(err.message, {
-                            className: 'error-toast'
-                        })
-                    })
-            })
-    }
 }
 
-export default EditProduct
+// export default EditProduct
+export default withProcessProductForm(EditProduct, 'edit')

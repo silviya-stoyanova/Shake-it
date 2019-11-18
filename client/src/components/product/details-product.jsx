@@ -17,7 +17,7 @@ class ProductDetails extends Component {
 
     userFunctionalities = (data, _id) => {
         return data.isLogged
-            ? <Fragment>
+            && <Fragment>
                 <Link
                     to={{
                         pathname: `/product/like/${_id}`
@@ -26,20 +26,19 @@ class ProductDetails extends Component {
 
                 {
                     data.role === 'Admin'
-                        ? <Fragment>
-                            <Link
-                                to={{
-                                    pathname: `/product/edit/${_id}`
-                                }} className="product-actions-btn">edit
+                    && <Fragment>
+                        <Link
+                            to={{
+                                pathname: `/product/edit/${_id}`
+                            }} className="product-actions-btn">edit
                             </Link>
 
-                            <Link
-                                to={{
-                                    pathname: `/product/delete/${_id}`
-                                }} className="product-actions-btn">delete
+                        <Link
+                            to={{
+                                pathname: `/product/delete/${_id}`
+                            }} className="product-actions-btn">delete
                             </Link>
-                        </Fragment>
-                        : null
+                    </Fragment>
                 }
 
                 <Link
@@ -48,7 +47,6 @@ class ProductDetails extends Component {
                     }} className="product-actions-btn add-to-cart-btn">add to cart
                 </Link>
             </Fragment>
-            : null
     }
 
     render() {
@@ -62,9 +60,7 @@ class ProductDetails extends Component {
                     return (
                         <div className='content-wrapper'>
                             {
-                                !this.state.productExists
-                                    ? <Redirect to='/' />
-                                    : null
+                                !this.state.productExists && <Redirect to='/' />
                             }
                             <div className="product-details-wrapper" >
                                 {isFetched
@@ -79,8 +75,8 @@ class ProductDetails extends Component {
                                             {this.userFunctionalities(data, _id)}
                                         </div>
                                     </Fragment>
-                                    : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img"/>
-                            }
+                                    : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
+                                }
                             </div>
                         </div>)
                 }}

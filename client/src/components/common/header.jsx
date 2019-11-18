@@ -15,9 +15,7 @@ function Header() {
                     <ul>
                         <li className="left-align"><Link to='/'>all products</Link></li>
                         {
-                            data.role === 'Admin'
-                                ? <li className="left-align"><Link to='/product/create'>add product</Link></li>
-                                : null
+                            data.role === 'Admin' && <li className="left-align"><Link to='/product/create'>add product</Link></li>
                         }
 
                         {data.isLogged

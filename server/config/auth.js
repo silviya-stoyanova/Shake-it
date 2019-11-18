@@ -14,8 +14,7 @@ const getUserInfo = (req, res) => {
         return res.status(400).send({ message: 'This auth token have expired!' })
     }
 
-    // save the user info in the session
-    // to be able to reach it later
+    // save the user info in the session to be able to reach it later
     req.session.user = user
     req.session.save((err) => {
         if (err) {
@@ -34,7 +33,7 @@ module.exports = {
             next()
 
         } else {
-            return res.status(400).send({ message: 'You must be logged in to perform this action!' })
+            return res.status(400).send({ message: 'You are not authorized to perform this action!' })
         }
     },
     hasRole: (role) => {

@@ -22,6 +22,15 @@ module.exports = {
                 return res.status(400).send({ message: errorMsg })
             }
 
+            if (!registerArgs.username || registerArgs.username.length < 5) {
+                errorMsg = 'The username field must consist at least of 5 characters!'
+                return res.status(400).send({ message: errorMsg })
+            }
+            if (!registerArgs.password || registerArgs.password.length < 5) {
+                errorMsg = 'The password field must consist at least of 8 characters!'
+                return res.status(400).send({ message: errorMsg })
+            }
+
             const salt = encryption.generateSalt()
             const passwordHash = encryption.hashPassword(registerArgs.password, salt)
             const cart = await Cart.create({})

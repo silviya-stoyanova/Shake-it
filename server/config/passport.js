@@ -29,7 +29,6 @@ module.exports = () => {
         }
 
         return done(null, user._id)
-        // return done(null, user.id)
     })
 
     passport.deserializeUser((id, done) => {

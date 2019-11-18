@@ -3,7 +3,7 @@ const encryption = require('./../utilities/encryption')
 const Cart = require('../models/Cart')
 
 let userSchema = mongoose.Schema({
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true, minlength: 5 },
     profilePic: {
         type: String,
         default: 'default.png'
@@ -46,7 +46,7 @@ User.seedAdmin = async () => {
         if (users.length > 0) return
         const cart = await Cart.create({})
         const salt = encryption.generateSalt()
-        const passwordHash = encryption.hashPassword('admin', salt)
+        const passwordHash = encryption.hashPassword('admin123', salt)
 
         return User.create({
             username: 'admin',

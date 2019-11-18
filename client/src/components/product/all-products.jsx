@@ -18,7 +18,7 @@ class AllProducts extends Component {
 
     userFunctionalities = (data, p) => {
         return data.isLogged
-            ? <Fragment>
+            && <Fragment>
                 <Link
                     to={{
                         pathname: `/product/like/${p._id}`
@@ -26,20 +26,19 @@ class AllProducts extends Component {
                 </Link>
                 {
                     data.role === 'Admin'
-                        ? <Fragment>
-                            <Link
-                                to={{
-                                    pathname: `/product/edit/${p._id}`
-                                }} className="product-actions-btn">edit
+                    && <Fragment>
+                        <Link
+                            to={{
+                                pathname: `/product/edit/${p._id}`
+                            }} className="product-actions-btn">edit
                             </Link>
 
-                            <Link
-                                to={{
-                                    pathname: `/product/delete/${p._id}`
-                                }} className="product-actions-btn">delete
+                        <Link
+                            to={{
+                                pathname: `/product/delete/${p._id}`
+                            }} className="product-actions-btn">delete
                             </Link>
-                        </Fragment>
-                        : null
+                    </Fragment>
                 }
                 <Link
                     to={{
@@ -47,7 +46,6 @@ class AllProducts extends Component {
                     }} className="product-actions-btn add-to-cart-btn">add to cart
                 </Link>
             </Fragment>
-            : null
     }
 
     renderAllProducts(data) {

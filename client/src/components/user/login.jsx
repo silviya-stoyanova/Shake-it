@@ -14,9 +14,7 @@ const UserLogin = (props) => {
             {data =>
                 <div className="form">
                     {
-                        data.isLogged
-                            ? <Redirect to='/' />
-                            : null
+                        data.isLogged && <Redirect to='/' />
                     }
                     <form id="login-form" onSubmit={handleFormSubmit} >
                         <div className="form-type">Login</div>

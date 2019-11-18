@@ -1,5 +1,14 @@
 .about-us {
+    /* margin-top: 0.7em; */
     margin-left: auto;
     font-size: 1.2em;
     text-align: center;
+}
+
+.about-us-heading {
+    font-size: 1.2em;
+}
+
+.hr-heading {
+    margin-bottom: 1.3em;
 }

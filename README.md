@@ -118,7 +118,7 @@ The database is running on port 27017 and has a newly created collection called 
 
 	Admin credentials:
 	- username: admin
-	- fancy password: admin
+	- fancy password: admin123
 
 ## Everything combined together and explained
 

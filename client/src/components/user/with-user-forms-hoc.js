@@ -33,17 +33,17 @@ const withProcessUserForm = (Form, formType) => {
                 repeatPassword: 'invalid'
             }
 
-            if (username && username.trim().length) {
+            if (username && username.trim().length >= 5) {
                 userClass = 'correct'
                 result.username = 'valid'
             }
-            if (password && password.trim().length) {
+            if (password && password.length >= 8) {
                 passClass = 'correct'
                 result.password = 'valid'
             }
 
             if (repeatPassword) {
-                if (repeatPassword && repeatPassword.trim().length) {
+                if (repeatPassword && repeatPassword.length >= 8) {
                     repeatPassClass = 'correct'
                     result.repeatPassword = 'valid'
                 }
@@ -152,7 +152,7 @@ const withProcessUserForm = (Form, formType) => {
                     })
                 }
                 if (isInputValid.password === 'invalid' || isInputValid.repeatPassword === 'invalid') {
-                    return toast.info('Both passwords must match!', {
+                    return toast.info('Both passwords must consist of at least 8 characters and they both must match!', {
                         className: 'error-toast'
                     })
                 }

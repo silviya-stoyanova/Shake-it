@@ -19,7 +19,8 @@ class ContactForm extends Component {
             <div>
                 <div className="form">
                     <div className="about-us">
-                        <div>For general inquiries</div>
+                        <div className="about-us-heading">For general inquiries</div>
+                        <hr className="hr-heading" />
                         <div>Tel.: +359 111 333 333</div>
                         <div>Email: info@shake-it.com</div>
                         <hr />

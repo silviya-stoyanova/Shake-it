@@ -4,7 +4,10 @@ mongoose.Promise = global.Promise
 
 module.exports = (config) => {
     mongoose.connect(config.connectionString, {
-        useMongoClient: true
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useNewUrlParser: true    // new
+        // useMongoClient: true  // old
     })
 
     let database = mongoose.connection

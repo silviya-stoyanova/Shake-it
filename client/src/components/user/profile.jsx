@@ -19,7 +19,6 @@ class UserProfile extends Component {
             phoneNumber: '',
             purchasedProducts: '',
 
-            userExists: true,
             uploadedImg: ''
         }
     }
@@ -63,22 +62,17 @@ class UserProfile extends Component {
     }
 
     render() {
-        const { profilePic, firstName, lastName, email, adress, phoneNumber, purchasedProducts, userExists, uploadedImg } = this.state
+        const { profilePic, firstName, lastName, email, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
 
         return <UserInfoConsumer>
             {(data) => (
                 <div className='content-wrapper'>
                     {
                         !data.isLogged
-                            ? <Fragment>
-                                < Redirect to='/user/login' />
-                                {toast.info('Please log in to view your profile page!', {
-                                    className: 'error-toast'
-                                })}
-                            </Fragment>
-                            : null
+                        && <Fragment>
+                            < Redirect to='/user/login' />
+                        </Fragment>
                     }
-                    {!userExists ? <Redirect to="/" /> : null}
 
                     <form onSubmit={this.handleFormSumbit} className='profile-wrapper' encType="multipart/form-data">
                         <div className="update-img-container">
@@ -153,11 +147,7 @@ class UserProfile extends Component {
             .catch(err => {
                 err.json()
                     .then(error => {
-                        this.setState({
-                            userExists: false
-                        })
-
-                        return toast.info(error.message, {
+                        return toast.info(error.message + ' Please fill in the login form and try again.', {
                             className: 'error-toast'
                         })
                     })

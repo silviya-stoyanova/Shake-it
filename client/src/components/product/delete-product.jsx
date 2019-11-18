@@ -49,8 +49,8 @@ class DeleteProduct extends Component {
         return (
             <div className="form" >
 
-                {!productExists ? <Redirect to='/' /> : null}
-                {isDeleted ? <Redirect to='/' /> : null}
+                {!productExists && <Redirect to='/' />}
+                {isDeleted && <Redirect to='/' />}
 
                 <form onSubmit={this.handleFormSubmit}>
                     <div className="form-type">Are you sure you want</div>

@@ -12,9 +12,8 @@ const UserRegister = (props) => {
         <UserInfoConsumer>
             {data =>
                 <div className="form">
-                    {data.isLogged
-                        ? <Redirect to='/' />
-                        : null
+                    {
+                        data.isLogged && <Redirect to='/' />
                     }
                     <form onSubmit={handleFormSubmit}>
                         <div className="form-type">Register</div>
