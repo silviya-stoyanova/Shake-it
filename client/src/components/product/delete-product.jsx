@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import requester from '../utilities/requests-util'

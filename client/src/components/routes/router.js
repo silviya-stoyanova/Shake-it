@@ -19,6 +19,8 @@ import RemoveFromCart from '../cart/remove-from-cart'
 import ContactForm from '../static-pages/contacts'
 import About from '../static-pages/about-us'
 
+import PageNotFound from '../static-pages/not-found'
+
 function MyRoutes() {
     return (
         <Switch>
@@ -41,6 +43,8 @@ function MyRoutes() {
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />
+
+            <Route component={PageNotFound} />
         </Switch>
     )
 }

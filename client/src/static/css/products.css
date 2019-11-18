@@ -37,7 +37,9 @@
 }
 
 .product-img:hover {
-    border: 1px solid wheat;
+    /* border: 1px solid wheat; */
+    border: 1px solid pink;
+    filter: drop-shadow(2px 3px 4px pink);
 }
 
 

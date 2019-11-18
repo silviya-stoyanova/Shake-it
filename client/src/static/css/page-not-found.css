@@ -1,0 +1,45 @@
+.not-found-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.not-found-img {
+    background: url('../images/page-not-found.jpg');
+    background-size: contain;
+    border-radius: 2em;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    border: 1px solid rgb(163, 133, 140);
+}
+
+.not-found-img:hover {
+    border: 1px solid pink;
+    filter: drop-shadow(2px 3px 4px pink);
+}
+
+.not-found-txt {
+    position: absolute;
+    z-index: 1;
+    top: 13.5em;
+    left: 17.5em;
+    width: 23%;
+    font-size: 1.5em;
+}
+
+.four-digit {
+    position: absolute;
+    font-size: 13em;
+    top: 0.1em;
+    color: rgb(163, 133, 140);
+}
+
+.left-al {
+    left: 1.7em;
+
+}
+
+.right-al {
+    right: 1.7em;
+
+}

@@ -84,7 +84,7 @@ class UserProfile extends Component {
                                         </div>
                                         <div>
                                             <label className="update-img-content" htmlFor="profilePic">
-                                                <img className="update-img" src={require('../../static/images/update-pic.png')} alt="update-profile-picture" />
+                                                <img className="update-img" src={require('../../static/images/update-pic.png')} alt="update-profile" />
                                             </label>
                                             <input onChange={this.handleInputChange} type="file" name="profilePic" id="profilePic" />
                                         </div>

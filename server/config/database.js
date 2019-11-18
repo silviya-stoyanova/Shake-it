@@ -6,6 +6,7 @@ module.exports = (config) => {
     mongoose.connect(config.connectionString, {
         useCreateIndex: true,
         useUnifiedTopology: true,
+        useFindAndModify: false, // lastly added
         useNewUrlParser: true    // new
         // useMongoClient: true  // old
     })

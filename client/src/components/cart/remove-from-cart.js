@@ -1,4 +1,3 @@
-import React from 'react'
 import requester from '../utilities/requests-util'
 import sessionManager from '../utilities/session-util'
 import { toast } from 'react-toastify'
