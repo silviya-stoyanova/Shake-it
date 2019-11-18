@@ -1,6 +1,6 @@
 const User = require('mongoose').model('User')
 const Cart = require('../models/Cart')
-const encryption = require('./../utilities/encryption')
+const encryption = require('../utilities/encryption')
 const jwt = require('jsonwebtoken')
 const jwtConfig = require('../config/jwt-config')
 const multiparty = require('multiparty')

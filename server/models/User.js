@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const encryption = require('./../utilities/encryption')
+const encryption = require('../utilities/encryption')
 const Cart = require('../models/Cart')
 
 let userSchema = mongoose.Schema({
