@@ -1,8 +1,8 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import sessionManager from '../utilities/session-util'
-import observer from '../utilities/observer'
+import sessionManager from '../../utilities/session-util'
+import observer from '../../utilities/observer'
 
 function logout() {
     try {

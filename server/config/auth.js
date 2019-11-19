@@ -43,7 +43,7 @@ module.exports = {
             if (user && user.roles && user.roles.indexOf(role) > -1) {
                 next()
             } else {
-                return res.status(400).send({ message: 'You are unauthorized!' })
+                return res.status(400).send({ message: 'You are unauthorized! Changes you made will not be saved.' })
             }
         }
     },

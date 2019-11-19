@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 import '../../static/css/cart.css'
 
 class Cart extends Component {

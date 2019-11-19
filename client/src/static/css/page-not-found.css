@@ -4,8 +4,8 @@
 }
 
 .not-found-img {
-    background: url('../images/page-not-found.jpg');
-    background-size: contain;
+    background: url('../images/page-not-found.jpg') no-repeat;
+    background-size: cover;
     border-radius: 2em;
     width: 400px;
     height: 400px;

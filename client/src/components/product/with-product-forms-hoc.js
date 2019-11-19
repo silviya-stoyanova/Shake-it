@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 
 function withProcessProductForm(Form, formType) {
     return class hoc extends Component {
@@ -20,6 +20,7 @@ function withProcessProductForm(Form, formType) {
                 descriptionClass: formType === 'create' ? '' : 'correct',
                 priceClass: formType === 'create' ? '' : 'correct',
 
+                unauthUser: false,
                 isCreated: false,
                 isEditted: false,
                 productExists: true,
@@ -141,13 +142,13 @@ function withProcessProductForm(Form, formType) {
                     })
                     .catch(error => {
                         error.json().then(err => {
-                                if (!err.titleIsTaken) {
-                                    this.setState({ productExists: false })
-                                }
-                                return toast.info(err.message, {
-                                    className: 'error-toast',
-                                })
+                            if (!err.titleIsTaken) {
+                                this.setState({ productExists: false })
+                            }
+                            return toast.info(err.message, {
+                                className: 'error-toast',
                             })
+                        })
                     })
             }
         }
@@ -157,6 +158,18 @@ function withProcessProductForm(Form, formType) {
         }
 
         async componentDidMount() {
+            // ensure only admins have access to this page
+            const role = sessionManager.getUserInfo().role
+            if (role !== 'Admin') {
+                // this.props.history.goBack()
+
+                toast.info('You are unauthorized to view this page!', {
+                    className: 'error-toast'
+                })
+
+                this.setState({ unauthUser: true})
+            }
+
             if (formType !== 'edit') {
                 return
             }

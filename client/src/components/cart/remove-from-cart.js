@@ -1,5 +1,5 @@
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 import { toast } from 'react-toastify'
 
 const RemoveFromCart = (props) => {

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { UserInfoConsumer } from '../../App'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 import '../../static/css/user-profile.css'
 
 class UserProfile extends Component {

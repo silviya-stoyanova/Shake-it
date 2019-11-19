@@ -3,10 +3,11 @@ import { Redirect } from 'react-router-dom'
 import withProcessProductForm from './with-product-forms-hoc'
 
 const CreateProduct = (props) => {
-    const { titleClass, descriptionClass, priceClass, isCreated, uploadedImg, handleInputChange, handleFormSubmit } = props
+    const { unauthUser, titleClass, descriptionClass, priceClass, isCreated, uploadedImg, handleInputChange, handleFormSubmit } = props
 
     return (
         <div className="form" >
+            {unauthUser && <Redirect to='/' />}
             {isCreated && <Redirect to="/" />}
 
             <form onSubmit={handleFormSubmit} encType="multipart/form-data" >
@@ -29,8 +30,8 @@ const CreateProduct = (props) => {
 
                             <div className="img-visualiser">
                                 {uploadedImg
-                                    ? <img src={uploadedImg} className="product-img" alt="product-img" />
-                                    : <img src={require('../../static/images/create-product-img.png')} className="product-img opacity-img" alt="product-img" />
+                                    ? <img src={uploadedImg} className="add-product-img" alt="product-img" />
+                                    : <img src={require('../../static/images/create-product-img.png')} className="add-product-img opacity-img" alt="product-img" />
                                 }
                             </div>
                         </label>

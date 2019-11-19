@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './static/css/site.css'
 import './static/css/scrollbar.css'
 
-import sessionManager from './components/utilities/session-util'
-import observer from './components/utilities/observer'
+import sessionManager from './utilities/session-util'
+import observer from './utilities/observer'
 
 import MyRoutes from './components/routes/router'
 import Header from './components/common/header'

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { UserInfoConsumer } from '../../App'
-import requester from '../utilities/requests-util'
+import requester from '../../utilities/requests-util'
 import '../../static/css/products.css'
 
 class AllProducts extends Component {

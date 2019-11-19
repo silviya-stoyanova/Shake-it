@@ -4,10 +4,11 @@ import '../../static/css/products.css'
 import withProcessProductForm from './with-product-forms-hoc'
 
 const EditProduct = (props) => {
-    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = props
+    const { unauthUser, title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = props
 
     return (
         <div className="form" >
+            {unauthUser && <Redirect to='/' />}
             {isEditted && <Redirect to='/' />}
             {!productExists && <Redirect to='/' />}
 

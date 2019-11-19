@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import observer from '../utilities/observer'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import observer from '../../utilities/observer'
+import sessionManager from '../../utilities/session-util'
 
 const withProcessUserForm = (Form, formType) => {
     return class hoc extends Component {

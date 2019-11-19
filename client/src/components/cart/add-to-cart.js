@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 
 const AddToCart = (props) => {
     const { productId } = props.match.params

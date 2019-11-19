@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import requester from '../utilities/requests-util'
-import sessionManager from '../utilities/session-util'
+import requester from '../../utilities/requests-util'
+import sessionManager from '../../utilities/session-util'
 import '../../static/css/products.css'
 
 class DeleteProduct extends Component {
@@ -10,6 +10,7 @@ class DeleteProduct extends Component {
         super(props)
         this.state = {
             product: {},
+            unauthUser: false,
             productExists: true,
             isDeleted: false
         }
@@ -44,11 +45,12 @@ class DeleteProduct extends Component {
     }
 
     render() {
-        const { product, productExists, isDeleted } = this.state
+        const { product, unauthUser, productExists, isDeleted } = this.state
 
         return (
             <div className="form" >
 
+                {unauthUser && <Redirect to='/' />}
                 {!productExists && <Redirect to='/' />}
                 {isDeleted && <Redirect to='/' />}
 
@@ -85,6 +87,17 @@ class DeleteProduct extends Component {
     }
 
     componentDidMount() {
+        // ensure only admins have access to this page
+        const role = sessionManager.getUserInfo().role
+        if (role !== 'Admin') {
+            toast.info('You are unauthorized to view this page!', {
+                className: 'error-toast'
+            })
+
+            this.setState({ unauthUser: true })
+            // this.props.history.goBack()
+        }
+
         requester.getProductInfo(this.props.match.params.productId)
             .then(res => {
                 if (!res.ok) {
