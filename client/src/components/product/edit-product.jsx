@@ -4,11 +4,10 @@ import '../../static/css/products.css'
 import withProcessProductForm from './with-product-forms-hoc'
 
 const EditProduct = (props) => {
-    const { unauthUser, title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = props
+    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = props
 
     return (
         <div className="form" >
-            {unauthUser && <Redirect to='/' />}
             {isEditted && <Redirect to='/' />}
             {!productExists && <Redirect to='/' />}
 
@@ -20,9 +19,7 @@ const EditProduct = (props) => {
                     ? <div className="form-fields-wrapper">
                         <input autoFocus onChange={handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
 
-
                         <div className="update-img-container">
-
                             <img src={uploadedImg ? uploadedImg : `data:image/png;base64, ${image}`} alt={title} className="product-img" />
 
                             <div>
@@ -31,7 +28,6 @@ const EditProduct = (props) => {
                                 </label>
                                 <input onChange={handleInputChange} name="image" type="file" accept="image/*" id="uploadedImg" />
                             </div>
-
                         </div>
 
                         <label htmlFor="description">Description:</label>

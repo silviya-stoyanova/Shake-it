@@ -3,11 +3,10 @@ import { Redirect } from 'react-router-dom'
 import withProcessProductForm from './with-product-forms-hoc'
 
 const CreateProduct = (props) => {
-    const { unauthUser, titleClass, descriptionClass, priceClass, isCreated, uploadedImg, handleInputChange, handleFormSubmit } = props
+    const { titleClass, descriptionClass, priceClass, isCreated, uploadedImg, handleInputChange, handleFormSubmit } = props
 
     return (
         <div className="form" >
-            {unauthUser && <Redirect to='/' />}
             {isCreated && <Redirect to="/" />}
 
             <form onSubmit={handleFormSubmit} encType="multipart/form-data" >

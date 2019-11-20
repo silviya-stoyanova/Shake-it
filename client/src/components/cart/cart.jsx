@@ -132,7 +132,7 @@ class Cart extends Component {
             .then(res => {
                 this.setState({ productsInCart: res })
             })
-            .catch(err => {               
+            .catch(err => {
                 err.json().then(error => {
                     return toast.info(error.message, {
                         className: 'error-toast',

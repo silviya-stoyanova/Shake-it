@@ -13,10 +13,9 @@ function logout() {
         })
 
     } catch (err) {
-        toast.info('Something went wrong when trying to log you out..', {
+        toast.info('Something went wrong when trying to log you out.. Please try again later.', {
             className: 'error-toast',
         })
-        console.log(err)
     }
 
     return <Redirect to='/' />

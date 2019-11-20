@@ -1,5 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import AuthRoute from './auth-route'
+
 import UserLogin from '../user/login'
 import UserRegister from '../user/register'
 import UserLogout from '../user/logout'
@@ -25,21 +27,21 @@ function MyRoutes() {
     return (
         <Switch>
             <Route exact path="/" component={AllProducts} />
-            <Route path="/user/login" component={UserLogin} />
-            <Route path="/user/logout" component={UserLogout} />
-            <Route path="/user/profile" component={UserProfile} />
-            <Route path="/user/register" component={UserRegister} />
+            <AuthRoute path="/user/login" component={UserLogin} role="null" />
+            <AuthRoute path="/user/logout" component={UserLogout} role="User" />
+            <AuthRoute path="/user/profile" component={UserProfile} role="User" />
+            <AuthRoute path="/user/register" component={UserRegister} role="null" />
 
-            <Route path="/product/create" component={CreateProduct} />
-            <Route path="/product/edit/:productId" component={EditProduct} />
-            <Route path="/product/delete/:productId" component={DeleteProduct} />
+            <AuthRoute path="/product/create" component={CreateProduct} role="Admin" />
+            <AuthRoute path="/product/edit/:productId" component={EditProduct} role="Admin" />
+            <AuthRoute path="/product/delete/:productId" component={DeleteProduct} role="Admin" />
 
             <Route path="/product/details/:productId" component={ProductDetails} />
-            <Route path="/product/like/:productId" component={LikeProduct} />
+            <AuthRoute path="/product/like/:productId" component={LikeProduct} role="User" />
 
-            <Route exact path="/cart" component={Cart} />
-            <Route path="/cart/add/:productId" component={AddToCart} />
-            <Route path="/cart/remove/:productInfoId" component={RemoveFromCart} />
+            <AuthRoute exact path="/cart" component={Cart} role="User" />
+            <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />
+            <AuthRoute path="/cart/remove/:productInfoId" component={RemoveFromCart} role="User" />
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />

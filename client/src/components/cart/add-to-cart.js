@@ -20,8 +20,6 @@ const AddToCart = (props) => {
         })
         .catch(err => {
             err.json().then(error => {
-                console.log(error)
-
                 toast.info(error.message, {
                     className: 'error-toast'
                 })

@@ -20,7 +20,6 @@ function withProcessProductForm(Form, formType) {
                 descriptionClass: formType === 'create' ? '' : 'correct',
                 priceClass: formType === 'create' ? '' : 'correct',
 
-                unauthUser: false,
                 isCreated: false,
                 isEditted: false,
                 productExists: true,
@@ -90,7 +89,7 @@ function withProcessProductForm(Form, formType) {
                     className: 'error-toast',
                 })
             }
-            if (formType === 'create') {// do only when creating a new product
+            if (formType === 'create') {// do this only when creating a new product
                 if (isInputValid.image === 'invalid') {
                     return toast.info('Please provide an image.', {
                         className: 'error-toast',
@@ -103,7 +102,7 @@ function withProcessProductForm(Form, formType) {
                 })
             }
 
-            if (formType === 'create') {// do only when creating a new product
+            if (formType === 'create') {// do this only when creating a new product
                 await requester.createProduct(title, description, image, price, jwtToken)
                     .then(res => {
                         if (!res.ok) {
@@ -158,18 +157,6 @@ function withProcessProductForm(Form, formType) {
         }
 
         async componentDidMount() {
-            // ensure only admins have access to this page
-            const role = sessionManager.getUserInfo().role
-            if (role !== 'Admin') {
-                // this.props.history.goBack()
-
-                toast.info('You are unauthorized to view this page!', {
-                    className: 'error-toast'
-                })
-
-                this.setState({ unauthUser: true})
-            }
-
             if (formType !== 'edit') {
                 return
             }
