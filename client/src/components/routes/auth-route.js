@@ -9,7 +9,7 @@ const isAuthed = (currRole, wantedRole) => {
     if (wantedRole === 'null' || currRole === 'Admin' || currRole === wantedRole) {
         pass = true
     } else {
-        toast.info('Router message: You are unauthorized to view this page!', {
+        toast.info('You are unauthorized to view this page!', {
             className: 'error-toast'
         })
     }
