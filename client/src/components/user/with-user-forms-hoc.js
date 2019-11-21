@@ -68,74 +68,53 @@ const withProcessUserForm = (Form, formType) => {
             this.validateInputFields(username, password, repeatPassword)
         }
 
-        loginUser = (username, password) => {
-            requester.login(username, password)
-                .then(res => {
-                    if (!res.ok) {
-                        return Promise.reject(res)
-                    }
-                    return res.json()
-                })
-                .then(async res => {
-                    // this.setState(prevState => ({
-                    //     userClass: 'correct',
-                    //     passClass: 'correct'
-                    // }))
-                    toast.info('Wellcome! 🍹', {
-                        className: 'success-toast',
-                    })
+        loginUser = (username, password) => requester.login(username, password)
+        registerUser = (username, password) => requester.register(username, password)
 
+        handleFetchPromise = (promise, reqType, username, password) => {
+            promise.then(res => {
+                if (!res.ok) {
+                    return Promise.reject(res)
+                }
+                return res.json()
+
+            }).then(async res => {
+                let message = ''
+                if (reqType === 'login') {
+                    message = 'Wellcome! 🍹'
                     sessionManager.saveSession(res.authtoken, res.username, res.role)
                     observer.trigger('userLogin')
                     this.props.history.push('/')
 
-                }).catch(err => {
-                    err.json().then(error => {
-                        toast.info(error.message, {
-                            className: 'error-toast',
-                        })
-
-                        this.setState(prevState => ({
-                            userClass: 'error',
-                            passClass: 'error',
-                            repeatPassClass: 'error'    //? is this pointless ?
-                        }))
-
-                    })
+                } else if (reqType === 'register') {
+                    message = 'Successful registration! 🍹'
+                    let nextResponse = this.loginUser(username, password)
+                    this.handleFetchPromise(nextResponse, 'login', username, password)
+                }
+                toast.info(message, {
+                    className: 'success-toast',
                 })
-        }
 
-        registerUser = (username, password) => {
-            requester.register(username, password)
-                .then(res => {
-                    if (!res.ok) {
-                        return Promise.reject(res)
-                    }
-                    return res.json()
-                })
-                .then(res => {
-                    toast.info('Successful registration! 🍹', {
-                        className: 'success-toast',
+            }).catch(err => {
+                err.json().then(error => {
+                    toast.info(error.message, {
+                        className: 'error-toast',
                     })
 
-                    this.loginUser(username, password)
+                    this.setState(prevState => ({
+                        userClass: 'error',
+                        passClass: 'error',
+                        repeatPassClass: 'error'
+                    }))
                 })
-                .catch(err => {
-                    err.json().then(error => {
-                        toast.info(error.message, {
-                            className: 'error-toast',
-                        })
-                    })
-                    this.setState({
-                        userClass: 'error'
-                    })
-                })
+            })
         }
 
         handleFormSubmit = async (event) => {
             event.preventDefault()
             const { username, password, repeatPassword } = this.state
             const isInputValid = this.validateInputFields(username, password, repeatPassword)
+            let response = ''
 
             if (formType === 'login') {
                 if (isInputValid.username === 'invalid' || isInputValid.password === 'invalid') {
@@ -144,33 +123,27 @@ const withProcessUserForm = (Form, formType) => {
                     })
                 }
 
-                this.loginUser(username, password)
+                response = this.loginUser(username, password)
+                this.handleFetchPromise(response, 'login')
 
             } else if (formType === 'register') {
-                if (isInputValid.username === 'invalid') {
-                    return toast.info('Please enter a valid username!', {
-                        className: 'error-toast'
-                    })
-                }
                 if (isInputValid.password === 'invalid' || isInputValid.repeatPassword === 'invalid') {
                     return toast.info('Both passwords must consist of at least 8 characters and they both must match!', {
                         className: 'error-toast'
                     })
                 }
-
-                this.registerUser(username, password)
+                if (isInputValid.username === 'invalid') {
+                    return toast.info('Please enter a valid username!', {
+                        className: 'error-toast'
+                    })
+                }
+                response = this.registerUser(username, password)
+                this.handleFetchPromise(response, 'register', username, password)
             }
         }
 
         render() {
-            return <Form {...this.state} />
-        }
-
-        componentDidMount() {
-            this.setState({
-                handleInputChange: this.handleInputChange,
-                handleFormSubmit: this.handleFormSubmit
-            })
+            return <Form {...this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />
         }
     }
 }

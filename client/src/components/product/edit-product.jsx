@@ -41,7 +41,7 @@ const EditProduct = (props) => {
                     : <img src={require('../../static/images/loading-circle.gif')} alt={'loading-img'} className="product-img" />
                 }
                 <hr />
-                <button className="button" type="submit">Edit</button>
+                <button className="button" type="submit">Save changes</button>
             </form>
         </div>
     )

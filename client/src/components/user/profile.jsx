@@ -124,6 +124,7 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
+        document.title = 'Shake it - My profile'
         const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.getProfileInfo(jwtToken)

@@ -120,7 +120,7 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        // document.title = 'My shopping cart'
+        document.title = 'Shake it - My shopping cart'
         const jwtToken = sessionManager.getUserInfo().authtoken
 
         requester.getCart(jwtToken)
