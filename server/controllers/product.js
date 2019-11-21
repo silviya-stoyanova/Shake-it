@@ -43,10 +43,10 @@ module.exports = {
                 return res.status(500).send({ message: err })
             }
 
-            let title = fields.title[0]
-            let description = fields.description[0]
-            let image = files.image[0]
-            let price = fields.price[0]
+            let title = fields.title[0] || ''
+            let description = fields.description[0] || ''
+            let image = files.image ? files.image[0] : ''
+            let price = fields.price[0] || ''
             const titleIsTaken = await Product.findOne({ title })
 
             if (titleIsTaken) {
@@ -60,6 +60,9 @@ module.exports = {
             }
             if (description.length < 10 || description.length > 250) {
                 return res.status(400).send({ message: 'The title description must be between 10 and 250 symbols!' })
+            }
+            if (Number(price) <= 0) {
+                return res.status(400).send({ message: 'The price must be above 0!' })
             }
 
             Product.create({ title, description, price })
@@ -92,10 +95,10 @@ module.exports = {
                 return res.status(500).send({ message: err })
             }
 
-            let title = fields.title[0]
-            let description = fields.description[0]
+            let title = fields.title[0] || ''
+            let description = fields.description[0] || ''
             let image = files.image ? files.image[0] : ''
-            let price = fields.price[0]
+            let price = fields.price[0] || ''
 
             let product = await Product.findById(req.params.productId)
             let productWithSameTitle = await Product.findOne({ title })
@@ -123,6 +126,9 @@ module.exports = {
             if (description.length < 10 || description.length > 250) {
                 return res.status(400).send({ message: 'The title description must be between 10 and 250 symbols!' })
             }
+            if (Number(price) <= 0) {
+                return res.status(400).send({ message: 'The price must be above 0!' })
+            }
 
             //*** without encType="multipart/form-data" in the form:
             // headers: {
@@ -147,7 +153,7 @@ module.exports = {
             let newFileName = ''
             if (image) {
                 console.log('New image is provided');
-                
+
                 newFileName = image.path.split('\\').reverse()[0]
 
                 await mv(image.path, uploadFilesPath + newFileName,

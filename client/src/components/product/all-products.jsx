@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { UserInfoConsumer } from '../../App'
 import requester from '../../utilities/requests-util'
 import '../../static/css/products.css'
+import useTitle from '../page-title/useTitle'
 
 class AllProducts extends Component {
     constructor(props) {
@@ -113,6 +114,8 @@ class AllProducts extends Component {
     }
 
     componentDidMount() {
+        document.title = 'Shake it - Your shake is a click away'
+
         requester.getAllProducts()
             .then(res => {
                 if (!res.ok) {

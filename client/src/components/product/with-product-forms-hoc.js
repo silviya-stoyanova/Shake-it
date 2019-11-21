@@ -20,14 +20,11 @@ function withProcessProductForm(Form, formType) {
                 descriptionClass: formType === 'create' ? '' : 'correct',
                 priceClass: formType === 'create' ? '' : 'correct',
 
-                isCreated: false,
-                isEditted: false,
-                productExists: true,
                 uploadedImg: ''
             }
         }
 
-        validateInputFields = (title, description, image, price) => {
+        validateData = (title, description, image, price, updateState) => {
             let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
             let result = {
                 title: 'invalid',
@@ -45,7 +42,8 @@ function withProcessProductForm(Form, formType) {
                 result.description = 'valid'
             }
 
-            if (formType === 'create') {// check only when creating a new product
+            // validate only when creating a new product
+            if (formType === 'create') {
                 if (image) {
                     result.image = 'valid'
                 }
@@ -55,8 +53,43 @@ function withProcessProductForm(Form, formType) {
                 result.price = 'valid'
             }
 
-            this.setState({ titleClass, descriptionClass, priceClass })
+            updateState && this.setState({ titleClass, descriptionClass, priceClass })
             return result
+        }
+
+        validateOnSubmit = (title, description, image, price) => {
+            const updateState = false
+            const isInputValid = this.validateData(title, description, image, price, updateState)
+            let isValid = false
+
+            if (isInputValid.title === 'invalid') {
+                toast.info('The title length must be between 3 and 50 symbols including.', {
+                    className: 'error-toast',
+                })
+                return isValid
+            }
+            if (isInputValid.description === 'invalid') {
+                toast.info('The description must be at least 10 symbols long.', {
+                    className: 'error-toast',
+                })
+                return isValid
+            }
+            if (formType === 'create') {// do this only when creating a new product
+                if (isInputValid.image === 'invalid') {
+                    toast.info('Please provide an image.', {
+                        className: 'error-toast',
+                    })
+                    return isValid
+                }
+            }
+            if (isInputValid.price === 'invalid') {
+                toast.info('Please enter a valid price.', {
+                    className: 'error-toast',
+                })
+                return isValid
+            }
+            isValid = true
+            return isValid
         }
 
         handleInputChange = async ({ target }) => {
@@ -69,37 +102,20 @@ function withProcessProductForm(Form, formType) {
                     : { [target.name]: target.value.trim() }
 
             await this.setState(newState)
+
+            const updateState = true
             const { title, description, image, price } = this.state
-            this.validateInputFields(title, description, image, price)
+            this.validateData(title, description, image, price, updateState)
         }
 
         handleFormSubmit = async (event) => {
             event.preventDefault()
             const jwtToken = sessionManager.getUserInfo().authtoken
             const { productId, title, description, image, price } = this.state
-            const isInputValid = this.validateInputFields(title, description, image, price)
+            const isValid = this.validateOnSubmit(title, description, image, price)
 
-            if (isInputValid.title === 'invalid') {
-                return toast.info('The title length must be between 3 and 50 symbols including.', {
-                    className: 'error-toast',
-                })
-            }
-            if (isInputValid.description === 'invalid') {
-                return toast.info('The description must be at least 10 symbols long.', {
-                    className: 'error-toast',
-                })
-            }
-            if (formType === 'create') {// do this only when creating a new product
-                if (isInputValid.image === 'invalid') {
-                    return toast.info('Please provide an image.', {
-                        className: 'error-toast',
-                    })
-                }
-            }
-            if (isInputValid.price === 'invalid') {
-                return toast.info('Please enter a valid price.', {
-                    className: 'error-toast',
-                })
+            if (!isValid) {
+                return
             }
 
             if (formType === 'create') {// do this only when creating a new product
@@ -111,8 +127,7 @@ function withProcessProductForm(Form, formType) {
                         return res.json()
                     })
                     .then(res => {
-                        this.setState({ isCreated: true })
-
+                        this.props.history.push('/')
                         return toast.info(res.success, {
                             className: 'success-toast',
                         })
@@ -133,7 +148,7 @@ function withProcessProductForm(Form, formType) {
                         return res.json()
                     })
                     .then(res => {
-                        this.setState({ isEditted: true })
+                        this.props.history.push('/')
 
                         toast.info(res.success, {
                             className: 'success-toast'
@@ -142,10 +157,33 @@ function withProcessProductForm(Form, formType) {
                     .catch(error => {
                         error.json().then(err => {
                             if (!err.titleIsTaken) {
-                                this.setState({ productExists: false })
+                                this.props.history.push('/')
                             }
                             return toast.info(err.message, {
                                 className: 'error-toast',
+                            })
+                        })
+                    })
+
+            } else if (formType === 'delete') {
+                requester.deleteProduct(productId, jwtToken)
+                    .then(res => {
+                        if (!res.ok) {
+                            return Promise.reject(res)
+                        }
+                        return res.json()
+                    })
+                    .then(res => {
+                        this.props.history.push('/')
+
+                        toast.info(res.success, {
+                            className: 'success-toast'
+                        })
+                    })
+                    .catch(error => {
+                        error.json().then(err => {
+                            toast.info(err.message, {
+                                className: 'error-toast'
                             })
                         })
                     })
@@ -157,7 +195,7 @@ function withProcessProductForm(Form, formType) {
         }
 
         async componentDidMount() {
-            if (formType !== 'edit') {
+            if (formType === 'create') {
                 return
             }
 
@@ -174,8 +212,7 @@ function withProcessProductForm(Form, formType) {
                 .catch(error => {
                     error.json()
                         .then(err => {
-                            this.setState({ productExists: false })
-
+                            this.props.history.push('/')
                             toast.info(err.message, {
                                 className: 'error-toast'
                             })

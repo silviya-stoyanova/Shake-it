@@ -2,11 +2,13 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import AuthRoute from './auth-route'
 
+// user components
 import UserLogin from '../user/login'
 import UserRegister from '../user/register'
 import UserLogout from '../user/logout'
 import UserProfile from '../user/profile'
 
+// product components
 import CreateProduct from '../product/create-product'
 import AllProducts from '../product/all-products'
 import ProductDetails from '../product/details-product'
@@ -14,13 +16,14 @@ import LikeProduct from '../product/like-product'
 import EditProduct from '../product/edit-product'
 import DeleteProduct from '../product/delete-product'
 
+// cart components
 import Cart from '../cart/cart'
 import AddToCart from '../cart/add-to-cart'
 import RemoveFromCart from '../cart/remove-from-cart'
 
+// static components
 import ContactForm from '../static-pages/contacts'
 import About from '../static-pages/about-us'
-
 import PageNotFound from '../static-pages/not-found'
 
 function MyRoutes() {
@@ -45,7 +48,6 @@ function MyRoutes() {
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />
-
             <Route component={PageNotFound} />
         </Switch>
     )

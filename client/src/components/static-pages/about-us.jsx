@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useTitle from '../page-title/useTitle'
 
 function AboutUs() {
+    useTitle('About us')
     return (
         <div>
             <h2>Our mission ...</h2>

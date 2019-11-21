@@ -20,8 +20,10 @@ const LikeProduct = (props) => {
                 })
             })
         })
+        .finally(() => {
+            props.history.goBack()
+        })
 
-    props.history.goBack()
     return null
 }
 

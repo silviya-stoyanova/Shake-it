@@ -26,8 +26,9 @@ const RemoveFromCart = (props) => {
                     })
                 })
         })
-
-    props.history.goBack()
+        .finally(() => {
+            props.history.goBack()
+        })
 
     return null
 }

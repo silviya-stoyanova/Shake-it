@@ -49,8 +49,7 @@ const requester = {
 
     updateProfileInfo: (profilePic, firstName, lastName, email, adress, phoneNumber, jwtToken) => {
         const form = new FormData()
-        console.log(profilePic)
-        
+
         form.append('profilePic', profilePic[0])
         form.append('firstName', firstName)
         form.append('lastName', lastName)
@@ -91,7 +90,7 @@ const requester = {
             makeRequest('POST', form, true, jwtToken, null))
     },
 
-    editProduct: (productId, title, description, image, price, jwtToken) => { 
+    editProduct: (productId, title, description, image, price, jwtToken) => {
         let form = new FormData()
         form.append('title', title)
         form.append('description', description)

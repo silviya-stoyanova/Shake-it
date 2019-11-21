@@ -1,15 +1,14 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import '../../static/css/products.css'
 import withProcessProductForm from './with-product-forms-hoc'
+import useTitle from '../page-title/useTitle'
 
 const EditProduct = (props) => {
-    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, isEditted, productExists, handleInputChange, handleFormSubmit } = props
+    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, handleInputChange, handleFormSubmit } = props
+    useTitle(`Edit ${title}`)
 
     return (
         <div className="form" >
-            {isEditted && <Redirect to='/' />}
-            {!productExists && <Redirect to='/' />}
 
             <form onSubmit={handleFormSubmit} encType="multipart/form-data">
                 <div className="form-type">Edit a product</div>

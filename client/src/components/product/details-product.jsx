@@ -1,26 +1,21 @@
-import React, { Component, Fragment } from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { UserInfoConsumer } from '../../App'
-import requester from '../../utilities/requests-util'
 import '../../static/css/products.css'
+import withProcessProductForm from './with-product-forms-hoc'
+import useTitle from '../page-title/useTitle'
 
-class ProductDetails extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            product: {},
-            productExists: true,
-            isFetched: false
-        }
-    }
+const ProductDetails = (props) => {
+    const { productId, title, description, image, price, likes } = props
+    useTitle(title)
+    // <textarea disabled>{description}</textarea>
 
-    userFunctionalities = (data, _id) => {
+    const userFunctionalities = (data, productId) => {
         return data.isLogged
             && <Fragment>
                 <Link
                     to={{
-                        pathname: `/product/like/${_id}`
+                        pathname: `/product/like/${productId}`
                     }} className="product-actions-btn">like
                 </Link>
 
@@ -29,13 +24,13 @@ class ProductDetails extends Component {
                     && <Fragment>
                         <Link
                             to={{
-                                pathname: `/product/edit/${_id}`
+                                pathname: `/product/edit/${productId}`
                             }} className="product-actions-btn">edit
                             </Link>
 
                         <Link
                             to={{
-                                pathname: `/product/delete/${_id}`
+                                pathname: `/product/delete/${productId}`
                             }} className="product-actions-btn">delete
                             </Link>
                     </Fragment>
@@ -43,77 +38,37 @@ class ProductDetails extends Component {
 
                 <Link
                     to={{
-                        pathname: `/cart/add/${_id}`
+                        pathname: `/cart/add/${productId}`
                     }} className="product-actions-btn add-to-cart-btn">add to cart
                 </Link>
             </Fragment>
     }
 
-    render() {
-        const { _id, title, description, image, price, likes } = this.state.product
-        const { isFetched } = this.state
-        // <textarea disabled>{description}</textarea>
+    return (
+        <UserInfoConsumer>
+            {(data) => {
+                return (
+                    <div className='content-wrapper'>
+                        <div className="product-details-wrapper" >
+                            {title
+                                ? <Fragment>
+                                    <div className="product-title">{title}</div>
+                                    <img src={'data:image/png;base64, ' + image} alt={title} className="product-img" />
+                                    <div className="product-description">{description}</div>
 
-        return (
-            <UserInfoConsumer>
-                {(data) => {
-                    return (
-                        <div className='content-wrapper'>
-                            {
-                                !this.state.productExists && <Redirect to='/' />
+                                    <div className="product-actions">
+                                        <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
+                                        <span className="product-likes">{likes ? likes.length : 0} ♥</span>
+                                        {userFunctionalities(data, productId)}
+                                    </div>
+                                </Fragment>
+                                : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
                             }
-                            <div className="product-details-wrapper" >
-                                {isFetched
-                                    ? <Fragment>
-                                        <div className="product-title">{title}</div>
-                                        <img src={'data:image/png;base64, ' + image} alt={title} className="product-img" />
-                                        <div className="product-description">{description}</div>
-
-                                        <div className="product-actions">
-                                            <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
-                                            <span className="product-likes">{likes ? likes.length : 0} ♥</span>
-                                            {this.userFunctionalities(data, _id)}
-                                        </div>
-                                    </Fragment>
-                                    : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
-                                }
-                            </div>
-                        </div>)
-                }}
-            </UserInfoConsumer>
-        )
-    }
-
-    async  componentDidMount() {
-        // toast.info('Loading...', {
-        //     className: 'loading-toast'
-        // })
-        const id = this.props.match.params.productId
-
-        await requester.getProductInfo(id)
-            .then(res => {
-                if (!res.ok) {
-                    return Promise.reject(res)
-                }
-                return res.json()
-            })
-            .then(async product => {
-                await this.setState({
-                    product,
-                    isFetched: true
-                })
-            })
-            .catch(error => {
-                this.setState({ productExists: false })
-
-                error.json()
-                    .then(err => {
-                        toast.info(err.message, {
-                            className: 'error-toast'
-                        })
-                    })
-            })
-    }
+                        </div>
+                    </div>)
+            }}
+        </UserInfoConsumer>
+    )
 }
 
-export default ProductDetails
+export default withProcessProductForm(ProductDetails, 'details')

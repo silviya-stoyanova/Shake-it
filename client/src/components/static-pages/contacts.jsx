@@ -1,8 +1,11 @@
 import React, { Fragment as div } from 'react'
 import '../../static/css/forms.css'
 import '../../static/css/contacts.css'
+import useTitle from '../page-title/useTitle'
 
 const ContactForm = () => {
+    useTitle('Contact with us')
+
     return (
         <div>
             <div className="form">

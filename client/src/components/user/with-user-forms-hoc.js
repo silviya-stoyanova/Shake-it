@@ -87,6 +87,7 @@ const withProcessUserForm = (Form, formType) => {
 
                     sessionManager.saveSession(res.authtoken, res.username, res.role)
                     observer.trigger('userLogin')
+                    this.props.history.push('/')
 
                 }).catch(err => {
                     err.json().then(error => {
