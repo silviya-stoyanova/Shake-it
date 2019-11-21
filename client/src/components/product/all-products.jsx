@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 import { UserInfoConsumer } from '../../App'
 import requester from '../../utilities/requests-util'
 import '../../static/css/products.css'
-import useTitle from '../page-title/useTitle'
 
 class AllProducts extends Component {
     constructor(props) {
