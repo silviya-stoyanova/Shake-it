@@ -47,5 +47,4 @@ const EditProduct = (props) => {
     )
 }
 
-// export default EditProduct
 export default withProcessProductForm(EditProduct, 'edit')

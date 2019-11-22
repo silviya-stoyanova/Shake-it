@@ -6,16 +6,16 @@ import withProcessProductForm from './with-product-forms-hoc'
 import useTitle from '../page-title/useTitle'
 
 const ProductDetails = (props) => {
-    const { productId, title, description, image, price, likes } = props
+    const { _id, title, description, image, price, likes } = props
     useTitle(title)
     // <textarea disabled>{description}</textarea>
 
-    const userFunctionalities = (data, productId) => {
+    const userFunctionalities = (data, _id) => {
         return data.isLogged
             && <Fragment>
                 <Link
                     to={{
-                        pathname: `/product/like/${productId}`
+                        pathname: `/product/like/${_id}`
                     }} className="product-actions-btn">like
                 </Link>
 
@@ -24,13 +24,13 @@ const ProductDetails = (props) => {
                     && <Fragment>
                         <Link
                             to={{
-                                pathname: `/product/edit/${productId}`
+                                pathname: `/product/edit/${_id}`
                             }} className="product-actions-btn">edit
                             </Link>
 
                         <Link
                             to={{
-                                pathname: `/product/delete/${productId}`
+                                pathname: `/product/delete/${_id}`
                             }} className="product-actions-btn">delete
                             </Link>
                     </Fragment>
@@ -38,7 +38,7 @@ const ProductDetails = (props) => {
 
                 <Link
                     to={{
-                        pathname: `/cart/add/${productId}`
+                        pathname: `/cart/add/${_id}`
                     }} className="product-actions-btn add-to-cart-btn">add to cart
                 </Link>
             </Fragment>
@@ -59,7 +59,7 @@ const ProductDetails = (props) => {
                                     <div className="product-actions">
                                         <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
                                         <span className="product-likes">{likes ? likes.length : 0} ♥</span>
-                                        {userFunctionalities(data, productId)}
+                                        {userFunctionalities(data, _id)}
                                     </div>
                                 </Fragment>
                                 : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
