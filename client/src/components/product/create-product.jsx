@@ -1,6 +1,7 @@
 import React from 'react'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
+import { productValidations } from '../hocs/validations'
 
 const CreateProduct = (props) => {
     useTitle('Add a new product')
@@ -57,4 +58,4 @@ const CreateProduct = (props) => {
 }
 
 // export default CreateProduct
-export default withProcessForm(CreateProduct, 'create')
+export default withProcessForm(CreateProduct, 'create', productValidations)

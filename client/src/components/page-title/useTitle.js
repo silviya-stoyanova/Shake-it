@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-// This is a Custom React Hook.
+// Custom React Hook
 // It allows combining Hooks provided by React into your own abstractions,
 // and reuse common stateful logic between different components.
 const useTitle = (title) => {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import '../../static/css/products.css'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
+import { productValidations } from '../hocs/validations'
 
 const DeleteProduct = (props) => {
     const { handleFormSubmit } = props
@@ -43,4 +44,4 @@ const DeleteProduct = (props) => {
     )
 }
 
-export default withProcessForm(DeleteProduct, 'delete')
+export default withProcessForm(DeleteProduct, 'delete', productValidations)

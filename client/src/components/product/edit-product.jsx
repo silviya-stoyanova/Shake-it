@@ -2,6 +2,7 @@ import React from 'react'
 import '../../static/css/products.css'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
+import { productValidations } from '../hocs/validations'
 
 const EditProduct = (props) => {
     const { handleInputChange, handleFormSubmit } = props
@@ -48,4 +49,4 @@ const EditProduct = (props) => {
     )
 }
 
-export default withProcessForm(EditProduct, 'edit')
+export default withProcessForm(EditProduct, 'edit', productValidations)

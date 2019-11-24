@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { UserInfoConsumer } from '../../App'
 import '../../static/css/products.css'
-import withProcessForm from '../hocs/withProcessForm'
+import { UserInfoConsumer } from '../../App'
 import useTitle from '../page-title/useTitle'
+import withProcessForm from '../hocs/withProcessForm'
+import { productValidations } from '../hocs/validations'
 
 const ProductDetails = (props) => {
     const { _id, title, description, image, price, likes } = props.productInfo
@@ -71,4 +72,4 @@ const ProductDetails = (props) => {
     )
 }
 
-export default withProcessForm(ProductDetails, 'details')
+export default withProcessForm(ProductDetails, 'details', productValidations)

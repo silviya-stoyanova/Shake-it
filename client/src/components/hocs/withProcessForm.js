@@ -3,9 +3,8 @@ import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
 import observer from '../../utilities/observer'
 import sessionManager from '../../utilities/session-util'
-import { userValidations, productValidations } from '../hocs/validations'
 
-const withProcessForm = (Form, formType) => {
+const withProcessForm = (Form, formType, validations) => {
     return class hoc extends Component {
         constructor(props) {
             super(props)
@@ -34,13 +33,11 @@ const withProcessForm = (Form, formType) => {
                 }
             }
 
-            this.validateUserData = userValidations.validateUserData.bind(this)
-            this.validateUserOnSubmit = userValidations.validateUserOnSubmit.bind(this)
-
-            this.validateProductData = productValidations.validateProductData.bind(this)
-            this.validateProductOnSubmit = productValidations.validateProductOnSubmit.bind(this)
+            this.validateData = validations.validateData.bind(this)
+            this.validateOnSubmit = validations.validateOnSubmit.bind(this)
         }
 
+        // =============================================================================
         onLoginPromise = (res) => {
             sessionManager.saveSession(res.authtoken, res.username, res.role)
             observer.trigger('userLogin')
@@ -53,8 +50,6 @@ const withProcessForm = (Form, formType) => {
         }
 
         // onLoadInfo = (res, data) => {
-
-
         // }
 
         onUserPromiseFail = (err) => {
@@ -73,6 +68,7 @@ const withProcessForm = (Form, formType) => {
                 this.props.history.push('/')
             }
         }
+        // =============================================================================
 
         handleInputChange = async ({ target }) => {
             await this.setState(prevState => {
@@ -95,10 +91,10 @@ const withProcessForm = (Form, formType) => {
             const updateState = true
             if (formType === 'create' || formType === 'edit' || formType === 'delete' || formType === 'details') {
                 const { title, description, image, price } = this.state.productInfo
-                this.validateProductData(formType, title, description, image, price, updateState)
+                this.validateData(formType, title, description, image, price, updateState)
             } else if (formType === 'login' || formType === 'register') {
                 const { username, password, repeatPassword } = this.state.userInfo
-                this.validateUserData(formType, username, password, repeatPassword, updateState)
+                this.validateData(formType, username, password, repeatPassword, updateState)
             }
         }
 
@@ -114,8 +110,8 @@ const withProcessForm = (Form, formType) => {
                     className: 'success-toast'
                 })
 
-                onSuccessFunc && onSuccessFunc(res, data)
                 data.redirectOnSuccess && this.props.history.push('/')
+                onSuccessFunc && onSuccessFunc(res, data)
 
             }).catch(err => {
                 err.json().then(error => {
@@ -123,8 +119,8 @@ const withProcessForm = (Form, formType) => {
                         className: 'error-toast'
                     })
 
-                    onFailFunc && onFailFunc(err)
                     data.redirectOnFail && this.props.history.push('/')
+                    onFailFunc && onFailFunc(err)
                 })
             })
         }
@@ -137,10 +133,11 @@ const withProcessForm = (Form, formType) => {
             const { _id, title, description, image, price } = this.state.productInfo
 
             if (formType === 'create' || formType === 'edit' || formType === 'delete' || formType === 'details') {
-                isValid = this.validateProductOnSubmit(formType, title, description, image, price)
+                isValid = this.validateOnSubmit(formType, title, description, image, price)
 
             } else if (formType === 'login' || formType === 'register') {
-                isValid = this.validateUserOnSubmit(formType, username, password, repeatPassword)
+                // isValid = this.validateUserOnSubmit(formType, username, password, repeatPassword)
+                isValid = this.validateOnSubmit(formType, username, password, repeatPassword)
             }
 
             if (!isValid) {

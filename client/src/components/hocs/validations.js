@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify'
 
 const userValidations = {
-    validateUserData(formType, username, password, repeatPassword, updateState) {
+    validateData(formType, username, password, repeatPassword, updateState) {
         let [userClass, passClass, repeatPassClass] = ['error', 'error', 'error']
         let result = {
             username: 'invalid',
@@ -43,8 +43,9 @@ const userValidations = {
         return result
     },
 
-    validateUserOnSubmit(formType, username, password, repeatPassword) {
-        const isInputValid = this.validateUserData(formType, username, password, repeatPassword, false)
+    validateOnSubmit(formType, username, password, repeatPassword) {
+        debugger
+        const isInputValid = this.validateData(formType, username, password, repeatPassword, false)
         let isValid = false
         let errorMsg = ''
 
@@ -73,7 +74,7 @@ const userValidations = {
 }
 
 const productValidations = {
-    validateProductData(formType, title, description, image, price, updateState) {
+    validateData(formType, title, description, image, price, updateState) {
         let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
         let result = {
             title: 'invalid',
@@ -111,9 +112,9 @@ const productValidations = {
         return result
     },
 
-    validateProductOnSubmit(formType, title, description, image, price) {
+    validateOnSubmit(formType, title, description, image, price) {
         const updateState = false
-        const isInputValid = this.validateProductData(formType, title, description, image, price, updateState)
+        const isInputValid = this.validateData(formType, title, description, image, price, updateState)
         let isValid = false
         let errorMsg = ''
 

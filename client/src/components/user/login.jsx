@@ -1,8 +1,9 @@
 import React from 'react'
 import '../../static/css/forms.css'
 import '../../static/css/notifications.css'
-import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
+import withProcessForm from '../hocs/withProcessForm'
+import { userValidations } from '../hocs/validations'
 
 const UserLogin = (props) => {
     useTitle('Login')
@@ -32,4 +33,4 @@ const UserLogin = (props) => {
 }
 
 //* wrong: export default <withProcessForm Form={UserLogin} />
-export default withProcessForm(UserLogin, 'login')
+export default withProcessForm(UserLogin, 'login', userValidations)

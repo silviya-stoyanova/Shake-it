@@ -68,7 +68,7 @@ Now you can see the project at it's best ㋛ 😊 ㋡
  
 ## Client side
 
-### The client side of the application relies on the framework ReactJS (*a powerful component-based JavaScript library that uses server-side rendering (SSR)*) and also on several other libraries: 
+### The client side of the application relies on the library ReactJS (*a powerful component-based JavaScript library that uses server-side rendering (SSR)*) and also on several other libraries: 
 1. **react-dom** - used to access and modify the DOM
 2. **react-router-dom** - provides client-side routing, used to build a single-page web application with navigation without the page refreshing as the user navigates
 3. **react-scripts** - a package that includes scripts and configuration used by create-react-app
