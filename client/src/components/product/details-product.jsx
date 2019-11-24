@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { UserInfoConsumer } from '../../App'
 import '../../static/css/products.css'
-import withProcessProductForm from './with-product-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const ProductDetails = (props) => {
-    const { _id, title, description, image, price, likes } = props
+    const { _id, title, description, image, price, likes } = props.productInfo
     useTitle(title)
     // <textarea disabled>{description}</textarea>
 
@@ -71,4 +71,4 @@ const ProductDetails = (props) => {
     )
 }
 
-export default withProcessProductForm(ProductDetails, 'details')
+export default withProcessForm(ProductDetails, 'details')

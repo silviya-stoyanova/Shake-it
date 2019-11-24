@@ -43,7 +43,16 @@ class Cart extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
+        const { productsInCart } = this.state
+        const isValid = productsInCart.length ? true : false
 
+        if (!isValid) {
+            return toast.info('Your cart is empty!', {
+                className: 'error-toast'
+            })
+        }
+
+        this.props.history.push('/order/complete')
     }
 
     tableHeader = () => {

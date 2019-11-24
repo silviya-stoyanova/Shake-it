@@ -1,10 +1,11 @@
 import React from 'react'
-import withProcessProductForm from './with-product-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const CreateProduct = (props) => {
     useTitle('Add a new product')
-    const { titleClass, descriptionClass, priceClass, uploadedImg, handleInputChange, handleFormSubmit } = props
+    const { handleInputChange, handleFormSubmit } = props
+    const { titleClass, descriptionClass, priceClass, uploadedImg } = props.productInfo
 
     return (
         <div className="form" >
@@ -56,4 +57,4 @@ const CreateProduct = (props) => {
 }
 
 // export default CreateProduct
-export default withProcessProductForm(CreateProduct, 'create')
+export default withProcessForm(CreateProduct, 'create')

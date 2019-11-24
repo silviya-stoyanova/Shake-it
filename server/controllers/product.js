@@ -112,22 +112,22 @@ module.exports = {
                     : false
 
             if (!product) {
-                return res.status(400).send({ message: 'This product does not exist!' })
+                return res.status(400).send({ message: 'This product does not exist!', titleIsTaken: false})
             }
             if (titleIsTaken) {
                 return res.status(400).send({ message: 'Please choose another title, this one is already taken!', titleIsTaken: true })
             }
             if (!title || !description || !price) {
-                return res.status(400).send({ message: 'The product must have title, description and price!' })
+                return res.status(400).send({ message: 'The product must have title, description and price!', titleIsTaken: false })
             }
             if (title.length < 3 || title.length > 50) {
-                return res.status(400).send({ message: 'The title length must be between 3 and 50 symbols including!' })
+                return res.status(400).send({ message: 'The title length must be between 3 and 50 symbols including!', titleIsTaken: false })
             }
             if (description.length < 10 || description.length > 250) {
-                return res.status(400).send({ message: 'The title description must be between 10 and 250 symbols!' })
+                return res.status(400).send({ message: 'The title description must be between 10 and 250 symbols!', titleIsTaken: false })
             }
             if (Number(price) <= 0) {
-                return res.status(400).send({ message: 'The price must be above 0!' })
+                return res.status(400).send({ message: 'The price must be above 0!', titleIsTaken: false})
             }
 
             //*** without encType="multipart/form-data" in the form:

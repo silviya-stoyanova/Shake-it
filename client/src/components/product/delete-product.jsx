@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../../static/css/products.css'
-import withProcessProductForm from './with-product-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const DeleteProduct = (props) => {
-    const { image, title, description, price, handleFormSubmit } = props
+    const { handleFormSubmit } = props
+    const { image, title, description, price } = props.productInfo
     useTitle(`Delete ${title}`)
 
     return (
@@ -42,4 +43,4 @@ const DeleteProduct = (props) => {
     )
 }
 
-export default withProcessProductForm(DeleteProduct, 'delete')
+export default withProcessForm(DeleteProduct, 'delete')

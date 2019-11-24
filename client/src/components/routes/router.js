@@ -21,6 +21,9 @@ import Cart from '../cart/cart'
 import AddToCart from '../cart/add-to-cart'
 import RemoveFromCart from '../cart/remove-from-cart'
 
+// order components
+import CompleteOrder from '../order/complete'
+
 // static components
 import ContactForm from '../static-pages/contacts'
 import About from '../static-pages/about-us'
@@ -45,6 +48,8 @@ function MyRoutes() {
             <AuthRoute exact path="/cart" component={Cart} role="User" />
             <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />
             <AuthRoute path="/cart/remove/:productInfoId" component={RemoveFromCart} role="User" />
+
+            <AuthRoute path="/order/complete" component={CompleteOrder} role="User"/>
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />

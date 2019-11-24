@@ -120,7 +120,8 @@ const productValidations = {
         if (isInputValid.price === 'invalid') {
             errorMsg = 'Please enter a valid price.'
         }
-        if (formType === 'create' && isInputValid.image === 'invalid') {// when adding a product
+        // when adding a product
+        if (formType === 'create' && isInputValid.image === 'invalid') {
             errorMsg = 'Please provide an image.'
         }
         if (isInputValid.description === 'invalid') {

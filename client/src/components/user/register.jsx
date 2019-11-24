@@ -1,11 +1,12 @@
 import React from 'react'
 import '../../static/css/forms.css'
-import withProcessUserForm from './with-user-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const UserRegister = (props) => {
     useTitle('Register')
-    const { userClass, passClass, repeatPassClass, handleInputChange, handleFormSubmit } = props
+    const { handleInputChange, handleFormSubmit } = props
+    const { userClass, passClass, repeatPassClass } = props.userInfo
 
     return (
         <div className="form">
@@ -30,5 +31,5 @@ const UserRegister = (props) => {
     )
 }
 
-//* wrong: export default <withProcessUserForm Form={UserRegister} />
-export default withProcessUserForm(UserRegister, 'register')
+//* wrong: export default <withProcessForm Form={UserRegister} />
+export default withProcessForm(UserRegister, 'register')

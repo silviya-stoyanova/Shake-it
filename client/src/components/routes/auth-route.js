@@ -7,7 +7,7 @@ const isAuthed = (currRole, wantedRole) => {
     let pass = false
 
     if ((wantedRole === 'null' && (!currRole || currRole.length === 0)) // if the user is not logged in
-        || (currRole && currRole.length > 0)                            // if the user have just logged in
+        || (wantedRole === 'User' && currRole && currRole.length > 0)   // if the user have just logged in
         || currRole === 'Admin' || currRole === wantedRole) {           // if they are the Admin || if they are authorized for this action
 
         pass = true

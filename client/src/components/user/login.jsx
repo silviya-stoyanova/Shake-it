@@ -1,12 +1,13 @@
 import React from 'react'
 import '../../static/css/forms.css'
 import '../../static/css/notifications.css'
-import withProcessUserForm from './with-user-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const UserLogin = (props) => {
     useTitle('Login')
-    const { userClass, passClass, handleInputChange, handleFormSubmit } = props
+    const { handleInputChange, handleFormSubmit } = props
+    const { userClass, passClass } = props.userInfo
 
     return (
         <React.Fragment>
@@ -30,5 +31,5 @@ const UserLogin = (props) => {
     )
 }
 
-//* wrong: export default <withProcessUserForm Form={UserLogin} />
-export default withProcessUserForm(UserLogin, 'login')
+//* wrong: export default <withProcessForm Form={UserLogin} />
+export default withProcessForm(UserLogin, 'login')

@@ -1,10 +1,11 @@
 import React from 'react'
 import '../../static/css/products.css'
-import withProcessProductForm from './with-product-forms-hoc'
+import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 
 const EditProduct = (props) => {
-    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass, handleInputChange, handleFormSubmit } = props
+    const { handleInputChange, handleFormSubmit } = props
+    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass } = props.productInfo
     useTitle(`Edit ${title}`)
 
     return (
@@ -47,4 +48,4 @@ const EditProduct = (props) => {
     )
 }
 
-export default withProcessProductForm(EditProduct, 'edit')
+export default withProcessForm(EditProduct, 'edit')
