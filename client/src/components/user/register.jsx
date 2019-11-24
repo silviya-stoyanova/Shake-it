@@ -32,5 +32,14 @@ const UserRegister = (props) => {
     )
 }
 
+const initialData = {
+    username: '',
+    password: '',
+    repeatPassword: '',
+
+    userClass: '',
+    passClass: '',
+    repeatPassClass: ''
+}
 //* wrong: export default <withProcessForm Form={UserRegister} />
-export default withProcessForm(UserRegister, 'register', userValidations)
+export default withProcessForm(UserRegister, 'register', userValidations, initialData)

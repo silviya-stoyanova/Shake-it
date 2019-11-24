@@ -32,5 +32,12 @@ const UserLogin = (props) => {
     )
 }
 
+const initialData = {
+    username: '',
+    password: '',
+
+    userClass: '',
+    passClass: '',
+}
 //* wrong: export default <withProcessForm Form={UserLogin} />
-export default withProcessForm(UserLogin, 'login', userValidations)
+export default withProcessForm(UserLogin, 'login', userValidations, initialData)

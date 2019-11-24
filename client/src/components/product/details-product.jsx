@@ -72,4 +72,18 @@ const ProductDetails = (props) => {
     )
 }
 
-export default withProcessForm(ProductDetails, 'details', productValidations)
+const initialData = {
+    _id: this.props.match.params.productId,
+    title: '',
+    description: '',
+    image: '',
+    price: '',
+
+    titleClass: 'correct',
+    descriptionClass: 'correct',
+    priceClass: 'correct',
+
+    uploadedImg: ''
+}
+
+export default withProcessForm(ProductDetails, 'details', productValidations, initialData)

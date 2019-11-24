@@ -56,6 +56,18 @@ const CreateProduct = (props) => {
         </div>
     )
 }
+const initialData = {
+    _id: this.props.match.params.productId,
+    title: '',
+    description: '',
+    image: '',
+    price: '',
 
+    titleClass: '',
+    descriptionClass: '',
+    priceClass: '',
+
+    uploadedImg: ''
+}
 // export default CreateProduct
-export default withProcessForm(CreateProduct, 'create', productValidations)
+export default withProcessForm(CreateProduct, 'create', productValidations, initialData)

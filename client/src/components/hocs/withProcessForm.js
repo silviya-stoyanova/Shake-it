@@ -4,33 +4,12 @@ import requester from '../../utilities/requests-util'
 import observer from '../../utilities/observer'
 import sessionManager from '../../utilities/session-util'
 
-const withProcessForm = (Form, formType, validations) => {
-    return class hoc extends Component {
+const withProcessForm = (Form, formType, validations, initialData) => {
+    return class extends Component {
         constructor(props) {
             super(props)
             this.state = {
-                userInfo: {
-                    username: '',
-                    password: '',
-                    repeatPassword: '',
-
-                    userClass: '',
-                    passClass: '',
-                    repeatPassClass: '',
-                },
-                productInfo: {
-                    _id: this.props.match.params.productId,
-                    title: '',
-                    description: '',
-                    image: '',
-                    price: '',
-
-                    titleClass: formType === 'create' ? '' : 'correct',
-                    descriptionClass: formType === 'create' ? '' : 'correct',
-                    priceClass: formType === 'create' ? '' : 'correct',
-
-                    uploadedImg: ''
-                }
+                data: initialData
             }
 
             this.validateData = validations.validateData.bind(this)
@@ -54,7 +33,7 @@ const withProcessForm = (Form, formType, validations) => {
 
         onUserPromiseFail = (err) => {
             this.setState(prevState => ({
-                userInfo: {
+                data: {
                     ...prevState,
                     userClass: 'error',
                     passClass: formType === 'register' ? 'correct' : 'error',
@@ -71,29 +50,20 @@ const withProcessForm = (Form, formType, validations) => {
         // =============================================================================
 
         handleInputChange = async ({ target }) => {
-            await this.setState(prevState => {
-                let infoType
-                if (formType === 'create' || formType === 'edit' || formType === 'delete' || formType === 'details') {
-                    infoType = 'productInfo'
-                } else if (formType === 'login' || formType === 'register') {
-                    infoType = 'userInfo'
+            await this.setState(prevState => ({
+                data: {
+                    ...prevState.data,
+                    [target.name]: target.files ? target.files : target.value.trim(),
+                    uploadedImg: target.files ? URL.createObjectURL(target.files[0]) : prevState.data.uploadedImg
                 }
-
-                return {
-                    [infoType]: {
-                        ...prevState[infoType],
-                        [target.name]: target.files ? target.files : target.value.trim(),
-                        uploadedImg: target.files ? URL.createObjectURL(target.files[0]) : prevState[infoType].uploadedImg
-                    }
-                }
-            })
+            }))
 
             const updateState = true
             if (formType === 'create' || formType === 'edit' || formType === 'delete' || formType === 'details') {
-                const { title, description, image, price } = this.state.productInfo
+                const { title, description, image, price } = this.state.data
                 this.validateData(formType, title, description, image, price, updateState)
             } else if (formType === 'login' || formType === 'register') {
-                const { username, password, repeatPassword } = this.state.userInfo
+                const { username, password, repeatPassword } = this.state.data
                 this.validateData(formType, username, password, repeatPassword, updateState)
             }
         }
@@ -129,14 +99,13 @@ const withProcessForm = (Form, formType, validations) => {
             event.preventDefault()
             let [promise, isValid] = ['', '']
             const jwtToken = sessionManager.getUserInfo().authtoken
-            const { username, password, repeatPassword } = this.state.userInfo
-            const { _id, title, description, image, price } = this.state.productInfo
+            const { username, password, repeatPassword } = this.state.data
+            const { _id, title, description, image, price } = this.state.data
 
             if (formType === 'create' || formType === 'edit' || formType === 'delete' || formType === 'details') {
                 isValid = this.validateOnSubmit(formType, title, description, image, price)
 
             } else if (formType === 'login' || formType === 'register') {
-                // isValid = this.validateUserOnSubmit(formType, username, password, repeatPassword)
                 isValid = this.validateOnSubmit(formType, username, password, repeatPassword)
             }
 
@@ -178,7 +147,7 @@ const withProcessForm = (Form, formType, validations) => {
             // let promise = requester.getProductInfo(this.state.productInfo._id)
             // this.handleFetchPromise(promise, null, null, { redirectOnFail: true })
 
-            requester.getProductInfo(this.state.productInfo._id)
+            requester.getProductInfo(this.state.data._id)
                 .then(res => {
                     if (!res.ok) {
                         return Promise.reject(res)
@@ -187,7 +156,7 @@ const withProcessForm = (Form, formType, validations) => {
                 })
                 .then(res => {
                     this.setState({
-                        productInfo: res
+                        data: res
                     })
                 })
                 .catch(error => {
