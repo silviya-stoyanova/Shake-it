@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 
 const userValidations = {
     validateData(formType, data, updateState) {
-        const { username, password, repeatPassword } = data // new line
+        const { username, password, repeatPassword } = data
 
         let [userClass, passClass, repeatPassClass] = ['error', 'error', 'error']
         let result = {
@@ -34,9 +34,7 @@ const userValidations = {
         }
 
         updateState && this.setState(prevState => ({
-            // userInfo: {
             data: {
-                // ...prevState.userInfo,
                 ...prevState.data,
                 userClass,
                 passClass,
@@ -48,7 +46,6 @@ const userValidations = {
     },
 
     validateOnSubmit(formType, data) {
-        // const { username, password, repeatPassword } = data
         const isInputValid = this.validateData(formType, data, false)
         let isValid = false
         let errorMsg = ''
@@ -79,7 +76,7 @@ const userValidations = {
 
 const productValidations = {
     validateData(formType, data, updateState) {
-        const { title, description, image, price } = data // new line
+        const { title, description, image, price } = data
 
         let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
         let result = {
@@ -108,9 +105,7 @@ const productValidations = {
         }
 
         updateState && this.setState(prevState => ({
-            // productInfo: {
             data: {
-                // ...prevState.productInfo,
                 ...prevState.data,
                 titleClass,
                 descriptionClass,
@@ -121,7 +116,6 @@ const productValidations = {
     },
 
     validateOnSubmit(formType, data) {
-        // const { title, description, image, price } = data
         const updateState = false
         const isInputValid = this.validateData(formType, data, updateState)
         let isValid = false
