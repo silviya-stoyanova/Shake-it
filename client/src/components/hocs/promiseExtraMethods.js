@@ -15,7 +15,7 @@ const promiseExtraMethods = {
         onLoginFail(err) {
             this.setState(prevState => ({
                 data: {
-                    ...prevState,
+                    ...prevState.data,
                     userClass: 'correct',
                     passClass: 'error',
                     repeatPassClass: 'error'
@@ -25,7 +25,7 @@ const promiseExtraMethods = {
         onRegisterFail(err) {
             this.setState(prevState => ({
                 data: {
-                    ...prevState,
+                    ...prevState.data,
                     userClass: 'error',
                     passClass: 'correct',
                     repeatPassClass: 'correct'
