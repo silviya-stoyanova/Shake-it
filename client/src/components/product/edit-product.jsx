@@ -3,10 +3,11 @@ import '../../static/css/products.css'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 import { productValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const EditProduct = (props) => {
     const { handleInputChange, handleFormSubmit } = props
-    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass } = props.productInfo
+    const { title, description, image, uploadedImg, price, titleClass, descriptionClass, priceClass } = props.data
     useTitle(`Edit ${title}`)
 
     return (
@@ -50,7 +51,7 @@ const EditProduct = (props) => {
 }
 
 const initialData = {
-    _id: this.props.match.params.productId,
+    // _id: this.props.match.params.productId,
     title: '',
     description: '',
     image: '',
@@ -63,4 +64,11 @@ const initialData = {
     uploadedImg: ''
 }
 
-export default withProcessForm(EditProduct, 'edit', productValidations, initialData)
+const requestType = 'editProduct'
+
+const extraMethods = {
+    success: promiseExtraMethods.product.onProductPromiseSuccess,
+    fail: promiseExtraMethods.product.onProductPromiseFail,
+}
+
+export default withProcessForm(EditProduct, 'edit', productValidations, initialData, requestType, extraMethods)

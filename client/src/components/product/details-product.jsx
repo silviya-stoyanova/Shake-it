@@ -5,9 +5,10 @@ import { UserInfoConsumer } from '../../App'
 import useTitle from '../page-title/useTitle'
 import withProcessForm from '../hocs/withProcessForm'
 import { productValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const ProductDetails = (props) => {
-    const { _id, title, description, image, price, likes } = props.productInfo
+    const { _id, title, description, image, price, likes } = props.data
     useTitle(title)
     // <textarea disabled>{description}</textarea>
 
@@ -73,17 +74,18 @@ const ProductDetails = (props) => {
 }
 
 const initialData = {
-    _id: this.props.match.params.productId,
+    // _id: props.match.params.productId,
     title: '',
     description: '',
     image: '',
     price: '',
-
-    titleClass: 'correct',
-    descriptionClass: 'correct',
-    priceClass: 'correct',
-
-    uploadedImg: ''
 }
 
-export default withProcessForm(ProductDetails, 'details', productValidations, initialData)
+const requestType = null
+
+const extraMethods = {
+    success: promiseExtraMethods.product.onProductPromiseSuccess,
+    fail: promiseExtraMethods.product.onProductPromiseFail,
+}
+
+export default withProcessForm(ProductDetails, 'details', productValidations, initialData, requestType, extraMethods)

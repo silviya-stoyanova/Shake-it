@@ -4,10 +4,11 @@ import '../../static/css/products.css'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 import { productValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const DeleteProduct = (props) => {
     const { handleFormSubmit } = props
-    const { image, title, description, price } = props.productInfo
+    const { image, title, description, price } = props.data
     useTitle(`Delete ${title}`)
 
     return (
@@ -45,17 +46,18 @@ const DeleteProduct = (props) => {
 }
 
 const initialData = {
-    _id: this.props.match.params.productId,
+    // _id: this.props.match.params.productId,
     title: '',
     description: '',
     image: '',
     price: '',
-
-    titleClass: 'correct',
-    descriptionClass: 'correct',
-    priceClass: 'correct',
-
-    uploadedImg: ''
 }
 
-export default withProcessForm(DeleteProduct, 'delete', productValidations, initialData)
+const requestType = 'deleteProduct'
+
+const extraMethods = {
+    success: promiseExtraMethods.product.onProductPromiseSuccess,
+    fail: promiseExtraMethods.product.onProductPromiseFail,
+}
+
+export default withProcessForm(DeleteProduct, 'delete', productValidations, initialData, requestType, extraMethods)

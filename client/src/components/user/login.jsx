@@ -4,11 +4,13 @@ import '../../static/css/notifications.css'
 import useTitle from '../page-title/useTitle'
 import withProcessForm from '../hocs/withProcessForm'
 import { userValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const UserLogin = (props) => {
     useTitle('Login')
     const { handleInputChange, handleFormSubmit } = props
-    const { userClass, passClass } = props.userInfo
+    const { userClass, passClass } = props.data
+    // const { userClass, passClass } = props.userInfo
 
     return (
         <React.Fragment>
@@ -39,5 +41,13 @@ const initialData = {
     userClass: '',
     passClass: '',
 }
+
+const requestType = 'login'
+
+const extraMethods = {
+    success: promiseExtraMethods.user.onLoginSuccess,
+    fail: promiseExtraMethods.user.onLoginFail
+}
+
 //* wrong: export default <withProcessForm Form={UserLogin} />
-export default withProcessForm(UserLogin, 'login', userValidations, initialData)
+export default withProcessForm(UserLogin, 'login', userValidations, initialData, requestType, extraMethods)

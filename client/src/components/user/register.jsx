@@ -3,11 +3,12 @@ import '../../static/css/forms.css'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 import { userValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const UserRegister = (props) => {
     useTitle('Register')
     const { handleInputChange, handleFormSubmit } = props
-    const { userClass, passClass, repeatPassClass } = props.userInfo
+    const { userClass, passClass, repeatPassClass } = props.data
 
     return (
         <div className="form">
@@ -41,5 +42,13 @@ const initialData = {
     passClass: '',
     repeatPassClass: ''
 }
+
+const requestType = 'register'
+
+const extraMethods = {
+    success: promiseExtraMethods.user.onRegisterSuccess,
+    fail: promiseExtraMethods.user.onRegisterFail
+}
+
 //* wrong: export default <withProcessForm Form={UserRegister} />
-export default withProcessForm(UserRegister, 'register', userValidations, initialData)
+export default withProcessForm(UserRegister, 'register', userValidations, initialData, requestType, extraMethods)

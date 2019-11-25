@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify'
 
 const userValidations = {
-    validateData(formType, username, password, repeatPassword, updateState) {
+    validateData(formType, data, updateState) {
+        const { username, password, repeatPassword } = data // new line
+
         let [userClass, passClass, repeatPassClass] = ['error', 'error', 'error']
         let result = {
             username: 'invalid',
@@ -32,8 +34,10 @@ const userValidations = {
         }
 
         updateState && this.setState(prevState => ({
-            userInfo: {
-                ...prevState.userInfo,
+            // userInfo: {
+            data: {
+                // ...prevState.userInfo,
+                ...prevState.data,
                 userClass,
                 passClass,
                 repeatPassClass
@@ -43,9 +47,9 @@ const userValidations = {
         return result
     },
 
-    validateOnSubmit(formType, username, password, repeatPassword) {
-        debugger
-        const isInputValid = this.validateData(formType, username, password, repeatPassword, false)
+    validateOnSubmit(formType, data) {
+        // const { username, password, repeatPassword } = data
+        const isInputValid = this.validateData(formType, data, false)
         let isValid = false
         let errorMsg = ''
 
@@ -74,7 +78,9 @@ const userValidations = {
 }
 
 const productValidations = {
-    validateData(formType, title, description, image, price, updateState) {
+    validateData(formType, data, updateState) {
+        const { title, description, image, price } = data // new line
+
         let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
         let result = {
             title: 'invalid',
@@ -102,8 +108,10 @@ const productValidations = {
         }
 
         updateState && this.setState(prevState => ({
-            productInfo: {
-                ...prevState.productInfo,
+            // productInfo: {
+            data: {
+                // ...prevState.productInfo,
+                ...prevState.data,
                 titleClass,
                 descriptionClass,
                 priceClass
@@ -112,9 +120,10 @@ const productValidations = {
         return result
     },
 
-    validateOnSubmit(formType, title, description, image, price) {
+    validateOnSubmit(formType, data) {
+        // const { title, description, image, price } = data
         const updateState = false
-        const isInputValid = this.validateData(formType, title, description, image, price, updateState)
+        const isInputValid = this.validateData(formType, data, updateState)
         let isValid = false
         let errorMsg = ''
 

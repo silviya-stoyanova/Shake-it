@@ -2,11 +2,12 @@ import React from 'react'
 import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
 import { productValidations } from '../hocs/validations'
+import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const CreateProduct = (props) => {
     useTitle('Add a new product')
     const { handleInputChange, handleFormSubmit } = props
-    const { titleClass, descriptionClass, priceClass, uploadedImg } = props.productInfo
+    const { titleClass, descriptionClass, priceClass, uploadedImg } = props.data
 
     return (
         <div className="form" >
@@ -56,8 +57,8 @@ const CreateProduct = (props) => {
         </div>
     )
 }
+
 const initialData = {
-    _id: this.props.match.params.productId,
     title: '',
     description: '',
     image: '',
@@ -69,5 +70,13 @@ const initialData = {
 
     uploadedImg: ''
 }
+
+const requestType = 'createProduct'
+
+const extraMethods = {
+    success: promiseExtraMethods.product.onProductPromiseSuccess,
+    fail: promiseExtraMethods.product.onProductPromiseFail,
+}
+
 // export default CreateProduct
-export default withProcessForm(CreateProduct, 'create', productValidations, initialData)
+export default withProcessForm(CreateProduct, 'create', productValidations, initialData, requestType, extraMethods)

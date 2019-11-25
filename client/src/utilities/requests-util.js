@@ -32,12 +32,14 @@ const requester = {
 
     //? to make a logout call to the server??
 
-    login: (username, password) => {
+    login: (data) => {
+        const { username, password } = data
         return fetch(baseUrl + '/user/login',
             makeRequest('POST', JSON.stringify({ username, password })))
     },
 
-    register: (username, password) => {
+    register: (data) => {
+        const { username, password } = data
         return fetch(baseUrl + '/user/register',
             makeRequest('POST', JSON.stringify({ username, password })))
     },
@@ -72,7 +74,8 @@ const requester = {
         )
     },
 
-    createProduct: (title, description, image, price, jwtToken) => {
+    createProduct: (data, jwtToken) => {
+        const { title, description, image, price } = data
         let form = new FormData()
         form.append('title', title)
         form.append('description', description)
@@ -90,7 +93,9 @@ const requester = {
             makeRequest('POST', form, true, jwtToken, null))
     },
 
-    editProduct: (productId, title, description, image, price, jwtToken) => {
+    editProduct: (data, jwtToken) => {
+        const { title, description, image, price } = data
+        const productId = data._id
         let form = new FormData()
         form.append('title', title)
         form.append('description', description)
@@ -101,7 +106,8 @@ const requester = {
             makeRequest('POST', form, true, jwtToken, null))
     },
 
-    deleteProduct: (productId, jwtToken) => {
+    deleteProduct: (data, jwtToken) => {
+        const productId = data._id
         return fetch(baseUrl + '/product/delete/' + productId,
             makeRequest('POST', null, true, jwtToken))
     },
