@@ -54,7 +54,7 @@ td {
 }
 
 .button {
-    width: 100%;
+    /* width: 100%; */
     display: inline-block;
     font-family: inherit;
     /* border-radius: 30px; */

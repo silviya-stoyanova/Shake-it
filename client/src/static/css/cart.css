@@ -3,6 +3,7 @@
 }
 
 .cart-table {
+    width: 80%;
     display: inline-block;
     font-size: 0.8em;
     border: 1px dotted black;
@@ -12,6 +13,12 @@
 
 .cart-header {
     text-decoration: underline;
+}
+
+.cart-img{
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 7px;
 }
 
 .cart-product-qty {
@@ -38,9 +45,19 @@ td {
 }
 
 td:first-child {
+    width: 15%;
+    /* width: 35%; */
+}
+
+td:nth-child(2){
     width: 35%;
+    text-align: left;
 }
 
 td:last-child {
     width: 5%;
+}
+
+.loading-img {
+    width: 20%
 }

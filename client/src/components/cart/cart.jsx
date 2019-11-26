@@ -59,6 +59,7 @@ class Cart extends Component {
         return (
             <thead>
                 <tr>
+                    <td className="cart-header"></td>
                     <td className="cart-header">Product</td>
                     <td className="cart-header">Quantity</td>
                     <td className="cart-header">Price</td>
@@ -74,9 +75,15 @@ class Cart extends Component {
         return (
             <tbody>
                 {productsInCart.map(p => {
-
                     return (
                         <tr key={p._id}>
+                            <td>
+                                <Link to={{
+                                    pathname: `/product/details/${p.product._id}`
+                                }}>
+                                    <img src={'data:image/png;base64, ' + p.product.image} alt='product' className="cart-img" />
+                                </Link>
+                            </td>
                             <td>
                                 <Link to={{
                                     pathname: `/product/details/${p.product._id}`
@@ -108,6 +115,8 @@ class Cart extends Component {
     }
 
     render() {
+        const { productsInCart } = this.state
+
         return (
             <div className="form" >
                 <form onSubmit={this.handleFormSubmit} encType="multipart/form-data" className="cart-form">
@@ -117,7 +126,11 @@ class Cart extends Component {
                     <div className="form-fields-wrapper">
                         <table className="cart-table">
                             {this.tableHeader()}
-                            {this.tableBody()}
+                            {
+                                productsInCart.length
+                                    ? this.tableBody()
+                                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading-img'} className="product-img loading-img" />
+                            }
                         </table>
                     </div>
 

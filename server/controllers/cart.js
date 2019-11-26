@@ -1,5 +1,8 @@
 const Cart = require('../models/Cart')
 const User = require('../models/User')
+const fs = require('fs')
+const path = require('path')
+const uploadFilesPath = path.join(__dirname, '../upload/images/')
 
 module.exports = {
     getCart: async (req, res) => {
@@ -9,6 +12,11 @@ module.exports = {
         if (!cart) {
             return res.status(500).send({ message: 'Something went wrong' })
         }
+
+        cart.products.map(productInfo => {
+            productInfo.product.image = fs.readFileSync(uploadFilesPath + productInfo.product.image).toString('base64')
+        })
+
         res.send(cart.products)
     },
 
@@ -42,7 +50,7 @@ module.exports = {
 
     removeFromCart: async (req, res) => {
         const { productInfoId } = req.params
-        try {           
+        try {
             let cart = await Cart.findOne({ 'products._id': productInfoId })
             cart.products = cart.products.filter(p => p._id.toString() !== productInfoId.toString())
             cart.save()
@@ -69,7 +77,7 @@ module.exports = {
                 cart.products[index].quantity--
 
                 if (cart.products[index].quantity === 0) {
-                    // remove the product from the cart
+                    // remove the product from the cart when it's quantity in the cart reaches 0
                     cart.products = cart.products.filter(p => p._id.toString() !== productInfoId.toString())
                 }
             } else {
@@ -77,6 +85,9 @@ module.exports = {
             }
 
             cart.save()
+            cart.products.map(productInfo => {
+                productInfo.product.image = fs.readFileSync(uploadFilesPath + productInfo.product.image).toString('base64')
+            })
             return res.send({ products: cart.products, success: `Product count was ${successVerb} successfully!` })
 
         } catch (err) {

@@ -16,9 +16,8 @@ const promiseExtraMethods = {
             this.setState(prevState => ({
                 data: {
                     ...prevState.data,
-                    userClass: 'correct',
-                    passClass: 'error',
-                    repeatPassClass: 'error'
+                    userClass: 'error',
+                    passClass: 'error'
                 }
             }))
         },
