@@ -22,7 +22,7 @@ import AddToCart from '../cart/add-to-cart'
 import RemoveFromCart from '../cart/remove-from-cart'
 
 // order components
-import CompleteOrder from '../order/complete'
+import CompleteOrder from '../order/complete-order'
 
 // static components
 import ContactForm from '../static-pages/contacts'
