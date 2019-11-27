@@ -46,8 +46,8 @@ const initialData = {
 const requestType = 'register'
 
 const extraMethods = {
-    success: promiseExtraMethods.user.onRegisterSuccess,
-    fail: promiseExtraMethods.user.onRegisterFail
+    success: promiseExtraMethods.user().onRegisterSuccess,
+    fail: promiseExtraMethods.user().onRegisterFail
 }
 
 //* wrong: export default <withProcessForm Form={UserRegister} />

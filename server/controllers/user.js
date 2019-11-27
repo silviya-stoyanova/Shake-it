@@ -1,12 +1,12 @@
-const User = require('mongoose').model('User')
-const Cart = require('../models/Cart')
-const encryption = require('../utilities/encryption')
 const jwt = require('jsonwebtoken')
 const jwtConfig = require('../config/jwt-config')
+const encryption = require('../utilities/encryption')
 const multiparty = require('multiparty')
 const path = require('path')
 const fs = require('fs')
 const mv = require('mv')
+const User = require('../models/User')
+const Cart = require('../models/Cart')
 const uploadFilesPath = path.join(__dirname, '../upload/profile-pics/')
 
 module.exports = {
@@ -41,9 +41,12 @@ module.exports = {
                 profilePic: 'default.png',
                 firstName: '',
                 lastName: '',
-                email: '',
-                adress: '',
                 phoneNumber: '',
+                email: '',
+                country: '',
+                city: '',
+                postcode: '',
+                adress: '',
                 purchasedProducts: '',
                 myCart: cart._id,
 
@@ -111,8 +114,6 @@ module.exports = {
         }
 
         user.profilePic = fs.readFileSync(uploadFilesPath + user.profilePic).toString('base64')
-
-        // todo: return profilePic as a base64 encoded string
         return res.send(user)
     },
 
@@ -124,9 +125,12 @@ module.exports = {
             const profilePic = files.profilePic ? files.profilePic[0] : ''
             const firstName = fields.firstName[0]
             const lastName = fields.lastName[0]
-            const email = fields.email[0]
-            const adress = fields.adress[0]
             const phoneNumber = fields.phoneNumber[0]
+            const email = fields.email[0]
+            const country = fields.country[0]
+            const city = fields.city[0]
+            const postcode = fields.postcode[0]
+            const adress = fields.adress[0]
 
             if (err) {
                 return res.status(500).send({ message: err.message })
@@ -145,9 +149,12 @@ module.exports = {
 
             user.firstName = firstName
             user.lastName = lastName
-            user.email = email
-            user.adress = adress
             user.phoneNumber = phoneNumber
+            user.email = email
+            user.country = country
+            user.city = city
+            user.postcode = postcode
+            user.adress = adress
 
             // if the users passed a new profilePic, update the old one
             if (profilePic) {

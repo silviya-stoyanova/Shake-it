@@ -23,6 +23,7 @@ import RemoveFromCart from '../cart/remove-from-cart'
 
 // order components
 import CompleteOrder from '../order/complete-order'
+import ThanksForOrder from '../order/thank-you'
 
 // static components
 import ContactForm from '../static-pages/contacts'
@@ -49,7 +50,8 @@ function MyRoutes() {
             <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />
             <AuthRoute path="/cart/remove/:productInfoId" component={RemoveFromCart} role="User" />
 
-            <AuthRoute path="/order/complete" component={CompleteOrder} role="User"/>
+            <AuthRoute path="/order/complete" component={CompleteOrder} role="User" />
+            <AuthRoute path="/thanks-for-ordering" component={ThanksForOrder} role="User"/>
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />

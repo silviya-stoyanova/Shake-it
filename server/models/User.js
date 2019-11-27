@@ -6,14 +6,16 @@ let userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true, minlength: 5 },
     profilePic: {
         type: String,
-        default: 'default.png'
-        // default: 'https://cms.qz.com/wp-content/uploads/2016/03/shake.jpg?quality=75&strip=all&w=350&h=449&crop=1'
+        default: 'default.png'  // default: 'https://cms.qz.com/wp-content/uploads/2016/03/shake.jpg?quality=75&strip=all&w=350&h=449&crop=1'
     },
     firstName: { type: String },
     lastName: { type: String },
-    email: { type: String, },      // unique: true
-    adress: { type: String, },
     phoneNumber: { type: String, },
+    email: { type: String, },             // unique: true
+    country: { type: String },
+    city: { type: String },
+    postcode: { type: String },
+    adress: { type: String, },
     purchasedProducts: { type: Number, default: 0 }, // boughtProducts ?
 
     myCart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' },

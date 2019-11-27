@@ -135,7 +135,7 @@ class Cart extends Component {
                     </div>
 
                     <hr />
-                    <button type="submit" className="button">Complete order</button>
+                    <button type="submit" className="button confirm-btn">Complete order</button>
                 </form>
             </div>
         )

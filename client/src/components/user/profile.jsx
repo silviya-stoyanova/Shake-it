@@ -17,6 +17,9 @@ class UserProfile extends Component {
             email: '',
             adress: '',
             phoneNumber: '',
+            country: '',
+            city: '',
+            postcode: '',
             purchasedProducts: '',
 
             uploadedImg: ''
@@ -37,9 +40,9 @@ class UserProfile extends Component {
     handleFormSumbit = (event) => {
         event.preventDefault()
         const jwtToken = sessionManager.getUserInfo().authtoken
-        const { profilePic, firstName, lastName, email, adress, phoneNumber } = this.state
+        const { profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state
 
-        requester.updateProfileInfo(profilePic, firstName, lastName, email, adress, phoneNumber, jwtToken)
+        requester.updateProfileInfo(profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress, jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
@@ -62,7 +65,7 @@ class UserProfile extends Component {
     }
 
     render() {
-        const { profilePic, firstName, lastName, email, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
+        const { profilePic, firstName, lastName, email, country, city, postcode, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
 
         return <UserInfoConsumer>
             {(data) => (
@@ -103,16 +106,25 @@ class UserProfile extends Component {
                             <label htmlFor="lastName" >Last name:</label>
                             <input onChange={this.handleInputChange} name="lastName" id="lastName" defaultValue={lastName} />
 
+                            <label htmlFor="phoneNumber" >Phone:</label>
+                            <input onChange={this.handleInputChange} name="phoneNumber" id="phoneNumber" defaultValue={phoneNumber} />
+
                             <label htmlFor="email" >Email:</label>
                             <input onChange={this.handleInputChange} name="email" type="email" id="email" defaultValue={email} />
 
-                            <label htmlFor="adress" >Adress:</label>
+                            <label htmlFor="country" >Country:</label>
+                            <input onChange={this.handleInputChange} name="country" id="country" defaultValue={country} />
+
+                            <label htmlFor="city" >City:</label>
+                            <input onChange={this.handleInputChange} name="city" id="city" defaultValue={city} />
+
+                            <label htmlFor="postcode" >Postcode:</label>
+                            <input onChange={this.handleInputChange} name="postcode" id="postcode" defaultValue={postcode} />
+
+                            <label htmlFor="adress" >Shipping address:</label>
                             <input onChange={this.handleInputChange} name="adress" id="adress" defaultValue={adress} />
 
-                            <label htmlFor="phoneNumber" >Phone number:</label>
-                            <input onChange={this.handleInputChange} name="phoneNumber" id="phoneNumber" defaultValue={phoneNumber} />
-
-                            <label htmlFor="purchasedProducts" >Purchased products: {purchasedProducts}</label>
+                            <label>Purchased products: {purchasedProducts}</label>
                         </div>
 
                         <hr />
@@ -140,6 +152,9 @@ class UserProfile extends Component {
                     firstName: res.firstName !== 'undefined' ? res.firstName : '',
                     lastName: res.lastName !== 'undefined' ? res.lastName : '',
                     email: res.email !== 'undefined' ? res.email : '',
+                    country: res.country !== 'undefined' ? res.country : '',
+                    city: res.city !== 'undefined' ? res.city : '',
+                    postcode: res.postcode !== 'undefined' ? res.postcode : '',
                     adress: res.adress !== 'undefined' ? res.adress : '',
                     phoneNumber: res.phoneNumber !== 'undefined' ? res.phoneNumber : '',
                     purchasedProducts: res.purchasedProducts !== null ? res.purchasedProducts : 0

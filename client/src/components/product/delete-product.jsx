@@ -56,8 +56,8 @@ const initialData = {
 const requestType = 'deleteProduct'
 
 const extraMethods = {
-    success: promiseExtraMethods.product.onProductPromiseSuccess,
-    fail: promiseExtraMethods.product.onProductPromiseFail,
+    success: promiseExtraMethods.product().onProductPromiseSuccess,
+    fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
 export default withProcessForm(DeleteProduct, 'delete', productValidations, initialData, requestType, extraMethods)

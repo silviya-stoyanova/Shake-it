@@ -6,9 +6,10 @@ const PageNotFound = () => {
     useTitle('404 - Page not found')
 
     return <div className="not-found-wrapper" >
-        <div className="not-found-img"></div>
-        <span className="four-digit left-al">4</span>
-        <span className="four-digit right-al">4</span>
+        <div className="not-found-img">
+            <span className="four-digit left-al">4</span>
+            <span className="four-digit right-al">4</span>
+        </div>
         <span className="not-found-txt">Sorry, we could not find what you were looking for :(</span>
     </div>
 }

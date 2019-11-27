@@ -84,8 +84,8 @@ const initialData = {
 const requestType = null
 
 const extraMethods = {
-    success: promiseExtraMethods.product.onProductPromiseSuccess,
-    fail: promiseExtraMethods.product.onProductPromiseFail,
+    success: promiseExtraMethods.product().onProductPromiseSuccess,
+    fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
 export default withProcessForm(ProductDetails, 'details', productValidations, initialData, requestType, extraMethods)

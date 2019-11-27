@@ -74,8 +74,8 @@ const initialData = {
 const requestType = 'createProduct'
 
 const extraMethods = {
-    success: promiseExtraMethods.product.onProductPromiseSuccess,
-    fail: promiseExtraMethods.product.onProductPromiseFail,
+    success: promiseExtraMethods.product().onProductPromiseSuccess,
+    fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
 // export default CreateProduct

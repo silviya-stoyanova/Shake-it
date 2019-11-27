@@ -2,6 +2,16 @@
     width: 95%;
 }
 
+.form-giude {
+    font-size: 0.9em;
+}
+
+.asterisk {
+    color: rgb(109, 31, 31);
+    font-weight: 900;
+    opacity: 5;
+}
+
 .order-form-field {
     width: 40%;
     margin: 0.5em;
@@ -14,12 +24,16 @@
 
 .order-block-el {
     display: block;
-    width: 84%;
+    width: 82.5%;
     margin: auto;
 }
 
+.order-two-el {
+    width: 40%;
+}
+
 .order-triple-el {
-    width: 25%;
+    width: 26%;
 }
 
 .order-form-field > input {
@@ -29,15 +43,50 @@
 .order-form-field > label {
     opacity: 0.7;
     font-size: 1.2em;
-    display: inline;    /* mew line */
+    display: inline;
 }
 
-.form-giude {
-    font-size: 0.9em;
+.payment-label {
+    display: inline;
 }
 
-.asterisk {
-    color: rgb(109, 31, 31);
+.payment-label:not(:last-child) {
+    /* display: inline; */
+    margin-right: 11em;
+}
+
+.payment-input {
+    width: 1%;
+    /* display: block; */
+}
+
+.confirm-btn {
+    width: unset
+}
+
+
+
+
+
+.thank-you-el {
+    background: url('../images/thank-you.jpg') no-repeat;
+    background-size: cover;
+    border-radius: 2em;
+    width: 40em;
+    height: 40em;
+    margin: auto;
+    border: 1px solid rgb(163, 133, 140);
+}
+
+.thank-you-el:hover {
+    border: 1px solid pink;
+    filter: drop-shadow(2px 3px 4px pink);
+}
+
+.thank-you-txt {
+    font-size: 25pt;
     font-weight: 900;
-    opacity: 5;
+    color: #624f40;;
+    text-shadow: 1px 1px 1px pink;
+    text-align: center;
 }

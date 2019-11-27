@@ -3,16 +3,19 @@ import observer from '../../utilities/observer'
 import sessionManager from '../../utilities/session-util'
 
 const promiseExtraMethods = {
-    user: {
-        onLoginSuccess(res) {
+    user() {
+        function onLoginSuccess(res) {
             sessionManager.saveSession(res.authtoken, res.username, res.role)
             observer.trigger('userLogin')
-        },
-        onRegisterSuccess(res, data) {
+        }
+
+        function onRegisterSuccess(res, data) {
+            debugger
             let nextPromise = requester.login(data)
-            this.handleFetchPromise(nextPromise, this.onLoginSuccess, this.onLoginFail, data) // { username: data.username, password: data.password }
-        },
-        onLoginFail(err) {
+            this.handleFetchPromise(nextPromise, onLoginSuccess, onLoginFail, data) // { username: data.username, password: data.password }
+        }
+
+        function onLoginFail(err) {
             this.setState(prevState => ({
                 data: {
                     ...prevState.data,
@@ -20,8 +23,9 @@ const promiseExtraMethods = {
                     passClass: 'error'
                 }
             }))
-        },
-        onRegisterFail(err) {
+        }
+
+        function onRegisterFail(err) {
             this.setState(prevState => ({
                 data: {
                     ...prevState.data,
@@ -31,17 +35,29 @@ const promiseExtraMethods = {
                 }
             }))
         }
+
+        return {
+            onLoginSuccess,
+            onRegisterSuccess,
+            onLoginFail,
+            onRegisterFail
+        }
     },
 
-    product: {
-        onProductPromiseSuccess(err) {
+    product() {
+       function onProductPromiseSuccess(err) {
             return err // do nothing
-        },
+        }
 
-        onProductPromiseFail(err) {
+       function onProductPromiseFail(err) {
             if (!err.titleIsTaken) {
                 this.props.history.push('/')
             }
+        }
+
+        return {
+            onProductPromiseSuccess,
+            onProductPromiseFail
         }
     }
 }

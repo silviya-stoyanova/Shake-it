@@ -32,6 +32,8 @@
     font-size: 13em;
     top: 0.1em;
     color: rgb(163, 133, 140);
+    filter: drop-shadow(0px 1px 0px pink);
+
 }
 
 .left-al {

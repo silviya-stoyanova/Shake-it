@@ -49,13 +49,16 @@ const requester = {
             makeRequest('GET', null, true, jwtToken))
     },
 
-    updateProfileInfo: (profilePic, firstName, lastName, email, adress, phoneNumber, jwtToken) => {
+    updateProfileInfo: (profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress, jwtToken) => {
         const form = new FormData()
 
         form.append('profilePic', profilePic[0])
         form.append('firstName', firstName)
         form.append('lastName', lastName)
         form.append('email', email)
+        form.append('country', country)
+        form.append('city', city)
+        form.append('postcode', postcode)
         form.append('adress', adress)
         form.append('phoneNumber', phoneNumber)
 

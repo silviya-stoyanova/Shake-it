@@ -45,8 +45,8 @@ const initialData = {
 const requestType = 'login'
 
 const extraMethods = {
-    success: promiseExtraMethods.user.onLoginSuccess,
-    fail: promiseExtraMethods.user.onLoginFail
+    success: promiseExtraMethods.user().onLoginSuccess,
+    fail: promiseExtraMethods.user().onLoginFail
 }
 
 //* wrong: export default <withProcessForm Form={UserLogin} />
