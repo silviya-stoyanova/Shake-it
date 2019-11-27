@@ -26,6 +26,8 @@
     display: block;
     width: 82.5%;
     margin: auto;
+    margin-bottom: 2%;    /* new line */
+    margin-top: 1%;       /* new line */
 }
 
 .order-two-el {
@@ -33,7 +35,8 @@
 }
 
 .order-triple-el {
-    width: 26%;
+    /* width: 26%; */
+    width: 25%;
 }
 
 .order-form-field > input {
@@ -52,12 +55,23 @@
 
 .payment-label:not(:last-child) {
     /* display: inline; */
-    margin-right: 11em;
+    margin-right: 16%;
 }
 
 .payment-input {
-    width: 1%;
+    width: 2%;
     /* display: block; */
+}
+
+.paypal-logo {
+    background: no-repeat url('../images/pay-pal-logo.png');
+    width: 3em;
+    height: 1em;
+    background-position: center;
+    display: inline-block;
+    background-size: contain;
+    filter: brightness(0.5);
+    vertical-align: bottom;
 }
 
 .confirm-btn {

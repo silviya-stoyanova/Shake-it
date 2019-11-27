@@ -24,9 +24,9 @@ class CompleteOrder extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        const { firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state.user
+        const { firstName, lastName, phoneNumber, email, country, city, postcode, adress, paymentMethod } = this.state.user
 
-        if (!firstName || !lastName || !phoneNumber || !email || !country || !city || !postcode || !adress) {
+        if (!firstName || !lastName || !phoneNumber || !email || !country || !city || !postcode || !adress || !paymentMethod) {
             return toast.info('All fields are mandatory!', {
                 className: 'error-toast'
             })
@@ -101,7 +101,7 @@ class CompleteOrder extends Component {
 
                         <div>
                             <input className='payment-input' type='radio' value='PayPal' id='PayPal' onChange={this.handleInputChange} name="paymentMethod" />
-                            <label className='payment-label' htmlFor="PayPal">PayPal</label>
+                            <label className='payment-label paypal-logo' htmlFor="PayPal"></label>
 
                             <input className='payment-input' type='radio' value='Credit/Debit card' id='Credit/Debit card' onChange={this.handleInputChange} name="paymentMethod" />
                             <label className='payment-label' htmlFor="Credit/Debit card">Credit/Debit card</label>
