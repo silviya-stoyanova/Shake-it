@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../../static/css/order.css'
 import requester from '../../utilities/requests-util'
 import sessionManager from '../../utilities/session-util'
@@ -110,10 +111,14 @@ class CompleteOrder extends Component {
                             <label className='payment-label' htmlFor="Cash on delivery">Cash on delivery</label>
                         </div>
 
-                        {/* PayPal, Credit/Debit card, Cash on delivery */}
-                        {/* <input id='paymentMethod' onChange={this.handleInputChange} name="paymentMethod" /> */}
                     </div>
 
+                    <div>
+                        By clicking Confirm, you agree to our
+                        <Link to='/terms'> Terms </Link>
+                        and that you have read our
+                        <Link to='/data-use-policy'> Data Use Policy</Link>
+                    </div>
 
                     <hr />
                     <button type="submit" className="button confirm-btn" >Confirm <span role="img" aria-label='milkshake cup'>🍹</span></button>

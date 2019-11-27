@@ -28,6 +28,8 @@ import ThanksForOrder from '../order/thank-you'
 // static components
 import ContactForm from '../static-pages/contacts'
 import About from '../static-pages/about-us'
+import Terms from '../static-pages/terms'
+import DataUsePolicy from '../static-pages/data-use-policy'
 import PageNotFound from '../static-pages/not-found'
 
 function MyRoutes() {
@@ -55,6 +57,8 @@ function MyRoutes() {
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/data-use-policy" component={DataUsePolicy} />
             <Route component={PageNotFound} />
         </Switch>
     )

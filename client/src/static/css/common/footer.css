@@ -8,3 +8,25 @@ footer {
     text-align: center;
     border-top: 1px solid black;
 }
+
+footer > div > span > a {
+    display: block;
+    /* text-align: center; */
+    color: black;
+}
+
+footer > div > span > a:hover {
+    color: rgb(109, 31, 31);
+}
+
+.left-al {
+    text-align: center;
+    display: inline-block;
+    margin-right: 5%;
+}
+
+.right-al {
+    text-align: center;
+    display: inline-block;
+    margin-left: 5%;
+}
