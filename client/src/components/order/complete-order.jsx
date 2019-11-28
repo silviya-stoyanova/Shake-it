@@ -10,7 +10,8 @@ class CompleteOrder extends Component {
         super(props)
 
         this.state = {
-            user: ''
+            user: '',
+            productsInCart: []
         }
     }
 
@@ -38,18 +39,11 @@ class CompleteOrder extends Component {
 
     render() {
         document.title = 'Shake it - Complete your order'
+        const { productsInCart } = this.state
         const { firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state.user
 
-        return <React.Fragment>
-            <div className="form">
-                <form className='order-form'>
-                    <div className="form-type">My products</div>
-                    <div>/to add more info here/</div>
-                    <hr />
-                </form>
-            </div>
-
-            <div className="form">
+        return <div>
+            <div className="order-info">
                 <form className='order-form' onSubmit={this.handleFormSubmit}>
                     <div className="form-type">Shipping information</div>
                     <hr />
@@ -124,31 +118,80 @@ class CompleteOrder extends Component {
                     <button type="submit" className="button confirm-btn" >Confirm <span role="img" aria-label='milkshake cup'>🍹</span></button>
                 </form>
             </div>
-        </React.Fragment >
+
+            <div className='ordered-products'>
+                <div className='ordered-products-heading'>My products</div>
+                {/* <div>/to add more info here/</div> */}
+
+                {productsInCart.map(p => {
+                    return (
+                        <div key={p._id}>
+                            <img src={'data:image/png;base64, ' + p.product.image} alt='product' className="cart-img ordered-products-img" />
+                            <div>
+                                <span>{p.product.title}</span>
+                                <span className="cart-product-qty">{p.quantity}</span>
+                                <span>{p.product.price}<span className="price-sign">$</span></span>
+                                <span>{(p.quantity * p.product.price).toFixed(2)}<span className="price-sign">$</span></span>
+                            </div>
+                            <hr />
+                        </div>
+                    )
+                })}
+
+                {/* <hr className='hr-vertical' /> */}
+            </div>
+
+            <div className='order-total ordered-products-heading'>Total</div>
+        </div >
     }
 
     async componentDidMount() {
         const jwtToken = sessionManager.getUserInfo().authtoken
 
-        requester.getProfileInfo(jwtToken)
+        requester.getCart(jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
                 }
                 return res.json()
             })
-            .then(async res => {
-                await this.setState({ user: res })
-            })
-            .catch(err => {
-                err.json()
-                    .then(error => {
-                        this.props.history.push('/')
+            .then(cartRes => {
+                // this.setState({ productsInCart: cartRes })
 
-                        toast.info(error.message, {
-                            className: 'error-toast'
+
+
+                requester.getProfileInfo(jwtToken)
+                    .then(res => {
+                        if (!res.ok) {
+                            return Promise.reject(res)
+                        }
+                        return res.json()
+                    })
+                    .then(async userRes => {
+                        await this.setState({
+                            productsInCart: cartRes,
+                            user: userRes
                         })
                     })
+                    .catch(err => {
+                        err.json()
+                            .then(error => {
+                                this.props.history.push('/')
+
+                                toast.info(error.message, {
+                                    className: 'error-toast'
+                                })
+                            })
+                    })
+
+
+            })
+            .catch(err => {
+                err.json().then(error => {
+                    return toast.info(error.message, {
+                        className: 'error-toast',
+                    })
+                })
             })
     }
 }

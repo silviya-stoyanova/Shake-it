@@ -21,7 +21,8 @@ p {
 }
 
 hr {
-   border-color: rgb(109, 31, 31);
+    border-color: rgb(109, 31, 31);
+    border-radius: 100%;
 }
 
 .main-container {

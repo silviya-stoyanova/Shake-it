@@ -7,7 +7,7 @@ function Footer() {
         <footer>
             <div className='left-al'>
                 <span><Link to='/terms'>Terms</Link></span>
-                <span><Link to='/data-use-policy'>Data Use Policy</Link></span>
+                <span><Link to='/data-use-policy'>Data use policy</Link></span>
             </div>
             <div className='right-al'>
                 <span><Link to='/contacts'>Make contact with us</Link></span>

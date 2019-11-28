@@ -1,5 +1,6 @@
 .order-form {
-    width: 95%;
+    /* width: 95%; */
+    width: 100%;
 }
 
 .form-giude {
@@ -83,24 +84,95 @@
 
 
 .thank-you-el {
-    background: url('../images/thank-you.jpg') no-repeat;
+    /* background: url('../images/thank-you.jpg') no-repeat; */
+    background: url('../images/thank-you.png') no-repeat;
     background-size: cover;
     border-radius: 2em;
     width: 40em;
     height: 40em;
     margin: auto;
-    border: 1px solid rgb(163, 133, 140);
+    position: relative;
+    /* border: 1px solid rgb(163, 133, 140); */
+
+    /* to be able to copy the text above it */
+    z-index: -1;
+
+    filter: drop-shadow(4px 5px 6px pink);
 }
 
-.thank-you-el:hover {
-    border: 1px solid pink;
+.thank-you-txt:hover {
+    /* border: 1px solid pink; */
     filter: drop-shadow(2px 3px 4px pink);
 }
 
 .thank-you-txt {
     font-size: 25pt;
     font-weight: 900;
-    color: #624f40;;
+    /* color: #624f40; */
+    color: #303339;
     text-shadow: 1px 1px 1px pink;
     text-align: center;
+    position: absolute;
+}
+
+.first-line {
+    top: 3em;
+    left: 10em;
+    /* left: 21%; */
+}
+
+.second-line {
+    top: 4em;
+    left: 15em;
+}
+
+.third-line {
+    top: 18em;
+    left: 10em;
+}
+
+.ordered-products {
+    position: absolute;
+    top: 11%;
+
+    width: 11%;
+    display: inline-block;
+    padding-left: 2em;
+    border-left: 2px solid rgb(109, 31, 31);
+
+    /* overflow-x: hidden; */
+    overflow-y: auto;
+    /* max-height: 66%; */
+    max-height: 50%;
+}
+
+.ordered-products-heading {
+    font-size: 1.67em;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+}
+
+.ordered-products-img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.order-info {
+    width: 85%;
+    display: inline-block;
+}
+/*
+.hr-vertical {
+    display: inline-block;
+    height: 25em;
+    position: absolute;
+    top: 20%;
+    left: 84%;
+} */
+
+.order-total {
+    position: absolute;
+    /* width: 11%; */
+    right: 9%;
+    top: 61%;
 }
