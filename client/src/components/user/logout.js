@@ -8,7 +8,8 @@ import observer from '../../utilities/observer'
 function logout() {
     try {
         const jwtToken = sessionManager.getUserInfo().authtoken
-        requester.logout(jwtToken).then(res => console.log(true))
+        requester.logout(jwtToken)
+
         sessionManager.clearSession()
         observer.trigger('userLogout')
         toast.info('Successful log out! 🍹', {
