@@ -126,11 +126,7 @@ class Cart extends Component {
                     <div className="form-fields-wrapper">
                         <table className="cart-table">
                             {this.tableHeader()}
-                            {
-                                productsInCart.length
-                                    ? this.tableBody()
-                                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading-img'} className="product-img loading-img" />
-                            }
+                            {this.tableBody()}
                         </table>
                     </div>
 
