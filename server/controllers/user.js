@@ -102,7 +102,12 @@ module.exports = {
     },
 
     logout: (req, res) => {
-        req.logOut()
+        try {
+            req.logOut()
+            return res.send({ success: 'Logged out! :)' })
+        } catch (err) {
+            return res.status(500).send({ message: 'Something went wrong when trying to log you out. Please try again later.' })
+        }
     },
 
     getProfile: async (req, res) => {
