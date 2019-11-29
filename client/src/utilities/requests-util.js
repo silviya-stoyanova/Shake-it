@@ -47,7 +47,6 @@ const requester = {
     logout: (jwtToken) => {
         return fetch(baseUrl + '/user/logout',
             makeRequest('POST', null, true, jwtToken))
-        // makeRequest('POST', null, true))
     },
 
     getProfileInfo: (jwtToken) => {
