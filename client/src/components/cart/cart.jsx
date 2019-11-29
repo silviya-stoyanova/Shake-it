@@ -115,8 +115,6 @@ class Cart extends Component {
     }
 
     render() {
-        const { productsInCart } = this.state
-
         return (
             <div className="form" >
                 <form onSubmit={this.handleFormSubmit} encType="multipart/form-data" className="cart-form">

@@ -1,10 +1,17 @@
-import React, { Fragment as div } from 'react'
+import React from 'react' // { Fragment as div }
+import { toast } from 'react-toastify'
 import '../../static/css/forms.css'
 import '../../static/css/contacts.css'
 import useTitle from '../page-title/useTitle'
 
 const ContactForm = () => {
     useTitle('Contact with us')
+
+    const handleBtnSend = (e) => {
+        toast.info('Thank you for the feedback!', {
+            className: 'success-toast'
+        })
+    }
 
     return (
         <div>
@@ -36,7 +43,7 @@ const ContactForm = () => {
                         <input type="text" id="number" />
 
                         <label htmlFor="email">Email adress</label>
-                        <input type="text" id="email" />
+                        <input type="email" id="email" />
 
                         <label htmlFor="subject">Subject</label>
                         <input type="text" id="subject" />
@@ -46,7 +53,8 @@ const ContactForm = () => {
                     </div>
 
                     <hr />
-                    <button className="button" type="submit">Send</button>
+                    {/* <button className="button" type="submit">Send</button> */}
+                    <button onClick={handleBtnSend} className="button" type="reset">Send</button>
                 </form>
             </div>
         </div>
