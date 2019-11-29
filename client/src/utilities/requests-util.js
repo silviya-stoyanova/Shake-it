@@ -30,8 +30,6 @@ const requester = {
     //   credentials: 'include'
     // })
 
-    //? to make a logout call to the server??
-
     login: (data) => {
         const { username, password } = data
         return fetch(baseUrl + '/user/login',
