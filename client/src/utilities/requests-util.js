@@ -135,6 +135,11 @@ const requester = {
             makeRequest('POST', null, false, jwtToken))
     },
 
+    emptyCart: (jwtToken) => {
+        return fetch(baseUrl + '/cart/remove/all',
+            makeRequest('POST', null, false, jwtToken))
+    },
+
     updateQty: (productInfoId, actionType, jwtToken) => {
         return fetch(baseUrl + '/cart/update-qty/' + productInfoId,
             makeRequest('POST', JSON.stringify({ actionType }), false, jwtToken))

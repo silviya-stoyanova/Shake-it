@@ -10,7 +10,6 @@ const promiseExtraMethods = {
         }
 
         function onRegisterSuccess(res, data) {
-            debugger
             let nextPromise = requester.login(data)
             this.handleFetchPromise(nextPromise, onLoginSuccess, onLoginFail, data) // { username: data.username, password: data.password }
         }

@@ -26,6 +26,7 @@ class CompleteOrder extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
+        const jwtToken = sessionManager.getUserInfo().authtoken
         const { firstName, lastName, phoneNumber, email, country, city, postcode, adress, paymentMethod } = this.state.user
 
         if (!firstName || !lastName || !phoneNumber || !email || !country || !city || !postcode || !adress || !paymentMethod) {
@@ -34,7 +35,15 @@ class CompleteOrder extends Component {
             })
         }
 
-        this.props.history.push('/thanks-for-ordering')
+        requester.emptyCart(jwtToken)
+            .then(res => {
+                this.props.history.push('/thanks-for-ordering')
+            })
+            .catch(err => {
+                toast.info(err.message, {
+                    className: 'error-toast'
+                })
+            })
     }
 
     render() {
@@ -67,7 +76,7 @@ class CompleteOrder extends Component {
                     <div className='order-form-field order-two-el'>
                         <label htmlFor="email">Email </label>
                         <span className='asterisk'>*</span>
-                        <input id='email' onChange={this.handleInputChange} defaultValue={email} name="email" />
+                        <input id='email' type='email' onChange={this.handleInputChange} defaultValue={email} name="email" />
                     </div>
                     <div className='order-form-field order-triple-el'>
                         <label htmlFor="country">Country </label>

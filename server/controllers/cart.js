@@ -61,6 +61,24 @@ module.exports = {
         }
     },
 
+    emptyCart: (req, res) => {
+        const { myCart } = req.session.user
+        try {
+            Cart.findByIdAndUpdate(myCart, {
+                $set: {
+                    products: []
+                }
+            }, (err, response) => {
+                if (err) {
+                    return res.status(400).send({ message: err.message })
+                }
+                return res.send({ success: 'Cart emptied successfully.', emptyCart: true })
+            })
+        } catch (err) {
+            return res.status(400).send({ message: err.message })
+        }
+    },
+
     updateQty: async (req, res) => {
         const { productInfoId } = req.params
         const action = req.body
