@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for the component Footer should render properly 1`] = `"<footer><div class=\\"left-al\\"><span><a href=\\"/terms\\">Terms</a></span><span><a href=\\"/data-use-policy\\">Data use policy</a></span></div><div class=\\"right-al\\"><span><a href=\\"/contacts\\">Make contact with us</a></span><span>© Shake it, Bulgaria 2019</span></div></footer>"`;

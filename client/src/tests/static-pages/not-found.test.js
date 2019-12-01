@@ -5,7 +5,7 @@ import NotFound from '../../components/static-pages/not-found'
 describe('tests for the component NotFound', () => {
     it('should render correctly', () => {
         const wrapper = mount(<NotFound />)
-        expect(wrapper.debug()).toMatchSnapshot()
+        expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should have a div element with className "not-found-wrapper"', () => {

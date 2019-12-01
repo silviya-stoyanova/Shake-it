@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for the Header component should render properly when a user is NOT logged in 1`] = `"<header><a href=\\"/\\"><span class=\\"logo\\"></span></a><ul><li class=\\"left-align\\"><a href=\\"/\\">all products</a></li><li class=\\"right-align\\"><a href=\\"/user/register\\">register</a></li><li class=\\"right-align\\"><a href=\\"/user/login\\">login</a></li><li class=\\"left-align\\"><a href=\\"/contacts\\">contact us</a></li><li class=\\"left-align\\"><a href=\\"/about\\">about us</a></li></ul></header>"`;
+
+exports[`tests for the Header component should render properly when a user is logged in 1`] = `"<header><a href=\\"/\\"><span class=\\"logo\\"></span></a><ul><li class=\\"left-align\\"><a href=\\"/\\">all products</a></li><li class=\\"right-align\\"><a href=\\"/user/register\\">register</a></li><li class=\\"right-align\\"><a href=\\"/user/login\\">login</a></li><li class=\\"left-align\\"><a href=\\"/contacts\\">contact us</a></li><li class=\\"left-align\\"><a href=\\"/about\\">about us</a></li></ul></header>"`;

@@ -6,7 +6,7 @@ describe('tests for the component DataUsePolicy', () => {
 
     it('should render correctly', () => {
         const wrapper = mount(<DataUsePolicy />)
-        expect(wrapper.debug()).toMatchSnapshot()
+        expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should have an h1 element with text "Data Usage Policy"', () => {
