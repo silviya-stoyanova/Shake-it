@@ -1,12 +1,12 @@
 import React from 'react'
 
 const DataUsePolicy = () => {
-    return <div class="small-12  medium-9 columns">
+    return <div>
 
         <h1>Data Usage Policy</h1>
 
-        <div class="body-section">
-            <div class="intro-text" ><strong>&copy; Shake it</strong> is committed to transparency about data use and to protecting the privacy of your personal information. Please read the following before using this site.</div>
+        <div>
+            <div><strong>&copy; Shake it</strong> is committed to transparency about data use and to protecting the privacy of your personal information. Please read the following before using this site.</div>
             <p><strong>&copy; Shake it</strong> (digitalimpact.io) is an initiative coordinated by the Digital Civil Society Lab (“Lab,” “we,” “us,” “our”) at the Stanford Center on Philanthropy and Civil Society (Stanford PACS). The Lab is committed to transparency about data use and to protecting the privacy of your personal information. This Data Usage Policy is designed to let you know how we collect, use, and disclose information through the websites, mobile applications, and other online services and products (collectively, the “Services”) that link to this Policy. Please read the entire Policy before using our Services. By using the Services, you consent to the terms of this Policy.</p>
             <h3><em>European Union General Data Protection Regulation</em></h3>
             <p><em>On May 25, 2018 the European Union’s General Data Protection Regulation (GDPR) introduced new rules and protections about how organizations use and process personal data about persons in the European Union. Learn more about the <a href="https://gdpr-info.eu/">GDPR</a>&nbsp;. You can also read Stanford University’s policy on the&nbsp;<a href="https://privacy.stanford.edu/sites/default/files/gdpr_data_subjects_rights_policy_final.pdf" target="_blank" rel="noopener">rights of EU data subjects</a> under the GDPR.&nbsp;</em></p>
