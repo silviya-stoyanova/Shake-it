@@ -9,7 +9,7 @@ ___
 
 ### 1. Install packages
 
-In the project root open a new terminal and type  
+When the project is cloned or downloaded, type in the terminal the following in both Server and Client directory:
 
 ```bash
 
