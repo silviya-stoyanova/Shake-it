@@ -96,7 +96,7 @@ module.exports = {
 
                 const payload = { user }
                 const authtoken = jwt.sign(payload, jwtConfig.secret, jwtConfig.options)
-                res.send({ authtoken, username: user.username, role: user.roles[0], success: 'Wellcome! 🍹' })
+                res.send({ authtoken, username: user.username, role: user.roles[0], success: 'Welcome! 🍹' })
             })
         })
     },

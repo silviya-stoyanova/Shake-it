@@ -52,15 +52,7 @@ class App extends Component {
         <BrowserRouter>
           <ToastContainer />
           <Header />
-
-          {
-            // <div className="main-container">
-          }
           <MyRoutes />
-          {
-            // </div>
-          }
-
           <Footer />
         </BrowserRouter>
       </UserInfoProvider>
@@ -74,5 +66,6 @@ class App extends Component {
   }
 }
 
+export { UserInfoProvider } // used in tests
 export { UserInfoConsumer }
 export default App

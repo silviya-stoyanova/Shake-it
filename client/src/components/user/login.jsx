@@ -10,7 +10,6 @@ const UserLogin = (props) => {
     useTitle('Login')
     const { handleInputChange, handleFormSubmit } = props
     const { userClass, passClass } = props.data
-    // const { userClass, passClass } = props.userInfo
 
     return (
         <React.Fragment>

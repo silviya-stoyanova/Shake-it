@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
 import sessionManager from '../../utilities/session-util'
 
-const withProcessForm = (Form, formType, validations, initialData, requestType, promiseExtraMethods) => {
+const withProcessForm = (Form, formType, validations, initialData, requestType, promiseExtraMethods, service) => {
     return class extends Component {
         constructor(props) {
             super(props)
@@ -16,6 +16,10 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
 
             this.promiseSuccess = promiseExtraMethods.success.bind(this)
             this.promiseFail = promiseExtraMethods.fail.bind(this)
+        }
+
+        static defaultProps = {
+            service: requester.getProductInfo
         }
 
         handleInputChange = async ({ target }) => {
@@ -67,11 +71,12 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             const jwtToken = sessionManager.getUserInfo().authtoken
             let isValid = this.validateOnSubmit(formType, data)
 
-
             if (!isValid) {
                 return
             }
 
+
+            // update this line here
             const promise = requester[requestType](data, jwtToken)
             this.handleFetchPromise(promise, this.promiseSuccess, this.promiseFail, data)
         }
@@ -84,13 +89,15 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             if (formType === 'create' || formType === 'login' || formType === 'register') {
                 return
             }
-
             // let promise = requester.getProductInfo(this.state.productInfo._id)
             // this.handleFetchPromise(promise, null, null, { redirectOnFail: true })
-
-            const productId = this.props.match.params.productId
             // requester.getProductInfo(this.state.data._id)
-            requester.getProductInfo(productId)
+
+            const { service } = this.props         // new
+            const productId = this.props.match.params.productId
+
+            // requester.getProductInfo(productId) // prev
+            service(productId)                     // new
                 .then(res => {
                     if (!res.ok) {
                         return Promise.reject(res)

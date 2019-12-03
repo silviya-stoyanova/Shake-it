@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for ProductDetails component should render product details without any buttons below it, when a user is not logged in 1`] = `""`;
