@@ -167,8 +167,6 @@ class CompleteOrder extends Component {
             .then(cartRes => {
                 // this.setState({ productsInCart: cartRes })
 
-
-
                 requester.getProfileInfo(jwtToken)
                     .then(res => {
                         if (!res.ok) {
@@ -192,8 +190,6 @@ class CompleteOrder extends Component {
                                 })
                             })
                     })
-
-
             })
             .catch(err => {
                 err.json().then(error => {

@@ -378,8 +378,8 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
                     res.map(product => {
                         expect(wrapper.find(`a[href="/product/details/${product._id}"]`).length).toEqual(2)
                         expect(wrapper.find(`a[href="/product/like/${product._id}"]`).length).toEqual(1)
-                        expect(wrapper.find(`a[href="/product/edit/${product._id}"]`).length).toEqual(0)
-                        expect(wrapper.find(`a[href="/product/delete/${product._id}"]`).length).toEqual(0)
+                        expect(wrapper.find(`a[href="/product/edit/${product._id}"]`).length).toEqual(1)
+                        expect(wrapper.find(`a[href="/product/delete/${product._id}"]`).length).toEqual(1)
                         expect(wrapper.find(`a[href="/cart/add/${product._id}"]`).length).toEqual(1)
                     })
                 })
