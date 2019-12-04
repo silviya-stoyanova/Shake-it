@@ -16,6 +16,10 @@ class AllProducts extends Component {
         this.renderAllProducts = this.renderAllProducts.bind(this)
     }
 
+    static defaultProps = {
+        service: requester.getAllProducts
+    }
+
     userFunctionalities = (data, p) => {
         return data.isLogged
             && <Fragment>
@@ -88,24 +92,29 @@ class AllProducts extends Component {
 
         return (
             <div className='content-wrapper' >
-
                 <UserInfoConsumer>
                     {(data) => (
 
                         isFetched
+
                             ? products.length
                                 ? this.renderAllProducts(data)
-                                : (<div className="no-products-container">
-                                    <div className="no-products-text-container">
-                                        <h1>Our products are so desired that we could not predict we would run out of stock this soon..</h1>
-                                        <h2>Sorry!</h2>
-                                    </div>
 
-                                    <div className="no-products-img"></div>
-                                </div>)
-                            : < div className="product-wrapper" >
+                                : (
+                                    <div className="no-products-container">
+                                        <div className="no-products-text-container">
+                                            <h1>Our products are so desired that we could not predict we would run out of stock this soon..</h1>
+                                            <h2>Sorry!</h2>
+                                        </div>
+
+                                        <div className="no-products-img"></div>
+                                    </div>
+                                )
+
+                            : <div className="product-wrapper" >
                                 <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
-                            </ div>
+                            </div>
+
                     )}
                 </UserInfoConsumer>
             </div>
@@ -115,7 +124,10 @@ class AllProducts extends Component {
     componentDidMount() {
         document.title = 'Shake it - Your shake is a click away'
 
-        requester.getAllProducts()
+        const { service } = this.props
+
+        // requester.getAllProducts()
+        service()
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)

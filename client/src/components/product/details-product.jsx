@@ -4,8 +4,6 @@ import '../../static/css/products.css'
 import { UserInfoConsumer } from '../../App'
 import useTitle from '../page-title/useTitle'
 import withProcessForm from '../hocs/withProcessForm'
-import { productValidations } from '../hocs/validations'
-import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
 const ProductDetails = (props) => {
     const { _id, title, description, image, price, likes } = props.data
@@ -49,6 +47,8 @@ const ProductDetails = (props) => {
     return (
         <UserInfoConsumer>
             {(data) => {
+                // console.log(props.data)
+
                 return (
                     <div className='content-wrapper'>
                         <div className="product-details-wrapper" >
@@ -83,9 +83,5 @@ const initialData = {
 
 const requestType = null
 
-const extraMethods = {
-    success: promiseExtraMethods.product().onProductPromiseSuccess,
-    fail: promiseExtraMethods.product().onProductPromiseFail,
-}
-
-export default withProcessForm(ProductDetails, 'details', productValidations, initialData, requestType, extraMethods)
+export { ProductDetails }     // for testing purposes only
+export default withProcessForm(ProductDetails, 'details', null, initialData, requestType, null) // replaced productValidations, extraMethods with null

@@ -1,11 +1,9 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { BrowserRouter } from 'react-router-dom'
 import { UserInfoProvider } from '../../App'
+import { ProductDetails } from '../../components/product/details-product'
 import withProcessForm from '../../components/hocs/withProcessForm'
-import ProductDetails from '../../components/product/details-product'
-
-import { productValidations } from '../../components/hocs/validations'
-import promiseExtraMethods from '../../components/hocs/promiseExtraMethods'
 
 // https://dev.to/papaponmx/unit-testing-hoc-connected-components-2d8h
 const mockProductFetching = () => {
@@ -14,8 +12,8 @@ const mockProductFetching = () => {
         title: 'Test',
         description: 'This is a test for the React component ProductDetails',
         image: 'no-img',
-        price: '1',
-        likes: '100'
+        price: 1,
+        likes: ['firstUserId', 'secondUserId', 'thirdUserId', 'fourthUserId']
     })
 
     // wrap the data in a new Response object to be able to handle it correctly in withProcessForm.js
@@ -23,69 +21,150 @@ const mockProductFetching = () => {
 }
 
 const initialData = {
-    // _id: props.match.params.productId,
-    title: '',
-    description: '',
-    image: '',
-    price: '',
-}
-
-const extraMethods = {
-    success: promiseExtraMethods.product().onProductPromiseSuccess,
-    fail: promiseExtraMethods.product().onProductPromiseFail,
+    title: '', description: '', image: '', price: ''
 }
 
 describe('tests for ProductDetails component', () => {
-    it('should render product details without any buttons below it, when a user is not logged in', () => {
-        const productPromise = mockProductFetching()
+    it("should render product details without any links below it, when a [guest] accesses [existing] product's details", () => {
 
-        const TestHoc = withProcessForm(<ProductDetails />, 'details', productValidations, initialData, null, extraMethods, mockProductFetching)
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching) // replaced productValidations, extraMethods with null
+        const defaultUserValue = { isLogged: false, username: '', role: '' }
 
         const wrapper = mount(
-            <UserInfoProvider>
-                {TestHoc}
+            <UserInfoProvider value={defaultUserValue}>
+                <TestHoc />
             </UserInfoProvider>
         )
-        console.log(wrapper)
 
-        // const wrapper = mount(
-        //     withProcessForm(
-        //         <UserInfoProvider>
-        //             <ProductDetails />
-        //         </UserInfoProvider>,
-        //         'details', productValidations, initialData, null, extraMethods, mockProductFetching)
-        // )
-
-        // const wrapper = mount(
-        //     <withProcessForm Form={
-        //         <UserInfoProvider>
-        //             <ProductDetails />
-        //         </UserInfoProvider>}
-
-        //         formType={'details'} validations={productValidations} initialData={initialData} requestType={null} promiseExtraMethods={extraMethods} service={mockProductFetching}
-        //     />
-        // )
-
-        productPromise
+        mockProductFetching()
+            .then(res => res.json())
             .then(res => {
-                if (!res.ok) {
-                    return Promise.reject(res)
-                }
-                return res.json()
-            })
-            .then(res => {
-                // do stuff here
+                wrapper.setState({
+                    data: res
+                })
                 wrapper.update()
+
+                expect(wrapper.html()).toMatchSnapshot()
+                expect(wrapper.find('a.product-actions-btn').length).toEqual(0)
             })
-
-
-        expect(wrapper.debug()).toMatchSnapshot()
-        // expect(wrapper.find('div.product-title').length).toEqual(1)
     })
 
+    it("should render product details with links for [like] and [add to cart] below it, when a [user] accesses [existing] product's details", () => {
 
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching)
+        const defaultUserValue = { isLogged: true, username: 'some-username', role: 'User' }
 
+        const wrapper = mount(
+            <BrowserRouter>
+                <UserInfoProvider value={defaultUserValue}>
+                    <TestHoc />
+                </UserInfoProvider>
+            </BrowserRouter>
+        )
 
+        mockProductFetching()
+            .then(res => res.json())
+            .then(res => {
+                wrapper.setState({
+                    data: res
+                })
+                wrapper.update()
 
+                expect(wrapper.html()).toMatchSnapshot()
+                expect(wrapper.find('a.product-actions-btn').length).toEqual(2)
 
+                expect(wrapper.find('a[href="/product/like/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/product/like/1"]').text()).toEqual('like')
+
+                expect(wrapper.find('a[href="/cart/add/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/cart/add/1"]').text()).toEqual('add to cart')
+            })
+
+    })
+
+    it("should render product details with all links for [like][edit][delete][add to cart] below it, when The [Admin] accesses [existing] product's details", () => {
+
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching)
+        const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
+
+        const wrapper = mount(
+            <BrowserRouter>
+                <UserInfoProvider value={defaultUserValue}>
+                    <TestHoc />
+                </UserInfoProvider>
+            </BrowserRouter>
+        )
+
+        mockProductFetching()
+            .then(res => res.json())
+            .then(res => {
+                wrapper.setState({
+                    data: res
+                })
+                wrapper.update()
+
+                expect(wrapper.html()).toMatchSnapshot()
+                expect(wrapper.find('a.product-actions-btn').length).toEqual(4)
+
+                expect(wrapper.find('a[href="/product/like/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/product/like/1"]').text()).toEqual('like')
+
+                expect(wrapper.find('a[href="/product/edit/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/product/edit/1"]').text()).toEqual('edit')
+
+                expect(wrapper.find('a[href="/product/delete/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/product/delete/1"]').text()).toEqual('delete')
+
+                expect(wrapper.find('a[href="/cart/add/1"]').length).toEqual(1)
+                expect(wrapper.find('a[href="/cart/add/1"]').text()).toEqual('add to cart')
+            })
+    })
+
+    it("should render loading circle gif, when a [guest] accesses [non-existing] product's details", () => {
+
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
+        const defaultUserValue = { isLogged: false, username: '', role: '' }
+
+        const wrapper = mount(
+            <UserInfoProvider value={defaultUserValue}>
+                <TestHoc />
+            </UserInfoProvider>
+        )
+
+        expect(wrapper.html()).toMatchSnapshot()
+        expect(wrapper.find('a').length).toEqual(0)
+        expect(wrapper.find('img[alt="loading-img"]').length).toEqual(1)
+    })
+
+    it("should render loading circle gif, when a [user] accesses [non-existing] product's details", () => {
+
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
+        const defaultUserValue = { isLogged: true, username: 'my-name-is-this', role: 'User' }
+
+        const wrapper = mount(
+            <UserInfoProvider value={defaultUserValue}>
+                <TestHoc />
+            </UserInfoProvider>
+        )
+
+        expect(wrapper.html()).toMatchSnapshot()
+        expect(wrapper.find('a').length).toEqual(0)
+        expect(wrapper.find('img[alt="loading-img"]').length).toEqual(1)
+    })
+
+    it("should render loading circle gif, when The [Admin] accesses [non-existing] product's details", () => {
+
+        const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
+        const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
+
+        const wrapper = mount(
+            <UserInfoProvider value={defaultUserValue}>
+                <TestHoc />
+            </UserInfoProvider>
+        )
+
+        expect(wrapper.html()).toMatchSnapshot()
+        expect(wrapper.find('a').length).toEqual(0)
+        expect(wrapper.find('img[alt="loading-img"]').length).toEqual(1)
+    })
 })

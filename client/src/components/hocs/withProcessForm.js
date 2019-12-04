@@ -11,18 +11,22 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                 data: initialData
             }
 
-            this.validateData = validations.validateData.bind(this)
-            this.validateOnSubmit = validations.validateOnSubmit.bind(this)
+            this.validateData = validations ? validations.validateData.bind(this) : null
+            this.validateOnSubmit = validations ? validations.validateOnSubmit.bind(this) : null
 
-            this.promiseSuccess = promiseExtraMethods.success.bind(this)
-            this.promiseFail = promiseExtraMethods.fail.bind(this)
+            this.promiseSuccess = promiseExtraMethods ? promiseExtraMethods.success.bind(this) : null
+            this.promiseFail = promiseExtraMethods ? promiseExtraMethods.fail.bind(this) : null
+
+            this.handleInputChange = this.handleInputChange.bind(this)
+            this.handleFetchPromise = this.handleFetchPromise.bind(this)
+            this.handleFormSubmit = this.handleFormSubmit.bind(this)
         }
 
-        static defaultProps = {
-            service: requester.getProductInfo
-        }
+        // static defaultProps = {
+        //     service: requester.getProductInfo
+        // }
 
-        handleInputChange = async ({ target }) => {
+        async handleInputChange({ target }) {
             await this.setState(prevState => ({
                 data: {
                     ...prevState.data,
@@ -37,7 +41,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             this.validateData(formType, data, updateState)
         }
 
-        handleFetchPromise = (promise, onSuccessFunc, onFailFunc, data = '') => {
+        handleFetchPromise(promise, onSuccessFunc, onFailFunc, data = '') {
             promise.then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
@@ -65,7 +69,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             })
         }
 
-        handleFormSubmit = async (event) => {
+        async  handleFormSubmit(event) {
             event.preventDefault()
             const { data } = this.state
             const jwtToken = sessionManager.getUserInfo().authtoken
@@ -74,7 +78,6 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             if (!isValid) {
                 return
             }
-
 
             // update this line here
             const promise = requester[requestType](data, jwtToken)
@@ -93,21 +96,26 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             // this.handleFetchPromise(promise, null, null, { redirectOnFail: true })
             // requester.getProductInfo(this.state.data._id)
 
-            const { service } = this.props         // new
-            const productId = this.props.match.params.productId
+            const serviceReq = service || requester.getProductInfo  // new
+
+            const productId = this.props.match                      // new
+                ? this.props.match.params.productId
+                : null
+            // const productId = this.props.match.params.productId
 
             // requester.getProductInfo(productId) // prev
-            service(productId)                     // new
+            serviceReq && serviceReq(productId)                // new
                 .then(res => {
                     if (!res.ok) {
                         return Promise.reject(res)
                     }
                     return res.json()
                 })
-                .then(res => {
-                    this.setState({
+                .then(async res => {
+                    await this.setState({
                         data: res
                     })
+
                 })
                 .catch(error => {
                     error.json().then(err => {
