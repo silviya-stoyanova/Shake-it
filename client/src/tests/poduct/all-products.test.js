@@ -156,6 +156,10 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
 
                     res.map(product => {
                         expect(wrapper.find(`a[href="/product/details/${product._id}"]`).length).toEqual(2)
+                        expect(wrapper.find(`a[href="/product/like/${product._id}"]`).length).toEqual(0)
+                        expect(wrapper.find(`a[href="/product/edit/${product._id}"]`).length).toEqual(0)
+                        expect(wrapper.find(`a[href="/product/delete/${product._id}"]`).length).toEqual(0)
+                        expect(wrapper.find(`a[href="/cart/add/${product._id}"]`).length).toEqual(0)
                     })
                 })
         })
@@ -208,7 +212,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
                 })
         })
 
-        it('should render one product without any links below it for all [users]', () => {
+        it('should render one product with links for [like] and [add to cart] below for all [users]', () => {
             const defaultUserValue = { isLogged: true, username: 'az-sam-tova', role: 'User' }
 
             const wrapper = mount(
@@ -239,7 +243,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
                 })
         })
 
-        it('should render three products without any links below it for all [users]', () => {
+        it('should render three products with links for [like] and [add to cart] below for all [users]', () => {
             const defaultUserValue = { isLogged: true, username: 'az-sam-tova', role: 'User' }
 
             const wrapper = mount(
@@ -321,7 +325,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
                 })
         })
 
-        it('should render one product without any links below it for The [Admin]', () => {
+        it('should render one product with links for [like][edit][delete] and [add to cart] below for The [Admin]', () => {
             const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
 
             const wrapper = mount(
@@ -352,7 +356,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
                 })
         })
 
-        it('should render three products without any links below it for The [Admin]', () => {
+        it('should render three products with links for [like][edit][delete] and [add to cart] below for The [Admin]', () => {
             const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
 
             const wrapper = mount(

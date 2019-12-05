@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../../static/css/products.css'
-import withProcessForm from '../hocs/withProcessForm'
 import useTitle from '../page-title/useTitle'
+import withProcessForm from '../hocs/withProcessForm'
 import { productValidations } from '../hocs/validations'
 import promiseExtraMethods from '../hocs/promiseExtraMethods'
 
@@ -60,4 +60,5 @@ const extraMethods = {
     fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
+export { DeleteProduct }
 export default withProcessForm(DeleteProduct, 'delete', productValidations, initialData, requestType, extraMethods)

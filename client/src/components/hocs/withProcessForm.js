@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
 import sessionManager from '../../utilities/session-util'
 
-const withProcessForm = (Form, formType, validations, initialData, requestType, promiseExtraMethods, service) => {
+const withProcessForm = (Form, formType, validations, initialData, requestType, promiseExtraMethods, testServiceOnMount, testServiceOnSubmit) => {
     return class extends Component {
         constructor(props) {
             super(props)
@@ -79,9 +80,25 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                 return
             }
 
-            // update this line here
-            const promise = requester[requestType](data, jwtToken)
-            this.handleFetchPromise(promise, this.promiseSuccess, this.promiseFail, data)
+
+            // updated this here
+            if (testServiceOnSubmit) {
+                testServiceOnSubmit()
+                    .then(res => {
+                        console.log(res.success)
+                        // console.log(this.props.history.push.mock)
+                        this.props.history.push()
+                        // console.log(this.props.history.push)
+                        // this.props.history.push('/')
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+
+            } else {
+                const promise = requester[requestType](data, jwtToken)
+                this.handleFetchPromise(promise, this.promiseSuccess, this.promiseFail, data)
+            }
         }
 
         render() {
@@ -96,7 +113,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             // this.handleFetchPromise(promise, null, null, { redirectOnFail: true })
             // requester.getProductInfo(this.state.data._id)
 
-            const serviceReq = service || requester.getProductInfo  // new
+            const serviceReq = testServiceOnMount || requester.getProductInfo  // new
 
             const productId = this.props.match                      // new
                 ? this.props.match.params.productId
@@ -104,7 +121,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             // const productId = this.props.match.params.productId
 
             // requester.getProductInfo(productId) // prev
-            serviceReq && serviceReq(productId)                // new
+            serviceReq && serviceReq(productId)                     // new
                 .then(res => {
                     if (!res.ok) {
                         return Promise.reject(res)

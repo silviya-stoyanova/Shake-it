@@ -5,7 +5,10 @@ import { UserInfoProvider } from '../../App'
 import { ProductDetails } from '../../components/product/details-product'
 import withProcessForm from '../../components/hocs/withProcessForm'
 
-// https://dev.to/papaponmx/unit-testing-hoc-connected-components-2d8h
+// when someone accesses non-existing product's details
+// => just before they are redirected, they will see loading - circle.gif
+// => and then will be redirected
+
 const mockProductFetching = () => {
     const sampleData = JSON.stringify({
         _id: '1',

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for the component DeleteProduct tests for admin functionalities should return product's delete page with it's [fetched] data, when The [Admin] tries to delete [existing] product 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <Component history={{...}}>
+      <DeleteProduct data={{...}} handleInputChange={[Function: bound handleInputChange]} handleFormSubmit={[Function: bound handleFormSubmit]}>
+        <div className=\\"form\\">
+          <form onSubmit={[Function: bound handleFormSubmit]}>
+            <div className=\\"form-type\\">
+              Are you sure you want
+            </div>
+            <div className=\\"form-type\\">
+              to delete this product?
+            </div>
+            <hr />
+            <div className=\\"form-fields-wrapper\\">
+              <div className=\\"product-title\\">
+                Gotino zaglavie
+              </div>
+              <img src=\\"data:image/png;base64, дилишъс-шейк.jpg\\" alt=\\"Gotino zaglavie\\" className=\\"product-img\\" />
+              <label htmlFor=\\"description\\">
+                Description
+              </label>
+              <textarea defaultValue=\\"Представям на Вашето внимание един уникален млечен шейк\\" type=\\"text\\" id=\\"description\\" disabled={true} />
+              <div className=\\"price\\">
+                <label htmlFor=\\"price\\">
+                  Price:
+                </label>
+                <input value={9.99} id=\\"price\\" disabled={true} />
+                <span className=\\"price-sign\\">
+                  $
+                </span>
+              </div>
+            </div>
+            <hr />
+            <button className=\\"button btn-del\\" type=\\"submit\\">
+              Yes
+            </button>
+            <Link to=\\"/\\" className=\\"button btn-del\\">
+              <LinkAnchor className=\\"button btn-del\\" href=\\"/\\" navigate={[Function: navigate]}>
+                <a className=\\"button btn-del\\" href=\\"/\\" onClick={[Function: onClick]}>
+                  No
+                </a>
+              </LinkAnchor>
+            </Link>
+          </form>
+        </div>
+      </DeleteProduct>
+    </Component>
+  </Router>
+</BrowserRouter>"
+`;
+
+exports[`tests for the component DeleteProduct tests for guest functionalities should return redirect to the home page when a [guest] accesses delete-product page 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <AuthRoute path=\\"/product/delete/:productId\\" component={[Function: DeleteProduct]} role=\\"Admin\\" isTest={true}>
+      <Redirect to=\\"/\\">
+        <Lifecycle onMount={[Function: onMount]} onUpdate={[Function: onUpdate]} to=\\"/\\" />
+      </Redirect>
+    </AuthRoute>
+  </Router>
+</BrowserRouter>"
+`;
+
+exports[`tests for the component DeleteProduct tests for user functionalities should return redirect to the home page when a [user] accesses delete-product page 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <AuthRoute path=\\"/product/delete/:productId\\" component={[Function: DeleteProduct]} role=\\"Admin\\" isTest={true}>
+      <Redirect to=\\"/\\">
+        <Lifecycle onMount={[Function: onMount]} onUpdate={[Function: onUpdate]} to=\\"/\\" />
+      </Redirect>
+    </AuthRoute>
+  </Router>
+</BrowserRouter>"
+`;

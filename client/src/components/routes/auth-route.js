@@ -8,7 +8,7 @@ const isAuthed = (currRole, wantedRole) => {
 
     if ((wantedRole === 'null' && (!currRole || currRole.length === 0)) // if the user is not logged in
         || (wantedRole === 'User' && currRole && currRole.length > 0)   // if the user have just logged in
-        || currRole === 'Admin' || currRole === wantedRole) {           // if they are the Admin || if they are authorized for this action
+        || currRole === 'Admin' || currRole === wantedRole) {           // if they are the Admin || if they are authorized to accomplish this action
 
         pass = true
     } else {
@@ -24,6 +24,10 @@ const AuthRoute = (props) => {
         {data => {
             if (!isAuthed(data.role, props.role)) {
                 return <Redirect to="/" />
+            }
+
+            if (props.isTest) {
+                return <props.component />
             }
 
             return <Route {...props} />
