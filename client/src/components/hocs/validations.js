@@ -112,6 +112,8 @@ const productValidations = {
                 priceClass
             }
         }))
+
+        // console.log(titleClass, descriptionClass, priceClass)
         return result
     },
 

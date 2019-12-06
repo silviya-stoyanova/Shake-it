@@ -26,10 +26,6 @@ const AuthRoute = (props) => {
                 return <Redirect to="/" />
             }
 
-            if (props.isTest) {
-                return <props.component />
-            }
-
             return <Route {...props} />
         }}
     </UserInfoConsumer>

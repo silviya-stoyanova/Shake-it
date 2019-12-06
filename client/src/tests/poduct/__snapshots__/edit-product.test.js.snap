@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for the component EditProduct tests for admin functionalities should let The [Admin] accesses edit-product page by returning <Route path="/product/edit/:productId" .... /> 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <AuthRoute path=\\"/product/edit/:productId\\" component={[Function: EditProduct]} role=\\"Admin\\">
+      <Route path=\\"/product/edit/:productId\\" component={[Function: EditProduct]} role=\\"Admin\\" />
+    </AuthRoute>
+  </Router>
+</BrowserRouter>"
+`;
+
+exports[`tests for the component EditProduct tests for admin functionalities should render [existing] product's edit page with it's [fetched] data 1`] = `
+"<Component>
+  <EditProduct data={{...}} handleInputChange={[Function: bound handleInputChange]} handleFormSubmit={[Function: bound handleFormSubmit]}>
+    <div className=\\"form\\">
+      <form onSubmit={[Function: bound handleFormSubmit]} encType=\\"multipart/form-data\\">
+        <div className=\\"form-type\\">
+          Edit a product
+        </div>
+        <hr />
+        <div className=\\"form-fields-wrapper\\">
+          <input autoFocus={true} onChange={[Function: bound handleInputChange]} name=\\"title\\" defaultValue=\\"Tova e title\\" type=\\"text\\" className={[undefined]} id=\\"title\\" />
+          <div className=\\"update-img-container\\">
+            <img src=\\"data:image/png;base64, yummy-шейк.jpg\\" alt=\\"Tova e title\\" className=\\"product-img\\" />
+            <div>
+              <label className=\\"input-file-container update-img-content\\" htmlFor=\\"uploadedImg\\">
+                <img src=\\"update-pic.png\\" alt=\\"update-product\\" className=\\"update-img\\" />
+              </label>
+              <input onChange={[Function: bound handleInputChange]} name=\\"image\\" type=\\"file\\" accept=\\"image/*\\" id=\\"uploadedImg\\" />
+            </div>
+          </div>
+          <label htmlFor=\\"description\\">
+            Description:
+          </label>
+          <textarea onChange={[Function: bound handleInputChange]} name=\\"description\\" value=\\"This is so cool, I am getting better :)\\" type=\\"text\\" className={[undefined]} id=\\"description\\" />
+          <div className=\\"price\\">
+            <label htmlFor=\\"price\\">
+              Price:
+            </label>
+            <input onChange={[Function: bound handleInputChange]} name=\\"price\\" defaultValue={2.93} type=\\"number\\" step=\\"0.01\\" className={[undefined]} id=\\"price\\" />
+            <span className=\\"price-sign\\">
+              $
+            </span>
+          </div>
+        </div>
+        <hr />
+        <button className=\\"button\\" type=\\"submit\\">
+          Save changes
+        </button>
+      </form>
+    </div>
+  </EditProduct>
+</Component>"
+`;
+
+exports[`tests for the component EditProduct tests for guest functionalities should redirect [guests] to the home page when they accesses edit-product page 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <AuthRoute path=\\"/product/edit/:productId\\" component={[Function: EditProduct]} role=\\"Admin\\">
+      <Redirect to=\\"/\\">
+        <Lifecycle onMount={[Function: onMount]} onUpdate={[Function: onUpdate]} to=\\"/\\" />
+      </Redirect>
+    </AuthRoute>
+  </Router>
+</BrowserRouter>"
+`;
+
+exports[`tests for the component EditProduct tests for user functionalities should redirect [users] to the home page when they accesses edit-product page 1`] = `
+"<BrowserRouter>
+  <Router history={{...}}>
+    <AuthRoute path=\\"/product/edit/:productId\\" component={[Function: EditProduct]} role=\\"Admin\\">
+      <Redirect to=\\"/\\">
+        <Lifecycle onMount={[Function: onMount]} onUpdate={[Function: onUpdate]} to=\\"/\\" />
+      </Redirect>
+    </AuthRoute>
+  </Router>
+</BrowserRouter>"
+`;

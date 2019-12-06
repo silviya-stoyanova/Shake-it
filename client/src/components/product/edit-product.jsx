@@ -17,6 +17,8 @@ const EditProduct = (props) => {
                 <div className="form-type">Edit a product</div>
                 <hr />
 
+                {/* {console.log(titleClass, descriptionClass, priceClass)} */}
+
                 {image
                     ? <div className="form-fields-wrapper">
                         <input autoFocus onChange={handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
@@ -71,4 +73,5 @@ const extraMethods = {
     fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
+export { EditProduct }
 export default withProcessForm(EditProduct, 'edit', productValidations, initialData, requestType, extraMethods)

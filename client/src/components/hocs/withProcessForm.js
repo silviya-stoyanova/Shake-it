@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
 import sessionManager from '../../utilities/session-util'
@@ -28,6 +27,8 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
         // }
 
         async handleInputChange({ target }) {
+            // console.log(target)
+
             await this.setState(prevState => ({
                 data: {
                     ...prevState.data,
@@ -39,6 +40,9 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
 
             const updateState = true
             const { data } = this.state
+
+            // console.log(data)
+
             this.validateData(formType, data, updateState)
         }
 
@@ -70,7 +74,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             })
         }
 
-        async  handleFormSubmit(event) {
+        async handleFormSubmit(event) {
             event.preventDefault()
             const { data } = this.state
             const jwtToken = sessionManager.getUserInfo().authtoken
@@ -80,16 +84,12 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                 return
             }
 
-
-            // updated this here
             if (testServiceOnSubmit) {
                 testServiceOnSubmit()
+                    // .then(res => res.json())
                     .then(res => {
-                        console.log(res.success)
-                        // console.log(this.props.history.push.mock)
-                        this.props.history.push()
-                        // console.log(this.props.history.push)
-                        // this.props.history.push('/')
+                        // console.log(res.success)
+                        this.props.history.push('/')
                     })
                     .catch(err => {
                         console.log(err)
@@ -120,7 +120,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                 : null
             // const productId = this.props.match.params.productId
 
-            // requester.getProductInfo(productId) // prev
+            // requester.getProductInfo(productId)                  // prev
             serviceReq && serviceReq(productId)                     // new
                 .then(res => {
                     if (!res.ok) {
