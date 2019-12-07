@@ -86,6 +86,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
 
             if (testServiceOnSubmit) {
                 testServiceOnSubmit()
+                    // to see the message inside the response, uncomment the next two commented out lines
                     // .then(res => res.json())
                     .then(res => {
                         // console.log(res.success)
@@ -132,14 +133,14 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                     await this.setState({
                         data: res
                     })
-
                 })
                 .catch(error => {
-                    error.json().then(err => {
+                    error.json()    .then(err => {
                         toast.info(err.message, {
                             className: 'error-toast'
                         })
 
+                        console.log('I caught!')
                         this.props.history.push('/')
                     })
                 })

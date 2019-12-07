@@ -44,7 +44,7 @@ const mockExistingProductFetch = () => {
 
 const mockNonExistingProductFetch = () => {
     const sampleReturnedData = JSON.stringify({ message: 'This product does not exist!' })
-    const responseOptions = { status: 404, ok: false, statusText: '' }
+    const responseOptions = { status: 404, ok: false, statusText: 'Not found!' }
 
     return Promise.reject(
         new Response(sampleReturnedData, responseOptions)
@@ -221,8 +221,6 @@ describe('tests for the component DeleteProduct', () => {
                 await mockNonExistingProductFetch()
 
             } catch (err) {
-                expect(wrapper.html()).toMatchSnapshot()
-
                 expect(historyMock.push).toBeCalled()
                 expect(historyMock.push).toHaveBeenLastCalledWith('/')
 
