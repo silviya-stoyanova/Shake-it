@@ -7,7 +7,8 @@ import promiseExtraMethods from '../hocs/promiseExtraMethods'
 const CreateProduct = (props) => {
     useTitle('Add a new product')
     const { handleInputChange, handleFormSubmit } = props
-    const { titleClass, descriptionClass, imageClass, priceClass, uploadedImg } = props.data
+    const { title, description, image, price,
+        titleClass, descriptionClass, imageClass, priceClass, uploadedImg } = props.data
 
     return (
         <div className="form" >
@@ -17,10 +18,10 @@ const CreateProduct = (props) => {
 
                 <div className="form-fields-wrapper">
                     <label htmlFor="title">Title</label>
-                    <input autoFocus onChange={handleInputChange} type="text" name="title" className={titleClass} id="title" />
+                    <input autoFocus value={title} onChange={handleInputChange} type="text" name="title" className={titleClass} id="title" />
 
                     <label htmlFor="description">Description</label>
-                    <textarea type="text" onChange={handleInputChange} name="description" className={descriptionClass} id="description"></textarea>
+                    <textarea value={description} onChange={handleInputChange} type="text" name="description" className={descriptionClass} id="description"></textarea>
 
                     <div className="update-img-container">
                         <label className="input-file-container" htmlFor="image">
@@ -48,7 +49,7 @@ const CreateProduct = (props) => {
 
 
                     <label htmlFor="price">Price</label>
-                    <input type="number" onChange={handleInputChange} name="price" className={priceClass} id="price" min="0" step="0.01" />
+                    <input type="number" value={price} onChange={handleInputChange} name="price" className={priceClass} id="price" min="0" step="0.01" />
                 </div>
 
                 <hr />
@@ -66,7 +67,7 @@ const initialData = {
 
     titleClass: '',
     descriptionClass: '',
-    imageClass:'',              // new, just for testing purposes
+    imageClass: '',              // new, just for testing purposes
     priceClass: '',
 
     uploadedImg: ''

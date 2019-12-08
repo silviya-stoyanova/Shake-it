@@ -131,7 +131,7 @@ const sampleEvents = {
 
     onFormSubmit: {
         preventDefault: () => {
-            // console.log('I am fake prevent-defaulter.')
+            return 'I am fake prevent-defaulter.'
         }
     }
 }

@@ -1,5 +1,4 @@
 // https://stackoverflow.com/questions/50682726/how-to-unit-test-a-react-event-handler-that-contains-history-push-using-jest-and
-// what does jest.fn() ?
 // https://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
 // https://stackoverflow.com/questions/44419318/how-to-test-form-submission-in-react-with-jest-and-enzyme-cannot-read-property
 
@@ -60,9 +59,11 @@ const initialData = {
     title: '', description: '', image: '', price: '',
 }
 
-const sampleEvent = {
-    preventDefault: () => {
-        // console.log('I am fake prevent-defaulter.')
+const sampleEvents = {
+    onFormSubmit: {
+        preventDefault: () => {
+            return 'I am fake prevent-defaulter.'
+        }
     }
 }
 
@@ -186,7 +187,7 @@ describe('tests for the component DeleteProduct', () => {
                     })
                     wrapper.update()
 
-                    await wrapper.find('form').simulate('submit', sampleEvent)
+                    await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
                     // expect(historyMock.push).toBeCalled()
                     // expect(historyMock.push).toHaveBeenLastCalledWith('/')
 

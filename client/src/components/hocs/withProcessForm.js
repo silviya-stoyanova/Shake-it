@@ -32,7 +32,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             await this.setState(prevState => ({
                 data: {
                     ...prevState.data,
-                    [target.name]: target.files ? target.files : target.value.trim(),
+                    [target.name]: target.files ? target.files : target.value, // .trim()
                     uploadedImg: target.files ? URL.createObjectURL(target.files[0]) : prevState.data.uploadedImg
                     // uploadedImg: target.files ? target.files[0] : prevState.data.uploadedImg
                 }
@@ -41,7 +41,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             const updateState = true
             const { data } = this.state
 
-            // console.log(data)
+            // console.log(data.uploadedImg)
 
             this.validateData(formType, data, updateState)
         }
@@ -75,6 +75,8 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
         }
 
         async handleFormSubmit(event) {
+            // console.log(event.preventDefault())
+            
             event.preventDefault()
             const { data } = this.state
             const jwtToken = sessionManager.getUserInfo().authtoken
@@ -93,7 +95,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                         this.props.history.push('/')
                     })
                     .catch(err => {
-                        console.log(err)
+                        return err
                     })
 
             } else {
