@@ -78,7 +78,8 @@ const productValidations = {
     validateData(formType, data, updateState) {
         const { title, description, image, price } = data
 
-        let [titleClass, descriptionClass, priceClass] = ['error', 'error', 'error', 'error']
+        // added imageClass
+        let [titleClass, descriptionClass, imageClass, priceClass] = ['error', 'error', 'error', 'error']
         let result = {
             title: 'invalid',
             description: 'invalid',
@@ -97,6 +98,7 @@ const productValidations = {
 
         // validate only when creating a new product
         if (formType === 'create' && image) {
+            imageClass = 'correct'
             result.image = 'valid'
         }
         if (price && Number(price) > 0) {
@@ -109,6 +111,7 @@ const productValidations = {
                 ...prevState.data,
                 titleClass,
                 descriptionClass,
+                imageClass,
                 priceClass
             }
         }))

@@ -133,7 +133,7 @@
 
 .ordered-products {
     position: absolute;
-    top: 11%;
+    /* top: 11%; */
 
     width: 11%;
     display: inline-block;

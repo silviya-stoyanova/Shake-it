@@ -7,7 +7,7 @@ import promiseExtraMethods from '../hocs/promiseExtraMethods'
 const CreateProduct = (props) => {
     useTitle('Add a new product')
     const { handleInputChange, handleFormSubmit } = props
-    const { titleClass, descriptionClass, priceClass, uploadedImg } = props.data
+    const { titleClass, descriptionClass, imageClass, priceClass, uploadedImg } = props.data
 
     return (
         <div className="form" >
@@ -36,7 +36,7 @@ const CreateProduct = (props) => {
                                 }
                             </div>
                         </label>
-                        <input type="file" accept="image/*" onChange={handleInputChange} name="image" id="image" />
+                        <input type="file" accept="image/*" onChange={handleInputChange} name="image" id="image" className={imageClass} />
                     </div>
 
                     {/* <div>
@@ -66,6 +66,7 @@ const initialData = {
 
     titleClass: '',
     descriptionClass: '',
+    imageClass:'',              // new, just for testing purposes
     priceClass: '',
 
     uploadedImg: ''
@@ -78,5 +79,5 @@ const extraMethods = {
     fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
-// export default CreateProduct
+export { CreateProduct }
 export default withProcessForm(CreateProduct, 'create', productValidations, initialData, requestType, extraMethods)

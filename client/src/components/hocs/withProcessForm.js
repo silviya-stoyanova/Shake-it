@@ -27,7 +27,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
         // }
 
         async handleInputChange({ target }) {
-            // console.log(target)
+            console.log(target.files ? target.files[0] : null)
 
             await this.setState(prevState => ({
                 data: {
