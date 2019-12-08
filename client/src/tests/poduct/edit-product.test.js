@@ -14,7 +14,7 @@ import { productValidations } from '../../components/hocs/validations'
 ////3. The [Admin] is allowed to accesses edit-product page => and then will NOT be redirected
 //
 //
-// The [Admin] accesses edit page of [existing]-product:
+//// The [Admin] accesses edit page of [existing]-product:
 //
 //   -+- and the data is fetched
 ////4.      -- submit button is not clicked yet
@@ -27,11 +27,11 @@ import { productValidations } from '../../components/hocs/validations'
 ////10.           -- invalid info is passed for [title] / [description] / [price]         * sampleEvents.onFormSubmit should NOT be Called !! *
 ////11.           -- invalid info is passed for [title description and price]             * sampleEvents.onFormSubmit should NOT be Called !! *
 //
-//12. -+-  and the data is not fetched yet
+////12. -+-  and the data is not fetched yet
 //      /not needed to test the case when the form is submitted now, it will not be processed and will throw an error as it does on create-product, when no data is passed/
 //
 //
-//13. The[Admin] accesses edit page of a [non-existing]-product
+////13. The[Admin] accesses edit page of a [non-existing]-product
 
 const initialData = {
     title: '',
@@ -455,11 +455,11 @@ describe('tests for the component EditProduct', () => {
                 await mockNonExistingProductFetch()
 
             } catch (err) {
-                await wrapper.update()
-                console.log(historyMock.push.mock)
-
                 expect(historyMock.push).toBeCalled()
                 expect(historyMock.push).toHaveBeenLastCalledWith('/')
+
+                expect(historyMock.push.mock.calls.length).toEqual(1)
+                expect(historyMock.push.mock.calls[0][0]).toEqual('/')
             }
         })
     })

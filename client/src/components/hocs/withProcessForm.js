@@ -135,13 +135,12 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                     })
                 })
                 .catch(error => {
-                    error.json()    .then(err => {
+                    this.props.history.push('/')
+
+                    error.json().then(err => {
                         toast.info(err.message, {
                             className: 'error-toast'
                         })
-
-                        console.log('I caught!')
-                        this.props.history.push('/')
                     })
                 })
         }

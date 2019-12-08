@@ -72,6 +72,11 @@ const historyMock = {
 
 describe('tests for the component DeleteProduct', () => {
 
+    afterEach(() => {
+        // to reset Jest mock function calls count after every test:
+        historyMock.push.mockClear()
+    })
+
     describe('tests for guest functionalities', () => {
 
         it('should redirect [guests] to the home page when they accesses delete-product page', () => {
