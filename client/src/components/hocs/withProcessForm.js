@@ -76,7 +76,7 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
 
         async handleFormSubmit(event) {
             // console.log(event.preventDefault())
-            
+
             event.preventDefault()
             const { data } = this.state
             const jwtToken = sessionManager.getUserInfo().authtoken
@@ -94,9 +94,9 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                         // console.log(res.success)
                         this.props.history.push('/')
                     })
-                    .catch(err => {
-                        return err
-                    })
+                // .catch(err => {
+                //     return err
+                // })
 
             } else {
                 const promise = requester[requestType](data, jwtToken)
@@ -131,8 +131,8 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                     }
                     return res.json()
                 })
-                .then(async res => {
-                    await this.setState({
+                .then(res => {
+                    this.setState({
                         data: res
                     })
                 })

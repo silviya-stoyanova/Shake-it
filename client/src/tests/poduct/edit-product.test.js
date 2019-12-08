@@ -265,7 +265,7 @@ describe('tests for the component EditProduct', () => {
                     expect(wrapper.find('input[id="price"]').hasClass('correct')).toEqual(true)
 
 
-                    await wrapper.find('form').simulate('submit', mockProductEdit)
+                    await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
                     expect(historyMock.push.mock.calls.length).toEqual(1)
                     expect(historyMock.push.mock.calls[0][0]).toEqual('/')
                     // expect(historyMock.push).toBeCalled()

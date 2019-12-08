@@ -7,6 +7,7 @@ import AuthRoute from '../../components/routes/auth-route'
 import { UserInfoProvider } from '../../App'
 import { productValidations } from '../../components/hocs/validations'
 import promiseExtraMethods from '../../components/hocs/promiseExtraMethods'
+// import sampleImg from '../test-img'
 
 // scenarios:
 
@@ -47,6 +48,16 @@ const extraMethods = {
     fail: promiseExtraMethods.product().onProductPromiseFail,
 }
 
+const mockUploadedImg = () => {
+    const fileBts = ["I-am-your-new-milkshake-pls-choose-meeeeee"]
+    const fileName = 'cool-shake.png'
+    const options = { type: "image/png" }
+    let a = new File(fileBts, fileName, options)
+
+    // console.log(a)
+    return a
+}
+
 const sampleEvents = {
     title: {
         validTitle: {
@@ -66,11 +77,14 @@ const sampleEvents = {
         },
     },
     // todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo
-    // image: {
-    //     onImageChange: {
-    //         target: { name: 'image', files: ["a-file-will-be-here.png"] }
-    //     },
-    // },
+    image: {
+        validImage: {
+            target: { name: 'image', files: [mockUploadedImg()] }
+        },
+        invalidImage: {
+            target: { name: 'image' } //, value: ['i am not an image'] }
+        }
+    },
     description: {
         validDescription: {
             target: { name: 'description', value: "this is a new shake" }
@@ -123,10 +137,13 @@ const mockProductCreate = () => {
 }
 
 describe('tests for the component CreateProduct', () => {
+    window.URL.createObjectURL = jest.fn()
 
     afterEach(() => {
         // to reset Jest mock function calls count after every test:
         historyMock.push.mockClear()
+
+        window.URL.createObjectURL.mockReset();
     })
 
     describe('tests for guest functionalities', () => {
@@ -180,19 +197,18 @@ describe('tests for the component CreateProduct', () => {
             expect(wrapper.find('Route[path="/product/create"]').length).toEqual(1)
         })
 
-        it('should render a form for creating a product with empty fields', () => {
+        it('should render a form for creating a product with empty fields', async () => {
             const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
             const wrapper = mount(<TestHoc history={historyMock} />)
 
             expect(wrapper.html()).toMatchSnapshot()
 
-            wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push).not.toBeCalled()
         })
 
 
 
-        // to add form submit simulation
         it("should mark as [valid] all of the product's fields after change", async () => {
             const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
             const wrapper = mount(<TestHoc history={historyMock} />)
@@ -207,16 +223,19 @@ describe('tests for the component CreateProduct', () => {
             wrapper.update()
             expect(wrapper.find('textarea[id="description"]').hasClass('correct')).toEqual(true)
 
-            // await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.onImageChange)
-            //// expect(wrapper.find('input[id="image"]').prop('value')).toEqual(sampleEvents.image.onImageChange.target.value)
-            // wrapper.update()
-            // expect(wrapper.find('input[id="image"]').hasClass('correct')).toEqual(true)
+            await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.validImage)
+            wrapper.update()
+            expect(wrapper.find('input[id="image"]').hasClass('correct')).toEqual(true)
 
             await wrapper.find('input[id="price"]').simulate('change', sampleEvents.price.validPrice)
             expect(wrapper.find('input[id="price"]').prop('value')).toEqual(sampleEvents.price.validPrice.target.value)
             wrapper.update()
             expect(wrapper.find('input[id="price"]').hasClass('correct')).toEqual(true)
 
+
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            expect(historyMock.push.mock.calls.length).toEqual(1)
+            expect(historyMock.push).toHaveBeenLastCalledWith('/')
         })
 
         it("should mark as [invalid] product's [title] after change", async () => {
@@ -238,7 +257,7 @@ describe('tests for the component CreateProduct', () => {
             wrapper.update()
             expect(wrapper.find('input[id="title"]').hasClass('error')).toEqual(true)
 
-            wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push).not.toBeCalled()
             // expect(historyMock.push).not.toHaveBeenLastCalledWith()
             // expect(historyMock.push.mock.calls.length).toEqual(0)
@@ -264,20 +283,18 @@ describe('tests for the component CreateProduct', () => {
             wrapper.update()
             expect(wrapper.find('textarea[id="description"]').hasClass('error')).toEqual(true)
 
-            wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push.mock.calls.length).toEqual(0)
         })
 
-        // it("should mark as [invalid] product's [image] after change", async () => {
-        //     const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, null)
-        //     const wrapper = mount(<TestHoc />)
+        it("should mark as [invalid] product's [image] after change", async () => {
+            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
+            const wrapper = mount(<TestHoc history={historyMock} />)
 
-        //     await wrapper.find('textarea[id="description"]').simulate('change', sampleEvents.image.onImageChange)
-        ////     expect(wrapper.find('textarea[id="description"]').prop('value')).toEqual(sampleEvents.image.onImageChange.target.value)
-        //     wrapper.update()
-        //     expect(wrapper.find('textarea[id="description"]').hasClass('error')).toEqual(true)
-        // })
-
+            await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.invalidImage)
+            wrapper.update()
+            expect(wrapper.find('input[id="image"]').hasClass('error')).toEqual(true)
+        })
 
         it("should mark as [invalid] product's [price] after change", async () => {
             const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
@@ -298,7 +315,7 @@ describe('tests for the component CreateProduct', () => {
             wrapper.update()
             expect(wrapper.find('input[id="price"]').hasClass('error')).toEqual(true)
 
-            wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push).not.toBeCalled()
         })
 
@@ -308,22 +325,21 @@ describe('tests for the component CreateProduct', () => {
 
             await wrapper.find('input[id="title"]').simulate('change', sampleEvents.title.tooShortTitle)
             await wrapper.find('textarea[id="description"]').simulate('change', sampleEvents.description.tooShortDescription)
-            // await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.onImageChange)
+            await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.invalidImage)
             await wrapper.find('input[id="price"]').simulate('change', sampleEvents.price.belowZeroPrice)
 
             expect(wrapper.find('input[id="title"]').prop('value')).toEqual(sampleEvents.title.tooShortTitle.target.value)
             expect(wrapper.find('textarea[id="description"]').prop('value')).toEqual(sampleEvents.description.tooShortDescription.target.value)
-            //// expect(wrapper.find('input[id="image"]').prop('value')).toEqual(sampleEvents.image.onImageChange.target.value)
             expect(wrapper.find('input[id="price"]').prop('value')).toEqual(sampleEvents.price.belowZeroPrice.target.value)
 
             wrapper.update()
 
-            expect(wrapper.find('input[id="title"]').hasClass('correct')).toEqual(false)
-            expect(wrapper.find('textarea[id="description"]').hasClass('correct')).toEqual(false)
-            // expect(wrapper.find('input[id="image"]').hasClass('correct')).toEqual(false)
-            expect(wrapper.find('input[id="price"]').hasClass('correct')).toEqual(false)
+            expect(wrapper.find('input[id="title"]').hasClass('error')).toEqual(true)
+            expect(wrapper.find('textarea[id="description"]').hasClass('error')).toEqual(true)
+            expect(wrapper.find('input[id="image"]').hasClass('error')).toEqual(true)
+            expect(wrapper.find('input[id="price"]').hasClass('error')).toEqual(true)
 
-            wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push.mock.calls.length).toEqual(0)
         })
     })
