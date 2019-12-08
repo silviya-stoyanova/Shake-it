@@ -161,7 +161,6 @@ describe('tests for the component EditProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Redirect[to="/"]').length).toEqual(1)
         })
     })
@@ -179,7 +178,6 @@ describe('tests for the component EditProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Redirect[to="/"]').length).toEqual(1)
         })
     })
@@ -197,7 +195,6 @@ describe('tests for the component EditProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Route[path="/product/edit/:productId"]').length).toEqual(1)
         })
 

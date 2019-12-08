@@ -91,7 +91,6 @@ describe('tests for the component DeleteProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Redirect[to="/"]').length).toEqual(1)
         })
     })
@@ -109,7 +108,6 @@ describe('tests for the component DeleteProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Redirect[to="/"]').length).toEqual(1)
         })
     })
@@ -127,7 +125,6 @@ describe('tests for the component DeleteProduct', () => {
                 </BrowserRouter>
             )
 
-            expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('Route[path="/product/delete/:productId"]').length).toEqual(1)
         })
 
