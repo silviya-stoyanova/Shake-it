@@ -78,19 +78,6 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
             const jwtToken = sessionManager.getUserInfo().authtoken
             let isValid = this.validateOnSubmit(formType, data)
 
-            // if (formType === 'login') {
-            //     // debugger
-            //     console.log(event.preventDefault())
-            //     console.log('Form', Form)
-            //     console.log('formType', formType)
-            //     console.log('validations', validations)
-            //     console.log('initialData', initialData)
-            //     console.log('requestType', requestType)
-            //     console.log('promiseExtraMethods', promiseExtraMethods)
-            //     console.log('testServiceOnMount', testServiceOnMount)
-            //     console.log('testServiceOnSubmit', testServiceOnSubmit)
-            //     // console.log(this.props.history)
-            // }
             if (!isValid) {
                 return
             }
@@ -102,13 +89,11 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                     .then(res => {
                         // console.log(res.success)
                         this.props.history.push('/')
-
-
                     })
-                // .catch(err => {
-                //     console.log(err)
-                //     return err
-                // })
+                    .catch(err => {
+                        // console.log(err)
+                        return err
+                    })
 
             } else {
                 const promise = requester[requestType](data, jwtToken)

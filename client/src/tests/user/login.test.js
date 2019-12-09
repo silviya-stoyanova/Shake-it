@@ -8,7 +8,6 @@ import promiseExtraMethods from '../../components/hocs/promiseExtraMethods'
 import withProcessForm from '../../components/hocs/withProcessForm'
 import { UserLogin } from '../../components/user/login'
 
-// to test the document's title also
 // scenarious:
 
 // logged in user tries to reach the Login page  ==> should be redirected
