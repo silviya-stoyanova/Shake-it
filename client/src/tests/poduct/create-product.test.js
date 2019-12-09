@@ -7,13 +7,11 @@ import AuthRoute from '../../components/routes/auth-route'
 import { UserInfoProvider } from '../../App'
 import { productValidations } from '../../components/hocs/validations'
 import promiseExtraMethods from '../../components/hocs/promiseExtraMethods'
-// import sampleImg from '../test-img'
 
 // scenarios:
 
 //// when a guest access CreateProduct page they should be redirected to the home page
 //// when a user access CreateProduct page they should be redirected to the home page
-
 
 //// when The Admin access CreateProduct page they should be able to add a product
 //
@@ -52,10 +50,7 @@ const mockUploadedImg = () => {
     const fileBts = ["I-am-your-new-milkshake-pls-choose-meeeeee"]
     const fileName = 'cool-shake.png'
     const options = { type: "image/png" }
-    let a = new File(fileBts, fileName, options)
-
-    // console.log(a)
-    return a
+    return new File(fileBts, fileName, options)
 }
 
 const sampleEvents = {
@@ -76,13 +71,12 @@ const sampleEvents = {
             target: { name: 'title', value: "yyyyyyyyyeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhh" }
         },
     },
-    // todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo-todo
     image: {
         validImage: {
             target: { name: 'image', files: [mockUploadedImg()] }
         },
         invalidImage: {
-            target: { name: 'image' } //, value: ['i am not an image'] }
+            target: { name: 'image' }
         }
     },
     description: {
@@ -138,6 +132,13 @@ const mockProductCreate = () => {
 
 describe('tests for the component CreateProduct', () => {
     window.URL.createObjectURL = jest.fn()
+
+    let TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
+    let wrapper
+
+    beforeEach(() => {
+        wrapper = mount(<TestHoc history={historyMock} />)
+    })
 
     afterEach(() => {
         // to reset Jest mock function calls count after every test:
@@ -198,11 +199,7 @@ describe('tests for the component CreateProduct', () => {
         })
 
         it('should render a form for creating a product with empty fields', async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             expect(wrapper.html()).toMatchSnapshot()
-
             await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             expect(historyMock.push).not.toBeCalled()
         })
@@ -210,9 +207,6 @@ describe('tests for the component CreateProduct', () => {
 
 
         it("should mark as [valid] all of the product's fields after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             await wrapper.find('input[id="title"]').simulate('change', sampleEvents.title.validTitle)
             expect(wrapper.find('input[id="title"]').prop('value')).toEqual(sampleEvents.title.validTitle.target.value)
             wrapper.update()
@@ -239,9 +233,6 @@ describe('tests for the component CreateProduct', () => {
         })
 
         it("should mark as [invalid] product's [title] after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             await wrapper.find('input[id="title"]').simulate('change', sampleEvents.title.emptyTitle)
             expect(wrapper.find('input[id="title"]').prop('value')).toEqual(sampleEvents.title.emptyTitle.target.value)
             wrapper.update()
@@ -265,9 +256,6 @@ describe('tests for the component CreateProduct', () => {
         })
 
         it("should mark as [invalid] product's [description] after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             await wrapper.find('textarea[id="description"]').simulate('change', sampleEvents.description.emptyDescription)
             expect(wrapper.find('textarea[id="description"]').prop('value')).toEqual(sampleEvents.description.emptyDescription.target.value)
             wrapper.update()
@@ -288,18 +276,12 @@ describe('tests for the component CreateProduct', () => {
         })
 
         it("should mark as [invalid] product's [image] after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.invalidImage)
             wrapper.update()
             expect(wrapper.find('input[id="image"]').hasClass('error')).toEqual(true)
         })
 
         it("should mark as [invalid] product's [price] after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             await wrapper.find('input[id="price"]').simulate('change', sampleEvents.price.emptyPrice)
             expect(wrapper.find('input[id="price"]').prop('value')).toEqual(sampleEvents.price.emptyPrice.target.value)
             wrapper.update()
@@ -320,9 +302,6 @@ describe('tests for the component CreateProduct', () => {
         })
 
         it("should mark as [invalid] all of the product's fields after change", async () => {
-            const TestHoc = withProcessForm(CreateProduct, 'create', productValidations, initialData, null, extraMethods, null, mockProductCreate)
-            const wrapper = mount(<TestHoc />)
-
             await wrapper.find('input[id="title"]').simulate('change', sampleEvents.title.tooShortTitle)
             await wrapper.find('textarea[id="description"]').simulate('change', sampleEvents.description.tooShortDescription)
             await wrapper.find('input[id="image"]').simulate('change', sampleEvents.image.invalidImage)

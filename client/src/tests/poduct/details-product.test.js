@@ -28,8 +28,8 @@ const initialData = {
 }
 
 describe('tests for ProductDetails component', () => {
-    it("should render product details without any links below it, when a [guest] accesses [existing] product's details", () => {
 
+    it("should render product details without any links below it, when a [guest] accesses [existing] product's details", () => {
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching) // replaced productValidations, extraMethods with null
         const defaultUserValue = { isLogged: false, username: '', role: '' }
 
@@ -53,7 +53,6 @@ describe('tests for ProductDetails component', () => {
     })
 
     it("should render product details with links for [like] and [add to cart] below it, when a [user] accesses [existing] product's details", () => {
-
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching)
         const defaultUserValue = { isLogged: true, username: 'some-username', role: 'User' }
 
@@ -86,7 +85,6 @@ describe('tests for ProductDetails component', () => {
     })
 
     it("should render product details with all links for [like][edit][delete][add to cart] below it, when The [Admin] accesses [existing] product's details", () => {
-
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, mockProductFetching)
         const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
 
@@ -124,7 +122,6 @@ describe('tests for ProductDetails component', () => {
     })
 
     it("should render loading circle gif, when a [guest] accesses [non-existing] product's details", () => {
-
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
         const defaultUserValue = { isLogged: false, username: '', role: '' }
 
@@ -140,7 +137,6 @@ describe('tests for ProductDetails component', () => {
     })
 
     it("should render loading circle gif, when a [user] accesses [non-existing] product's details", () => {
-
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
         const defaultUserValue = { isLogged: true, username: 'my-name-is-this', role: 'User' }
 
@@ -156,7 +152,6 @@ describe('tests for ProductDetails component', () => {
     })
 
     it("should render loading circle gif, when The [Admin] accesses [non-existing] product's details", () => {
-
         const TestHoc = withProcessForm(ProductDetails, 'details', null, initialData, null, null, null)
         const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
 

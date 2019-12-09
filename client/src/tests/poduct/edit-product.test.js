@@ -142,6 +142,12 @@ const mockProductEdit = () => {
 }
 
 describe('tests for the component EditProduct', () => {
+    let TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
+    let wrapper
+
+    beforeEach(() => {
+        wrapper = mount(<TestHoc history={historyMock} />)
+    })
 
     afterEach(() => {
         // to reset Jest mock function calls count after every test:
@@ -153,7 +159,8 @@ describe('tests for the component EditProduct', () => {
         it('should redirect [guests] to the home page when they accesses edit-product page', () => {
             const defaultUserValue = { isLogged: false, username: '', role: '' }
 
-            const wrapper = mount(
+            // const
+            wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
                         <AuthRoute path="/product/edit/:productId" component={EditProduct} role="Admin" />
@@ -170,7 +177,8 @@ describe('tests for the component EditProduct', () => {
         it('should redirect [users] to the home page when they accesses edit-product page', () => {
             const defaultUserValue = { isLogged: true, username: 'my-name-is-user', role: 'User' }
 
-            const wrapper = mount(
+            // const
+            wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
                         <AuthRoute path="/product/edit/:productId" component={EditProduct} role="Admin" />
@@ -187,7 +195,8 @@ describe('tests for the component EditProduct', () => {
         it('should let The [Admin] accesses edit-product page by returning <Route path="/product/edit/:productId" .... />', () => {
             const defaultUserValue = { isLogged: true, username: 'xixix', role: 'Admin' }
 
-            const wrapper = mount(
+            // const
+            wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
                         <AuthRoute path="/product/edit/:productId" component={EditProduct} role="Admin" />
@@ -201,9 +210,6 @@ describe('tests for the component EditProduct', () => {
 
 
         it("should render [existing] product's edit page with it's [fetched] data", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -238,9 +244,6 @@ describe('tests for the component EditProduct', () => {
         })
 
         it("should mark as [valid] 3 of the product's fields after change", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -274,9 +277,6 @@ describe('tests for the component EditProduct', () => {
         })
 
         it("should mark as [invalid] product's [title] after change", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -310,9 +310,6 @@ describe('tests for the component EditProduct', () => {
         })
 
         it("should mark as [invalid] product's [description] after change", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -346,9 +343,6 @@ describe('tests for the component EditProduct', () => {
         })
 
         it("should mark as [invalid] product's [price] after change", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -382,9 +376,6 @@ describe('tests for the component EditProduct', () => {
         })
 
         it("should mark as [invalid] 3 of the product's fields after change", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, mockProductEdit)
-            const wrapper = mount(<TestHoc history={historyMock} />)
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -415,12 +406,10 @@ describe('tests for the component EditProduct', () => {
                     expect(historyMock.push.mock.calls.length).not.toEqual(1)
                     expect(historyMock.push.mock.calls[0]).toEqual(undefined)
                 })
-
         })
 
         it("should render loading-circle.gif until the server returns a response", () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockExistingProductFetch, null)
-            const wrapper = mount(<TestHoc />)
+            wrapper = mount(<TestHoc history={historyMock} />)
 
             expect(wrapper.html()).toMatchSnapshot()
             expect(wrapper.find('div.form-fields-wrapper').length).toEqual(0)
@@ -444,9 +433,9 @@ describe('tests for the component EditProduct', () => {
         //         })
         // })
 
-        it("should redirect to the home page when accessing a non-existing product's edit page", async () => {
-            const TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockNonExistingProductFetch, null)
-            const wrapper = mount(<TestHoc history={historyMock} />)
+        it("should redirect to the home page when accessing a [non-existing] product's edit page", async () => {
+            TestHoc = withProcessForm(EditProduct, 'edit', productValidations, initialData, null, null, mockNonExistingProductFetch, mockProductEdit)
+            wrapper = mount(<TestHoc history={historyMock} />)
 
             try {
                 await mockNonExistingProductFetch()

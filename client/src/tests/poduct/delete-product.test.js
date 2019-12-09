@@ -73,6 +73,17 @@ const historyMock = {
 
 describe('tests for the component DeleteProduct', () => {
 
+    let TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockExistingProductFetch, mockPoductDelete)
+    let wrapper
+
+    beforeEach(() => {
+        wrapper = mount(
+            <BrowserRouter>
+                <TestHoc history={historyMock} />
+            </BrowserRouter>
+        )
+    })
+
     afterEach(() => {
         // to reset Jest mock function calls count after every test:
         historyMock.push.mockClear()
@@ -86,7 +97,6 @@ describe('tests for the component DeleteProduct', () => {
             const wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
-                        {/* isTest={true}  */}
                         <AuthRoute path="/product/delete/:productId" component={DeleteProduct} role="Admin" />
                     </UserInfoProvider>
                 </BrowserRouter>
@@ -132,14 +142,6 @@ describe('tests for the component DeleteProduct', () => {
 
 
         it("should render [existing] product's delete page with it's [fetched] data", () => {
-            const TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockExistingProductFetch, null)
-
-            const wrapper = mount(
-                <BrowserRouter>
-                    <TestHoc history={historyMock} />
-                </BrowserRouter>
-            )
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -167,18 +169,9 @@ describe('tests for the component DeleteProduct', () => {
                     expect(wrapper.find('button.btn-del').length).toEqual(1)
                     expect(wrapper.find('a[href="/"]').hasClass('btn-del')).toEqual(true)
                 })
-
         })
 
         it("should redirect to the home page after the data for deleting a product is [fetched] and the form is [submitted]", async () => {
-            const TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockExistingProductFetch, mockPoductDelete)
-
-            const wrapper = mount(
-                <BrowserRouter>
-                    <TestHoc history={historyMock} />
-                </BrowserRouter>
-            )
-
             mockExistingProductFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -196,10 +189,8 @@ describe('tests for the component DeleteProduct', () => {
                 })
         })
 
-        it('should render a loading-circle.gif when the data for deleting a product is not [fetched] yet', () => {
-            const TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockExistingProductFetch, null)
-
-            const wrapper = mount(
+        it('should render a loading-circle.gif until the server returns a response', () => {
+            wrapper = mount(
                 <BrowserRouter>
                     <TestHoc />
                 </BrowserRouter>
@@ -212,9 +203,8 @@ describe('tests for the component DeleteProduct', () => {
         })
 
         it("should redirect to the home page when accessing a non-existing product's delete page", async () => {
-            const TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockNonExistingProductFetch, null)
-
-            const wrapper = mount(
+            TestHoc = withProcessForm(DeleteProduct, 'delete', productValidations, initialData, null, null, mockNonExistingProductFetch, null)
+            wrapper = mount(
                 <BrowserRouter>
                     <TestHoc history={historyMock} />
                 </BrowserRouter>

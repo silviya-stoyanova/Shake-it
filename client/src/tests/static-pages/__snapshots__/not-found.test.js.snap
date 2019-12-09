@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tests for the component NotFound should render correctly 1`] = `"<div class=\\"not-found-wrapper\\"><div class=\\"not-found-img\\"><span class=\\"four-digit left-al\\">4</span><span class=\\"four-digit right-al\\">4</span></div><span class=\\"not-found-txt\\">Sorry, we could not find what you were looking for :(</span></div>"`;
+exports[`tests for the component NotFound should render correctly 1`] = `"<div class=\\"not-found-wrapper\\"><div class=\\"not-found-img\\"><span class=\\"four-digit left-al\\">4</span><span class=\\"four-digit right-al\\">4</span></div><span class=\\"not-found-txt\\">We searched everywhere but we could not find what you were looking for :(</span></div>"`;

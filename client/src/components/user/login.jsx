@@ -9,7 +9,7 @@ import promiseExtraMethods from '../hocs/promiseExtraMethods'
 const UserLogin = (props) => {
     useTitle('Login')
     const { handleInputChange, handleFormSubmit } = props
-    const { userClass, passClass } = props.data
+    const { username, password, userClass, passClass } = props.data
 
     return (
         <React.Fragment>
@@ -20,10 +20,10 @@ const UserLogin = (props) => {
 
                     <div className="form-fields-wrapper">
                         <label htmlFor="username">Username</label>
-                        <input autoFocus onChange={handleInputChange} name="username" className={userClass} type="text" id="username" />
+                        <input autoFocus value={username} onChange={handleInputChange} name="username" className={userClass} type="text" id="username" />
 
                         <label htmlFor="password">Password</label>
-                        <input onChange={handleInputChange} name="password" className={passClass} type="password" id="password" />
+                        <input value={password} onChange={handleInputChange} name="password" className={passClass} type="password" id="password" />
                     </div>
 
                     <button className="button" type="submit">Submit</button>
@@ -48,5 +48,6 @@ const extraMethods = {
     fail: promiseExtraMethods.user().onLoginFail
 }
 
+export { UserLogin }
 //* wrong: export default <withProcessForm Form={UserLogin} />
 export default withProcessForm(UserLogin, 'login', userValidations, initialData, requestType, extraMethods)
