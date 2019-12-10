@@ -134,8 +134,7 @@ describe('tests for the component CreateProduct', () => {
     afterEach(() => {
         // to reset Jest mock function calls count after every test:
         historyMock.push.mockClear()
-
-        window.URL.createObjectURL.mockReset();
+        window.URL.createObjectURL.mockReset()
     })
 
     describe('tests for guest functionalities', () => {

@@ -91,7 +91,6 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
                         this.props.history.push('/')
                     })
                     .catch(err => {
-                        // console.log(err)
                         return err
                     })
 

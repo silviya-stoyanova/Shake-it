@@ -28,7 +28,9 @@ class UserProfile extends Component {
     }
 
     static defaultProps = {
-        service: requester.getProfileInfo
+        serviceOnSubmit: requester.updateProfileInfo,
+        serviceOnMount: requester.getProfileInfo,
+        toast: toast
     }
 
     handleInputChange = ({ target }) => {
@@ -46,8 +48,10 @@ class UserProfile extends Component {
         event.preventDefault()
         const jwtToken = sessionManager.getUserInfo().authtoken
         const { profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state
+        const { toast, serviceOnSubmit } = this.props
 
-        requester.updateProfileInfo(profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress, jwtToken)
+        // requester.updateProfileInfo
+        serviceOnSubmit(profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress, jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
@@ -55,7 +59,8 @@ class UserProfile extends Component {
                 return res.json()
             })
             .then(res => {
-                return toast.info(res.success, {
+                // return
+                toast.info(res.success, {
                     className: 'success-toast'
                 })
             })
@@ -70,8 +75,8 @@ class UserProfile extends Component {
     }
 
     render() {
-        const { username,
-            profilePic, firstName, lastName, email, country, city, postcode, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
+        const { username, profilePic, firstName, lastName, email, country, city,
+            postcode, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
 
         return (
             <div className='content-wrapper'>
@@ -136,9 +141,11 @@ class UserProfile extends Component {
         document.title = 'Shake it - My profile'
         const jwtToken = sessionManager.getUserInfo().authtoken
 
-        const { service } = this.props
+        const { serviceOnMount } = this.props
+        const { toast } = this.props
+
         // requester.getProfileInfo(jwtToken)
-        service(jwtToken)
+        serviceOnMount(jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)

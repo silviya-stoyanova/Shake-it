@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { mount } from 'enzyme'
-import AuthRoute from '../../components/routes/auth-route'
 import { UserInfoProvider } from '../../App'
+import AuthRoute from '../../components/routes/auth-route'
 import UserProfile from '../../components/user/profile'
 
 // what if submit button is pressed before the data is fetched? ==> all the user info is cleared
@@ -15,13 +15,13 @@ import UserProfile from '../../components/user/profile'
 //// logged in admin tries to reach the UserProfile page ==> should be able to view UserProfile page
 
 
-// should render empty form until user's data is fetched and <img src="loading-circle.gif" />
+//// should render empty form until user's data is fetched and <img src="loading-circle.gif" />
 
 // [[sampleEvents.onFormSubmit]] should be called in all of the cases listed below:
 
 // -- submit button is not clicked yet and..  /or/  -- submit button is clicked
 //
-//    -- info is passed to all fields
+////    -- info is passed to all fields
 //    -- info is passed for [profilePic] / [firstName] / [lastName] / [*email*] / [adress]
 //                          [phoneNumber] /[country] / [city] / [postcode] / [purchasedProducts] / [uploadedImg]
 
@@ -32,7 +32,7 @@ const mockUploadedImg = () => {
     return new File(fileBits, filename, options)
 }
 
-const mockGetProfileInfo = () => {
+const mockGetProfileFetch = () => {
     const sampleReturnedData = JSON.stringify({
         username: 'YesBe',
         profilePic: 'banana-shake.jpeg',
@@ -52,34 +52,49 @@ const mockGetProfileInfo = () => {
 
 const sampleEvents = {
     profilePic: {
-        target: 'profilePic', files: [mockUploadedImg()]
+        target: {
+            name: 'profilePic', files: [mockUploadedImg()]
+        }
     },
     firstName: {
-        target: 'firstName', value: 'I am the'
+        target: {
+            name: 'firstName', value: 'I am the'
+        }
     },
     lastName: {
-        target: 'lastName', value: 'Coolest Banana'
+        target: {
+            name: 'lastName', value: 'Coolest Banana'
+        }
     },
     phoneNumber: {
-        target: 'phoneNumber', value: '+333 000 000 000'
+        target: {
+            name: 'phoneNumber', value: '+333 000 000 000'
+        }
     },
     email: {
-        target: 'email', value: 'info@shake-it.com'
+        target: {
+            name: 'email', value: 'info@shake-it.com'
+        }
     },
     country: {
-        target: 'country', value: 'Bulgaria'
+        target: {
+            name: 'country', value: 'Bulgaria'
+        }
     },
     city: {
-        target: 'city', value: 'Yambol'
+        target: {
+            name: 'city', value: 'Yambol'
+        }
     },
     postcode: {
-        target: 'postcode', value: '8600'
+        target: {
+            name: 'postcode', value: '8600'
+        }
     },
     adress: {
-        target: 'adress', value: 'Yambol city LTD'
-    },
-    uploadedImg: {
-        target: 'uploadedImg', value: '*TODOOOO**********************************'
+        target: {
+            name: 'adress', value: 'Yambol city LTD'
+        }
     },
     onFormSubmit: {
         preventDefault() {
@@ -88,11 +103,30 @@ const sampleEvents = {
     }
 }
 
+const mockFormSubmit = () => {
+    const sampleReturnedData = JSON.stringify({ success: 'Your profile was editted successfully!' })
+    return Promise.resolve(new Response(sampleReturnedData))
+}
+
+const mockToast = {
+    info: jest.fn()
+}
+
 describe('tests for the component UserProfile', () => {
+    window.URL.createObjectURL = jest.fn()
     let wrapper
 
     beforeEach(() => {
-        wrapper = mount(<UserProfile service={mockGetProfileInfo} />)
+        wrapper = mount(
+            <UserProfile toast={mockToast}
+                serviceOnSubmit={mockFormSubmit} serviceOnMount={mockGetProfileFetch} />
+        )
+    })
+
+    afterEach(() => {
+        // to reset Jest mock function calls count after every test:
+        mockToast.info.mockClear()
+        window.URL.createObjectURL.mockReset()
     })
 
     describe('guest functionalities', () => {
@@ -142,11 +176,13 @@ describe('tests for the component UserProfile', () => {
 
             expect(wrapper.find('button.edit-profile-btn').prop('disabled')).toEqual(true)
 
-            mockGetProfileInfo()
+            mockGetProfileFetch()
         })
 
+
+
         it("should render user's profile with fetched data and enabled submit button", () => {
-            mockGetProfileInfo()
+            mockGetProfileFetch()
                 .then(res => res.json())
                 .then(async res => {
                     await wrapper.setState({
@@ -180,14 +216,48 @@ describe('tests for the component UserProfile', () => {
 
                     expect(wrapper.find('button.edit-profile-btn').prop('disabled')).toEqual(false)
 
+                    await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+                    await mockFormSubmit()
+                    expect(mockToast.info).toBeCalled()
+                    expect(mockToast.info).toHaveBeenLastCalledWith(
+                        'Your profile was editted successfully!',
+                        { className: 'success-toast' })
+                    expect(mockToast.info.mock.calls.length).toEqual(1)
                 })
         })
 
+        it('passes info to all the input fields of the form', async () => {
+            await mockGetProfileFetch()
+            wrapper.update()
 
+            // wrapper.find('input[id="profilePic"]').simulate('change', sampleEvents.profilePic)
+            wrapper.find('input[id="firstName"]').simulate('change', sampleEvents.firstName)
+            wrapper.find('input[id="lastName"]').simulate('change', sampleEvents.lastName)
+            wrapper.find('input[id="phoneNumber"]').simulate('change', sampleEvents.phoneNumber)
+            wrapper.find('input[id="email"]').simulate('change', sampleEvents.email)
+            wrapper.find('input[id="country"]').simulate('change', sampleEvents.country)
+            wrapper.find('input[id="city"]').simulate('change', sampleEvents.city)
+            wrapper.find('input[id="postcode"]').simulate('change', sampleEvents.postcode)
+            wrapper.find('input[id="adress"]').simulate('change', sampleEvents.adress)
 
+            // expect(wrapper.find('input[id="profilePic"]')).toEqual(sampleEvents.profilePic.target.files)
+            expect(wrapper.find('input[id="firstName"]').prop('defaultValue')).toEqual(sampleEvents.firstName.target.value)
+            expect(wrapper.find('input[id="lastName"]').prop('defaultValue')).toEqual(sampleEvents.lastName.target.value)
+            expect(wrapper.find('input[id="phoneNumber"]').prop('defaultValue')).toEqual(sampleEvents.phoneNumber.target.value)
+            expect(wrapper.find('input[id="email"]').prop('defaultValue')).toEqual(sampleEvents.email.target.value)
+            expect(wrapper.find('input[id="country"]').prop('defaultValue')).toEqual(sampleEvents.country.target.value)
+            expect(wrapper.find('input[id="city"]').prop('defaultValue')).toEqual(sampleEvents.city.target.value)
+            expect(wrapper.find('input[id="postcode"]').prop('defaultValue')).toEqual(sampleEvents.postcode.target.value)
+            expect(wrapper.find('input[id="adress"]').prop('defaultValue')).toEqual(sampleEvents.adress.target.value)
 
-
-
+            await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
+            await mockFormSubmit()
+            expect(mockToast.info).toBeCalled()
+            expect(mockToast.info).toHaveBeenLastCalledWith(
+                'Your profile was editted successfully!',
+                { className: 'success-toast' })
+            expect(mockToast.info.mock.calls.length).toEqual(1)
+        })
     })
 
     describe('admin functionalities', () => {
