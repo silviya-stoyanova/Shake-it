@@ -11,19 +11,24 @@ class UserProfile extends Component {
         super(props)
 
         this.state = {
+            username: '',
             profilePic: '',
             firstName: '',
             lastName: '',
             email: '',
-            adress: '',
-            phoneNumber: '',
             country: '',
             city: '',
             postcode: '',
+            adress: '',
+            phoneNumber: '',
             purchasedProducts: '',
 
             uploadedImg: ''
         }
+    }
+
+    static defaultProps = {
+        service: requester.getProfileInfo
     }
 
     handleInputChange = ({ target }) => {
@@ -65,81 +70,75 @@ class UserProfile extends Component {
     }
 
     render() {
-        const { profilePic, firstName, lastName, email, country, city, postcode, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
+        const { username,
+            profilePic, firstName, lastName, email, country, city, postcode, adress, phoneNumber, purchasedProducts, uploadedImg } = this.state
 
-        return <UserInfoConsumer>
-            {(data) => (
-                <div className='content-wrapper'>
-                    {
-                        !data.isLogged
-                        && <Fragment>
-                            < Redirect to='/user/login' />
-                        </Fragment>
-                    }
+        return (
+            <div className='content-wrapper'>
+                <form onSubmit={this.handleFormSumbit} className='profile-wrapper' encType="multipart/form-data">
+                    <div className="update-img-container">
+                        {
+                            profilePic
+                                ? <Fragment>
+                                    <div>
+                                        <img className='profile-img' src={uploadedImg ? uploadedImg : `data:image/png;base64, ${profilePic}`} alt="profile-pic" />
+                                    </div>
+                                    <div>
+                                        <label className="update-img-content" htmlFor="profilePic">
+                                            <img className="update-img" src={require('../../static/images/update-pic.png')} alt="update-profile" />
+                                        </label>
+                                        <input onChange={this.handleInputChange} type="file" name="profilePic" id="profilePic" />
+                                    </div>
+                                </Fragment>
+                                : <img className='profile-img' src={require('../../static/images/loading-circle.gif')} alt="profile-pic" />
+                        }
+                    </div>
 
-                    <form onSubmit={this.handleFormSumbit} className='profile-wrapper' encType="multipart/form-data">
-                        <div className="update-img-container">
-                            {
-                                profilePic
-                                    ? <Fragment>
-                                        <div>
-                                            <img className='profile-img' src={uploadedImg ? uploadedImg : `data:image/png;base64, ${profilePic}`} alt="profile-pic" />
-                                        </div>
-                                        <div>
-                                            <label className="update-img-content" htmlFor="profilePic">
-                                                <img className="update-img" src={require('../../static/images/update-pic.png')} alt="update-profile" />
-                                            </label>
-                                            <input onChange={this.handleInputChange} type="file" name="profilePic" id="profilePic" />
-                                        </div>
-                                    </Fragment>
-                                    : <img className='profile-img' src={require('../../static/images/loading-circle.gif')} alt="profile-pic" />
-                            }
-                        </div>
+                    <span className="user-info-username" >Username: {username}</span>
+                    <hr />
 
-                        <span className="user-info-username" >Username: {data.username}</span>
-                        <hr />
+                    <div className="user-info">
+                        <label htmlFor="firstName" >First name:</label>
+                        <input onChange={this.handleInputChange} name="firstName" id="firstName" defaultValue={firstName} />
 
-                        <div className="user-info">
-                            <label htmlFor="firstName" >First name:</label>
-                            <input onChange={this.handleInputChange} name="firstName" id="firstName" defaultValue={firstName} />
+                        <label htmlFor="lastName" >Last name:</label>
+                        <input onChange={this.handleInputChange} name="lastName" id="lastName" defaultValue={lastName} />
 
-                            <label htmlFor="lastName" >Last name:</label>
-                            <input onChange={this.handleInputChange} name="lastName" id="lastName" defaultValue={lastName} />
+                        <label htmlFor="phoneNumber" >Phone:</label>
+                        <input onChange={this.handleInputChange} name="phoneNumber" id="phoneNumber" defaultValue={phoneNumber} />
 
-                            <label htmlFor="phoneNumber" >Phone:</label>
-                            <input onChange={this.handleInputChange} name="phoneNumber" id="phoneNumber" defaultValue={phoneNumber} />
+                        <label htmlFor="email" >Email:</label>
+                        <input onChange={this.handleInputChange} name="email" type="email" id="email" defaultValue={email} />
 
-                            <label htmlFor="email" >Email:</label>
-                            <input onChange={this.handleInputChange} name="email" type="email" id="email" defaultValue={email} />
+                        <label htmlFor="country" >Country:</label>
+                        <input onChange={this.handleInputChange} name="country" id="country" defaultValue={country} />
 
-                            <label htmlFor="country" >Country:</label>
-                            <input onChange={this.handleInputChange} name="country" id="country" defaultValue={country} />
+                        <label htmlFor="city" >City:</label>
+                        <input onChange={this.handleInputChange} name="city" id="city" defaultValue={city} />
 
-                            <label htmlFor="city" >City:</label>
-                            <input onChange={this.handleInputChange} name="city" id="city" defaultValue={city} />
+                        <label htmlFor="postcode" >Postcode:</label>
+                        <input onChange={this.handleInputChange} name="postcode" id="postcode" defaultValue={postcode} />
 
-                            <label htmlFor="postcode" >Postcode:</label>
-                            <input onChange={this.handleInputChange} name="postcode" id="postcode" defaultValue={postcode} />
+                        <label htmlFor="adress" >Shipping address:</label>
+                        <input onChange={this.handleInputChange} name="adress" id="adress" defaultValue={adress} />
 
-                            <label htmlFor="adress" >Shipping address:</label>
-                            <input onChange={this.handleInputChange} name="adress" id="adress" defaultValue={adress} />
+                        <label>Purchased products: {purchasedProducts}</label>
+                    </div>
 
-                            <label>Purchased products: {purchasedProducts}</label>
-                        </div>
-
-                        <hr />
-                        <button type="submit" className="edit-profile-btn" >Save changes</button>
-                    </form>
-                </div >
-            )}
-        </UserInfoConsumer>
+                    <hr />
+                    <button type="submit" className="edit-profile-btn" disabled={username ? false : true} >Save changes</button>
+                </form>
+            </div >
+        )
     }
 
     componentDidMount() {
         document.title = 'Shake it - My profile'
         const jwtToken = sessionManager.getUserInfo().authtoken
 
-        requester.getProfileInfo(jwtToken)
+        const { service } = this.props
+        // requester.getProfileInfo(jwtToken)
+        service(jwtToken)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res)
@@ -148,7 +147,9 @@ class UserProfile extends Component {
             })
             .then(res => {
                 this.setState({
-                    profilePic: res.profilePic !== 'undefined' ? res.profilePic : '',
+                    username: res.username,
+                    // profilePic: res.profilePic !== 'undefined' ? res.profilePic : '',
+                    profilePic: res.profilePic,
                     firstName: res.firstName !== 'undefined' ? res.firstName : '',
                     lastName: res.lastName !== 'undefined' ? res.lastName : '',
                     email: res.email !== 'undefined' ? res.email : '',

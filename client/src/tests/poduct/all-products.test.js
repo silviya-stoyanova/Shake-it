@@ -55,7 +55,7 @@ const mockNoProductsFetch = () => {
 describe('tests for the component AllProducts, a.k.a. Home page', () => {
 
     describe('guest functionalities tests', () => {
-        it('should render loading gif for all [guests] untill the info is fetched', () => {
+        it('should render loading gif for all [guests] until the info is fetched', () => {
             const defaultUserValue = { isLogged: false, username: '', role: '' }
 
             const wrapper = mount(
@@ -166,7 +166,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
     })
 
     describe('user functionalities tests', () => {
-        it('should render loading gif for all [users] untill the info is fetched', () => {
+        it('should render loading gif for all [users] until the info is fetched', () => {
             const defaultUserValue = { isLogged: true, username: 'my-name-is-yolo', role: 'User' }
 
             const wrapper = mount(
@@ -278,7 +278,7 @@ describe('tests for the component AllProducts, a.k.a. Home page', () => {
     })
 
     describe('admin functionalities tests', () => {
-        it('should render loading gif for The [Admin] untill the info is fetched', () => {
+        it('should render loading gif for The [Admin] until the info is fetched', () => {
             const defaultUserValue = { isLogged: true, username: 'admin', role: 'Admin' }
 
             const wrapper = mount(

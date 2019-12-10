@@ -78,15 +78,12 @@ const sampleEvents = {
         validTitle: {
             target: { name: 'title', value: "new title" }
         },
-
         emptyTitle: {
             target: { name: 'title', value: "" }
         },
-
         tooShortTitle: {
             target: { name: 'title', value: "ne" }
         },
-
         tooLongTitle: {
             target: { name: 'title', value: "yyyyyyyyyeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhh" }
         },
@@ -98,15 +95,12 @@ const sampleEvents = {
         validDescription: {
             target: { name: 'description', value: "that's right, this is a new description" }
         },
-
         emptyDescription: {
             target: { name: 'description', value: "" }
         },
-
         tooShortDescription: {
             target: { name: 'description', value: "shorty" }
         },
-
         tooLongDescription: {
             target: { name: 'description', value: "We use letters to communicate with other people. To simplify things, the users utilize software to type the document and count the number of words and characters they use. Another way to count the number of characters is through a character counter online." }
         }
@@ -115,15 +109,12 @@ const sampleEvents = {
         validPrice: {
             target: { name: 'price', value: '229' }
         },
-
         emptyPrice: {
             target: { name: 'price', value: '' }
         },
-
         zeroPrice: {
             target: { name: 'price', value: '0' }
         },
-
         belowZeroPrice: {
             target: { name: 'price', value: '-159' }
         }

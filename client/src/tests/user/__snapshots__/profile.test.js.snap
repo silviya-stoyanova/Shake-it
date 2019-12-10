@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests for the component UserProfile user functionalities should render user's profile with fetched data and enabled submit button 1`] = `
+"<UserProfile service={[Function: mockGetProfileInfo]}>
+  <div className=\\"content-wrapper\\">
+    <form onSubmit={[Function]} className=\\"profile-wrapper\\" encType=\\"multipart/form-data\\">
+      <div className=\\"update-img-container\\">
+        <div>
+          <img className=\\"profile-img\\" src=\\"data:image/png;base64, banana-shake.jpeg\\" alt=\\"profile-pic\\" />
+        </div>
+        <div>
+          <label className=\\"update-img-content\\" htmlFor=\\"profilePic\\">
+            <img className=\\"update-img\\" src=\\"update-pic.png\\" alt=\\"update-profile\\" />
+          </label>
+          <input onChange={[Function]} type=\\"file\\" name=\\"profilePic\\" id=\\"profilePic\\" />
+        </div>
+      </div>
+      <span className=\\"user-info-username\\">
+        Username: 
+        YesBe
+      </span>
+      <hr />
+      <div className=\\"user-info\\">
+        <label htmlFor=\\"firstName\\">
+          First name:
+        </label>
+        <input onChange={[Function]} name=\\"firstName\\" id=\\"firstName\\" defaultValue=\\"My name\\" />
+        <label htmlFor=\\"lastName\\">
+          Last name:
+        </label>
+        <input onChange={[Function]} name=\\"lastName\\" id=\\"lastName\\" defaultValue=\\"Cowboy\\" />
+        <label htmlFor=\\"phoneNumber\\">
+          Phone:
+        </label>
+        <input onChange={[Function]} name=\\"phoneNumber\\" id=\\"phoneNumber\\" defaultValue=\\"123\\" />
+        <label htmlFor=\\"email\\">
+          Email:
+        </label>
+        <input onChange={[Function]} name=\\"email\\" type=\\"email\\" id=\\"email\\" defaultValue=\\"shake-it@gmail.com\\" />
+        <label htmlFor=\\"country\\">
+          Country:
+        </label>
+        <input onChange={[Function]} name=\\"country\\" id=\\"country\\" defaultValue=\\"BG\\" />
+        <label htmlFor=\\"city\\">
+          City:
+        </label>
+        <input onChange={[Function]} name=\\"city\\" id=\\"city\\" defaultValue=\\"Yambol\\" />
+        <label htmlFor=\\"postcode\\">
+          Postcode:
+        </label>
+        <input onChange={[Function]} name=\\"postcode\\" id=\\"postcode\\" defaultValue=\\"8600\\" />
+        <label htmlFor=\\"adress\\">
+          Shipping address:
+        </label>
+        <input onChange={[Function]} name=\\"adress\\" id=\\"adress\\" defaultValue=\\"Yambol city, baby\\" />
+        <label>
+          Purchased products: 
+          2
+        </label>
+      </div>
+      <hr />
+      <button type=\\"submit\\" className=\\"edit-profile-btn\\" disabled={false}>
+        Save changes
+      </button>
+    </form>
+  </div>
+</UserProfile>"
+`;

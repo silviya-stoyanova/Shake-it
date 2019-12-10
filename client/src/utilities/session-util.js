@@ -22,21 +22,7 @@ const sessionManager = {
             authtoken: sessionStorage.getItem('authtoken'),
             role: sessionStorage.getItem('role'),
         }
-    },
-
-    // getUsername: () => {
-    // return sessionStorage.getItem('username')
-    // },
-    // 
-    // getAuthtoken: () => {
-    // return sessionStorage.getItem('authtoken')
-    // },
-    // 
-    // getUserRole: () => {
-    // let role = sessionStorage.getItem('role')
-    // return role
-    // },
-
+    }
 }
 
 export default sessionManager

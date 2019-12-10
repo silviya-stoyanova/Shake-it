@@ -66,23 +66,23 @@ module.exports = {
             }
 
             Product.create({ title, description, price })
-                .then(async newProduct => {
+                .then(newProduct => {
                     let newFileName = image.path.split('\\').reverse()[0]
 
-                    await mv(image.path, uploadFilesPath + newFileName,
+                    mv(image.path, uploadFilesPath + newFileName,
                         (err) => {
                             if (err) {
                                 res.status(500).send({ message: err.message })
                             }
+
+                            newProduct.image = newFileName
+                            newProduct.save()
+                            return res.send({ success: 'You have successfully added this product! Cheers! 🍹' })
                         }
                     )
-
-                    newProduct.image = newFileName
-                    await newProduct.save()
-                    return res.send({ success: 'You have successfully added this product! Cheers! 🍹' })
                 })
                 .catch(err => {
-                    return res.status(400).send({ message: err.message })
+                    return res.status(500).send({ message: err.message })
                 })
         })
     },
@@ -112,7 +112,7 @@ module.exports = {
                     : false
 
             if (!product) {
-                return res.status(400).send({ message: 'This product does not exist!', titleIsTaken: false})
+                return res.status(400).send({ message: 'This product does not exist!', titleIsTaken: false })
             }
             if (titleIsTaken) {
                 return res.status(400).send({ message: 'Please choose another title, this one is already taken!', titleIsTaken: true })
@@ -127,7 +127,7 @@ module.exports = {
                 return res.status(400).send({ message: 'The title description must be between 10 and 250 symbols!', titleIsTaken: false })
             }
             if (Number(price) <= 0) {
-                return res.status(400).send({ message: 'The price must be above 0!', titleIsTaken: false})
+                return res.status(400).send({ message: 'The price must be above 0!', titleIsTaken: false })
             }
 
             //*** without encType="multipart/form-data" in the form:

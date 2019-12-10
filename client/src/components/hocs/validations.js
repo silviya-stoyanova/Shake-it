@@ -59,7 +59,7 @@ const userValidations = {
                 errorMsg = 'Both passwords must consist of at least 8 characters and they both must match!'
             }
             if (isInputValid.username === 'invalid') {
-                errorMsg = 'Please enter a valid username!'
+                errorMsg = 'Your username must consist of at least 5 characters!'
             }
         }
         if (errorMsg) {
@@ -134,7 +134,7 @@ const productValidations = {
             errorMsg = 'Please provide an image.'
         }
         if (isInputValid.description === 'invalid') {
-            errorMsg = 'The description must be at least 10 symbols long.'
+            errorMsg = 'The description length must be between 10 and 250 symbols including.'
         }
         if (isInputValid.title === 'invalid') {
             errorMsg = 'The title length must be between 3 and 50 symbols including.'

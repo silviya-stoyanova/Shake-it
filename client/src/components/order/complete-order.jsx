@@ -46,13 +46,9 @@ class CompleteOrder extends Component {
             })
     }
 
-    render() {
-        document.title = 'Shake it - Complete your order'
-        const { productsInCart } = this.state
-        const { firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state.user
-
-        return <div>
-            <div className="order-info">
+    shippingInfoForm = (firstName, lastName, phoneNumber, email, country, city, postcode, adress) => {
+        return (
+            <div className="shipping-info">
                 <form className='order-form' onSubmit={this.handleFormSubmit}>
                     <div className="form-type">Shipping information</div>
                     <hr />
@@ -127,19 +123,22 @@ class CompleteOrder extends Component {
                     <button type="submit" className="button confirm-btn" >Confirm <span role="img" aria-label='milkshake cup'>🍹</span></button>
                 </form>
             </div>
+        )
+    }
 
+    orderedProducts = (productsInCart) => {
+        return (
             <div className='ordered-products'>
                 <div className='ordered-products-heading'>My products</div>
-                {/* <div>/to add more info here/</div> */}
 
                 {productsInCart.map(p => {
                     return (
                         <div key={p._id}>
                             <img src={'data:image/png;base64, ' + p.product.image} alt='product' className="cart-img ordered-products-img" />
                             <div>
-                                <span>{p.product.title}</span>
+                                <div>{p.product.title}</div>
                                 <span className="cart-product-qty">{p.quantity}</span>
-                                <span>{p.product.price}<span className="price-sign">$</span></span>
+                                <span> x {p.product.price.toFixed(2)}<span className="price-sign">$</span> = </span>
                                 <span>{(p.quantity * p.product.price).toFixed(2)}<span className="price-sign">$</span></span>
                             </div>
                             <hr />
@@ -149,8 +148,28 @@ class CompleteOrder extends Component {
 
                 {/* <hr className='hr-vertical' /> */}
             </div>
+        )
+    }
 
-            <div className='order-total ordered-products-heading'>Total</div>
+    totalSum = (productsInCart) => {
+        const total = productsInCart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0)
+
+        return (
+            <div>
+                <div className='order-total ordered-products-heading'>Total: {total.toFixed(2)}<span className="price-sign">$</span></div>
+            </div>
+        )
+    }
+
+    render() {
+        document.title = 'Shake it - Complete your order'
+        const { productsInCart } = this.state
+        const { firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state.user
+
+        return <div>
+            {this.shippingInfoForm(firstName, lastName, phoneNumber, email, country, city, postcode, adress)}
+            {this.orderedProducts(productsInCart)}
+            {this.totalSum(productsInCart)}
         </div >
     }
 
