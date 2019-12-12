@@ -25,6 +25,10 @@ hr {
     border-radius: 100%;
 }
 
+input::placeholder {
+    color: #755367;
+}
+
 .main-container {
     width: 60%;
     background: rgb(184, 158, 158);

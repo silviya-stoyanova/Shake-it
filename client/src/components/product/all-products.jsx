@@ -55,7 +55,7 @@ class AllProducts extends Component {
     searchField = () => (
         <div>
             <label htmlFor="search">Find your milkshake..</label>
-            <input onChange={this.onSearchChange} name="search" type="text" id="search" />
+            <input onChange={this.onSearchChange} name="search" placeholder="type here.." type="text" id="search" />
         </div>
     )
 
