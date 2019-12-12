@@ -10,15 +10,54 @@ class AllProducts extends Component {
         super(props)
         this.state = {
             products: [],
+            filteredProducts: [],
             isFetched: false
         }
 
-        this.renderAllProducts = this.renderAllProducts.bind(this)
+        this.renderProducts = this.renderProducts.bind(this)
     }
 
     static defaultProps = {
         service: requester.getAllProducts
     }
+
+    showLoading = () => (
+        <div className="product-wrapper" >
+            <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
+        </div>
+    )
+
+    noProductsLeft = () => (
+        <div className="no-products-container">
+            <div className="no-products-text-container">
+                <h1>Our products are so desired that we could not predict we would run out of stock this soon..</h1>
+                <h2>Sorry!</h2>
+            </div>
+
+            <div className="no-products-img"></div>
+        </div>
+    )
+
+    filterProducts = async (query) => {
+        const { products } = this.state
+        const filteredProducts = products.filter(p => p.title.toLowerCase().includes(query.toLowerCase()))
+
+        await this.setState({
+            filteredProducts
+        })
+    }
+
+    onSearchChange = (e) => {
+        const querySearch = e.target.value
+        this.filterProducts(querySearch)
+    }
+
+    searchField = () => (
+        <div>
+            <label htmlFor="search">Find your milkshake..</label>
+            <input onChange={this.onSearchChange} name="search" type="text" id="search" />
+        </div>
+    )
 
     userFunctionalities = (data, p) => {
         return data.isLogged
@@ -52,69 +91,51 @@ class AllProducts extends Component {
             </Fragment>
     }
 
-    renderAllProducts(data) {
-        const { products } = this.state
+    renderProducts = (data, products) => (
+        <Fragment>
+            {products.map(p => {
+                return (
+                    <div key={p._id} className="product-wrapper" >
+                        <Link className="product-title" to={{
+                            pathname: `/product/details/${p._id}`
+                        }}>
+                            {p.title}
+                        </Link>
 
-        return (
-            <Fragment>
-                {
-                    products.map(p => {
-                        return (
-                            <div key={p._id} className="product-wrapper" >
-                                <Link className="product-title" to={{
-                                    pathname: `/product/details/${p._id}`
-                                }}>
-                                    {p.title}
-                                </Link>
+                        <Link to={{
+                            pathname: `/product/details/${p._id}`
+                        }} ><img src={'data:image/png;base64, ' + p.image} alt={p.title} className="product-img" />
+                        </Link>
 
-                                <Link to={{
-                                    pathname: `/product/details/${p._id}`
-                                }} ><img src={'data:image/png;base64, ' + p.image} alt={p.title} className="product-img" />
-                                </Link>
+                        <div className="product-actions">
+                            <span className="product-price">Price: {p.price}<span className="price-sign">$</span></span>
+                            <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
+                            {this.userFunctionalities(data, p)}
+                        </div>
+                    </div>
+                )
+            })}
+        </Fragment >
+    )
 
-                                <div className="product-actions">
-                                    <span className="product-price">Price: {p.price}<span className="price-sign">$</span></span>
-                                    <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
-                                    {this.userFunctionalities(data, p)}
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </Fragment >
-        )
-    }
-
-    // <h1>Our site is under constructtion. We will be ready soon..</h1>
-    // <h2>xoxo</h2>
     render() {
-        const { products, isFetched } = this.state
+        const { products, isFetched, filteredProducts } = this.state
+        const productsToRender = filteredProducts.length ? filteredProducts : products
 
         return (
             <div className='content-wrapper' >
                 <UserInfoConsumer>
                     {(data) => (
-
                         isFetched
+                            ? productsToRender.length
+                                ? (
+                                    <Fragment>
+                                        {this.searchField()}
+                                        {this.renderProducts(data, productsToRender)}
+                                    </Fragment>)
+                                : (this.noProductsLeft())
 
-                            ? products.length
-                                ? this.renderAllProducts(data)
-
-                                : (
-                                    <div className="no-products-container">
-                                        <div className="no-products-text-container">
-                                            <h1>Our products are so desired that we could not predict we would run out of stock this soon..</h1>
-                                            <h2>Sorry!</h2>
-                                        </div>
-
-                                        <div className="no-products-img"></div>
-                                    </div>
-                                )
-
-                            : <div className="product-wrapper" >
-                                <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
-                            </div>
-
+                            : this.showLoading()
                     )}
                 </UserInfoConsumer>
             </div>
@@ -123,10 +144,8 @@ class AllProducts extends Component {
 
     componentDidMount() {
         document.title = 'Shake it - Your shake is a click away'
-
         const { service } = this.props
 
-        // requester.getAllProducts()
         service()
             .then(res => {
                 if (!res.ok) {
