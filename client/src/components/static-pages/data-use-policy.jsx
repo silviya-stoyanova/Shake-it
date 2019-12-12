@@ -9,7 +9,7 @@ const DataUsePolicy = () => {
             <div><strong>&copy; Shake it</strong> is committed to transparency about data use and to protecting the privacy of your personal information. Please read the following before using this site.</div>
             <p><strong>&copy; Shake it</strong> (digitalimpact.io) is an initiative coordinated by the Digital Civil Society Lab (“Lab,” “we,” “us,” “our”) at the Stanford Center on Philanthropy and Civil Society (Stanford PACS). The Lab is committed to transparency about data use and to protecting the privacy of your personal information. This Data Usage Policy is designed to let you know how we collect, use, and disclose information through the websites, mobile applications, and other online services and products (collectively, the “Services”) that link to this Policy. Please read the entire Policy before using our Services. By using the Services, you consent to the terms of this Policy.</p>
             <h3><em>European Union General Data Protection Regulation</em></h3>
-            <p><em>On May 25, 2018 the European Union’s General Data Protection Regulation (GDPR) introduced new rules and protections about how organizations use and process personal data about persons in the European Union. Learn more about the <a href="https://gdpr-info.eu/">GDPR</a>&nbsp;. You can also read Stanford University’s policy on the&nbsp;<a href="https://privacy.stanford.edu/sites/default/files/gdpr_data_subjects_rights_policy_final.pdf" target="_blank" rel="noopener">rights of EU data subjects</a> under the GDPR.&nbsp;</em></p>
+            <p><em>On May 25, 2018 the European Union’s General Data Protection Regulation (GDPR) introduced new rules and protections about how organizations use and process personal data about persons in the European Union. Learn more about the <a href="https://gdpr-info.eu/">GDPR</a>&nbsp;. You can also read Stanford University’s policy on the&nbsp;<a href="https://privacy.stanford.edu/sites/default/files/gdpr_data_subjects_rights_policy_final.pdf" target="_blank" rel="noopener noreferrer">rights of EU data subjects</a> under the GDPR.&nbsp;</em></p>
             <h2><strong>Information We Collect</strong></h2>
             <h3>Information you provide directly</h3>
             <p>You may provide information directly to us in a number of ways. For example:</p>
@@ -18,7 +18,6 @@ const DataUsePolicy = () => {
                 <li>When you use our interactive online features (such as forums, blogs, or other Services that allow you to post content), we receive whatever you post.</li>
                 <li>When you contact us for assistance with our Services, we receive the information you provide in that correspondence and any other information that you send to us.</li>
             </ul>
-            <h3></h3>
             <h3><strong>Information we receive automatically when you use our Services</strong></h3>
             <p>We may also automatically receive certain information about your device when you use our Services. For example, we may receive:</p>
             <ul>

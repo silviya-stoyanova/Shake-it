@@ -7,7 +7,7 @@ import promiseExtraMethods from '../hocs/promiseExtraMethods'
 const CreateProduct = (props) => {
     useTitle('Add a new product')
     const { handleInputChange, handleFormSubmit } = props
-    const { title, description, image, price,
+    const { title, description, price,
         titleClass, descriptionClass, imageClass, priceClass, uploadedImg } = props.data
 
     return (
