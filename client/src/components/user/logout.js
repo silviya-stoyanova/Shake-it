@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
 import sessionManager from '../../utilities/session-util'
 import observer from '../../utilities/observer'
+const jwtToken = sessionManager.getUserInfo().authtoken
 
-function logout() {
+async function Logout(props) {
+
+    // to be able to test this component, [toast] will be passed down through the props
+    const { toast, service } = props
+
     try {
-        const jwtToken = sessionManager.getUserInfo().authtoken
-        requester.logout(jwtToken)
-
+        // requester.logout(jwtToken)
+        service(jwtToken)
         sessionManager.clearSession()
         observer.trigger('userLogout')
         toast.info('Successful log out! 🍹', {
@@ -24,4 +28,9 @@ function logout() {
     return <Redirect to='/' />
 }
 
-export default logout
+Logout.defaultProps = {
+    toast: toast,
+    service: requester.logout(jwtToken)
+}
+
+export default Logout

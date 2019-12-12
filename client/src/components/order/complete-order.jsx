@@ -35,6 +35,8 @@ class CompleteOrder extends Component {
             })
         }
 
+        // to add a call to the database, so that a new Order is created
+        // and then to empty user's cart
         requester.emptyCart(jwtToken)
             .then(res => {
                 this.props.history.push('/thanks-for-ordering')

@@ -131,7 +131,7 @@ describe('tests for the component UserProfile', () => {
 
     describe('guest functionalities', () => {
 
-        it('should redirect [guest] to the home page when they accesses UserProfile page', () => {
+        it('should redirect [guest] to the home page when they try to accesses UserProfile page', () => {
             const defaultUserValue = { isLogged: false, username: '', role: '' }
 
             const wrapper = mount(
@@ -151,7 +151,7 @@ describe('tests for the component UserProfile', () => {
         it('should let [users] view the UserProfile page', () => {
             const defaultUserValue = { isLogged: true, username: 'strawberry-me', role: 'User' }
 
-            const wrapper = mount(
+            wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
                         <AuthRoute path="/user/profile" component={UserProfile} role="User" />
@@ -180,8 +180,19 @@ describe('tests for the component UserProfile', () => {
         })
 
 
+        //! todo
+        it("should render user's profile with fetched data, that is [empty] and enabled submit button", () => {
+
+
+        })
 
         it("should render user's profile with fetched data and enabled submit button", () => {
+            mockToast.info.mockReset()
+            wrapper = mount(
+                <UserProfile toast={mockToast}
+                    serviceOnSubmit={mockFormSubmit} serviceOnMount={mockGetProfileFetch} />
+            )
+
             mockGetProfileFetch()
                 .then(res => res.json())
                 .then(async res => {
@@ -200,7 +211,7 @@ describe('tests for the component UserProfile', () => {
                     })
                     wrapper.update()
 
-                    expect(wrapper.debug()).toMatchSnapshot()
+                    expect(wrapper.html()).toMatchSnapshot()
 
                     expect(wrapper.find('span.user-info-username').text()).toEqual(`Username: ${res.username}`)
                     expect(wrapper.find('input[id="firstName"]').prop('defaultValue')).toEqual(res.firstName)
@@ -211,7 +222,6 @@ describe('tests for the component UserProfile', () => {
                     expect(wrapper.find('input[id="city"]').prop('defaultValue')).toEqual(res.city)
                     expect(wrapper.find('input[id="postcode"]').prop('defaultValue')).toEqual(res.postcode)
                     expect(wrapper.find('input[id="adress"]').prop('defaultValue')).toEqual(res.adress)
-
                     expect(wrapper.find('img.profile-img').prop('src')).toEqual(`data:image/png;base64, ${res.profilePic}`)
 
                     expect(wrapper.find('button.edit-profile-btn').prop('disabled')).toEqual(false)
@@ -227,6 +237,12 @@ describe('tests for the component UserProfile', () => {
         })
 
         it('passes info to all the input fields of the form', async () => {
+            mockToast.info.mockReset()
+            wrapper = mount(
+                <UserProfile toast={mockToast}
+                    serviceOnSubmit={mockFormSubmit} serviceOnMount={mockGetProfileFetch} />
+            )
+
             await mockGetProfileFetch()
             wrapper.update()
 
@@ -252,6 +268,7 @@ describe('tests for the component UserProfile', () => {
 
             await wrapper.find('form').simulate('submit', sampleEvents.onFormSubmit)
             await mockFormSubmit()
+
             expect(mockToast.info).toBeCalled()
             expect(mockToast.info).toHaveBeenLastCalledWith(
                 'Your profile was editted successfully!',
@@ -264,7 +281,7 @@ describe('tests for the component UserProfile', () => {
         it('should let The [Admin] view the UserProfile page', () => {
             const defaultUserValue = { isLogged: true, username: 'awesome-adminny', role: 'Admin' }
 
-            const wrapper = mount(
+            wrapper = mount(
                 <BrowserRouter>
                     <UserInfoProvider value={defaultUserValue}>
                         <AuthRoute path="/user/profile" component={UserProfile} role="User" />

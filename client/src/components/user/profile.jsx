@@ -49,8 +49,6 @@ class UserProfile extends Component {
         const jwtToken = sessionManager.getUserInfo().authtoken
         const { profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state
         const { toast, serviceOnSubmit } = this.props
-
-        // requester.updateProfileInfo
         serviceOnSubmit(profilePic, firstName, lastName, phoneNumber, email, country, city, postcode, adress, jwtToken)
             .then(res => {
                 if (!res.ok) {
@@ -59,7 +57,6 @@ class UserProfile extends Component {
                 return res.json()
             })
             .then(res => {
-                // return
                 toast.info(res.success, {
                     className: 'success-toast'
                 })
@@ -67,7 +64,7 @@ class UserProfile extends Component {
             .catch(err => {
                 err.json()
                     .then(error => {
-                        return toast.info(error.message, {
+                        toast.info(error.message, {
                             className: 'error-toast'
                         })
                     })
