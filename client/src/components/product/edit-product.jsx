@@ -39,7 +39,7 @@ const EditProduct = (props) => {
 
                         <div className="price">
                             <label htmlFor="price">Price:</label>
-                            <input onChange={handleInputChange} name="price" defaultValue={price} type="number" step='0.01' className={priceClass} id="price" />
+                            <input onChange={handleInputChange} name="price" defaultValue={price} type="number" min="0" step='0.01' className={priceClass} id="price" />
                             <span className="price-sign">$</span>
                         </div>
                     </div>

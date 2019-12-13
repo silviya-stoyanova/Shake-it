@@ -1,8 +1,10 @@
 import React from 'react'
+import useTitle from '../page-title/useTitle'
 
 const DataUsePolicy = () => {
-    return <div>
+    useTitle('Data Usage Policy')
 
+    return <div>
         <h1>Data Usage Policy</h1>
 
         <div>
@@ -96,8 +98,6 @@ hello@digitalmpact.org</p>
             <p><em><strong>Last updated: November 27, 2019</strong></em></p>
         </div>
     </div>
-
-
 }
 
 export default DataUsePolicy

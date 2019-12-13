@@ -1,6 +1,9 @@
 import React from 'react'
+import useTitle from '../page-title/useTitle'
 
 const Terms = () => {
+    useTitle('Terms')
+
     return <div>
         <div id="content">
             <div id="placeholders">
