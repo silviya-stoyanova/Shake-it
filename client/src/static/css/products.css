@@ -49,8 +49,10 @@
 
 .upload-img-text {
     position: absolute;
-    top: 5%;
-    right: 25%;
+    /* top: 5%; */
+    /* right: 25%; */
+    top: 4%;
+    right: 15%;
     /* background: #ac9198;; */
     /* opacity: 0.75; */
     border-radius: inherit;
