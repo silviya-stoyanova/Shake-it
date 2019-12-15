@@ -152,8 +152,6 @@ module.exports = {
 
             let newFileName = ''
             if (image) {
-                console.log('New image is provided');
-
                 newFileName = image.path.split('\\').reverse()[0]
 
                 await mv(image.path, uploadFilesPath + newFileName,
@@ -168,7 +166,6 @@ module.exports = {
                 fs.unlink(uploadFilesPath + product.image,
                     (err) => {
                         if (err) {
-
                             console.log(err.message)
                             return res.send(500).send({ message: err.message })
                         }
