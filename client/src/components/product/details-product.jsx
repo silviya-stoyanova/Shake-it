@@ -54,12 +54,15 @@ const ProductDetails = (props) => {
                         <div className="product-details-wrapper product-wrapper" >
                             {title
                                 ? <Fragment>
-                                    <img src={'data:image/png;base64, ' + image} alt={title} className="product-img-details" />
+                                    {/* className='img-container' */}
+                                    <div className='relative-container'>
+                                        <img src={'data:image/png;base64, ' + image} alt={title} className="product-img-details" />
+                                        <span className="product-likes">{likes ? likes.length : 0} ♥</span>
+                                    </div>
                                     <div className="product-title">{title}</div>
                                     <div className="product-description">{description}</div>
 
                                     <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
-                                    <span className="product-likes">{likes ? likes.length : 0} ♥</span>
                                     <div className="product-actions">
                                         {userFunctionalities(data, _id)}
                                     </div>

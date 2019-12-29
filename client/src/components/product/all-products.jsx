@@ -63,29 +63,29 @@ class AllProducts extends Component {
     userFunctionalities = (data, id) => {
         return data.isLogged
             && <Fragment>
-            <div className="btn-group">
-                <Link
-                    to={{
-                        pathname: `/product/like/${id}`
-                    }} className="product-actions-btn">like
+                <div className="btn-group">
+                    <Link
+                        to={{
+                            pathname: `/product/like/${id}`
+                        }} className="product-actions-btn">like
                 </Link>
-                {
-                    data.role === 'Admin'
-                    && <Fragment>
-                        <Link
-                            to={{
-                                pathname: `/product/edit/${id}`
-                            }} className="product-actions-btn">edit
+                    {
+                        data.role === 'Admin'
+                        && <Fragment>
+                            <Link
+                                to={{
+                                    pathname: `/product/edit/${id}`
+                                }} className="product-actions-btn">edit
                             </Link>
 
-                        <Link
-                            to={{
-                                pathname: `/product/delete/${id}`
-                            }} className="product-actions-btn">delete
+                            <Link
+                                to={{
+                                    pathname: `/product/delete/${id}`
+                                }} className="product-actions-btn">delete
                             </Link>
-                    </Fragment>
-                }
-             </div>
+                        </Fragment>
+                    }
+                </div>
                 <Link
                     to={{
                         pathname: `/cart/add/${id}`
@@ -101,7 +101,14 @@ class AllProducts extends Component {
                     <div key={p._id} className="product-wrapper" >
                         <Link to={{
                             pathname: `/product/details/${p._id}`
-                        }} ><img src={'data:image/png;base64, ' + p.image} alt={p.title} className="product-img" />
+                        }} >
+                            <div className='img-container'>
+                                <img src={'data:image/png;base64, ' + p.image} alt={p.title} className="product-img" />
+
+                        <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
+
+
+                            </div>
                         </Link>
 
                         <Link className="product-title" to={{
@@ -112,7 +119,6 @@ class AllProducts extends Component {
 
 
                         <span className="product-price">Price: {p.price}<span className="price-sign">$</span></span>
-                        <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
                         <div className="product-actions">
                             {this.userFunctionalities(data, p._id)}
                         </div>

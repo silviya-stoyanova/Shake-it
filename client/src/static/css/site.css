@@ -1,7 +1,7 @@
 body {    
     margin: 0px 0px;
     background-color: rgb(186, 164, 169);
-    font-family: 'Lobster Two', cursive;
+    font: normal 16px 'Lobster Two';
 }
 
 div#root {
