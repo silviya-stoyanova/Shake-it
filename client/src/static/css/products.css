@@ -5,10 +5,14 @@
 }
 
 .product-wrapper {
+    position: relative;
     width: 15%;
     margin: 35px;
     display: inline-block;
     text-align: center;
+    box-shadow: 1px -1px 30px rgba(1,1,1,0.2);
+    border-radius: 20px;
+    overflow: hidden
 }
 
 .product-details-wrapper {
@@ -20,28 +24,23 @@
 .product-title {
     display: inline-block;
     font-size: 1.42em;
-   /* cursor: pointer; */
     margin-left: 6%;
     padding-bottom: 5px;
     color: black;
 }
 
-.product-img, .add-product-img {
-    /* width: 95%; */
-    /* border-radius: 5%; */
+.product-img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border: 1px solid rgb(163, 133, 140);
+}
+
+.product-img-details, .add-product-img {
     width: 99%;
     height: 95%;
-    border-radius: 27px;
     border: 1px solid rgb(163, 133, 140);
-   /* cursor: pointer; */
 }
-
-.product-img:hover {
-    /* border: 1px solid wheat; */
-    border: 1px solid pink;
-    filter: drop-shadow(2px 3px 4px pink);
-}
-
 
 .upload-img-text-wrapper {
   background-color: rgb(109, 31, 31);
@@ -70,28 +69,30 @@
     filter: opacity(0.1);
 }
 
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn-group a {
+    flex-grow: 1;
+}
+
 .product-actions-btn {
     font: inherit;
     font-size: 1.255em;
-    padding: 1px;
-    margin-left: 2%;
-    border: 1px solid rgb(163, 133, 140);
-    border-radius: 30%;
-    color: white;
-    background: rgb(109, 31, 31);
-    /* margin-right: 10px; */
+    color: #f3e6e6;
+    background: rgb(85, 59, 59);
+    transition: background 1s ease;
 }
 
 .add-to-cart-btn {
     display: block;
-    border-radius: 10px;
+    border-radius: 0px;
 }
 
 .product-actions-btn:hover {
-    border: 1px solid rgb(109, 31, 31);
-/*    border-radius: 30%;
-    color: rgb(109, 31, 31);
-    background: white; */
+    background: rgba(92, 51, 51, 0.788);
 }
 
 .product-actions {
@@ -99,9 +100,13 @@
 }
 
 .product-likes {
-   color: rgb(109, 31, 31);
-   font-weight: 900;
-   padding-left: 27px;
+    position: absolute;
+    bottom: 8em;
+    left: 0em;
+    padding: 0.1em 0.5em;
+    font-weight: 900;
+    color: rgb(109, 31, 31);
+    background: rgb(186, 164, 169);;
 }
 
 .product-price {
@@ -129,7 +134,7 @@
     /*position: relative;*/
     /*left: 0;
     top: 0;*/
-    border-radius: 5%;
+    border-radius: 1rem;
     background-repeat: no-repeat;
     background-size: cover;
     /*background-size: contain;*/

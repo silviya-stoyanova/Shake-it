@@ -27,13 +27,14 @@ const withProcessForm = (Form, formType, validations, initialData, requestType, 
         // }
 
         async handleInputChange({ target }) {
-            // console.log(target.files ? target.files[0] : null)
+            console.log(target.files)
+            console.log(target.files ? target.files[0] : null)
 
             await this.setState(prevState => ({
                 data: {
                     ...prevState.data,
-                    [target.name]: target.files ? target.files : target.value, // .trim()
-                    uploadedImg: target.files ? URL.createObjectURL(target.files[0]) : prevState.data.uploadedImg
+                    [target.name]: target.files && target.files.length ? target.files : target.value, // .trim()
+                    uploadedImg: target.files && target.files.length ? URL.createObjectURL(target.files[0]) : prevState.data.uploadedImg
                     // uploadedImg: target.files ? target.files[0] : prevState.data.uploadedImg
                 }
             }))

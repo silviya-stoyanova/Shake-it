@@ -1,6 +1,14 @@
-body {
-    background-color: rgb(163, 133, 140);
+body {    
+    margin: 0px 0px;
+    background-color: rgb(186, 164, 169);
     font-family: 'Lobster Two', cursive;
+}
+
+div#root {
+    /* to keep the footer always at the bottom of the page */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 a {

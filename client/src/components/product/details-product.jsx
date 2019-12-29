@@ -13,29 +13,31 @@ const ProductDetails = (props) => {
     const userFunctionalities = (data, _id) => {
         return data.isLogged
             && <Fragment>
-                <Link
-                    to={{
-                        pathname: `/product/like/${_id}`
-                    }} className="product-actions-btn">like
+                <div className="btn-group">
+
+                    <Link
+                        to={{
+                            pathname: `/product/like/${_id}`
+                        }} className="product-actions-btn">like
                 </Link>
 
-                {
-                    data.role === 'Admin'
-                    && <Fragment>
-                        <Link
-                            to={{
-                                pathname: `/product/edit/${_id}`
-                            }} className="product-actions-btn">edit
+                    {
+                        data.role === 'Admin'
+                        && <Fragment>
+                            <Link
+                                to={{
+                                    pathname: `/product/edit/${_id}`
+                                }} className="product-actions-btn">edit
                             </Link>
 
-                        <Link
-                            to={{
-                                pathname: `/product/delete/${_id}`
-                            }} className="product-actions-btn">delete
+                            <Link
+                                to={{
+                                    pathname: `/product/delete/${_id}`
+                                }} className="product-actions-btn">delete
                             </Link>
-                    </Fragment>
-                }
-
+                        </Fragment>
+                    }
+                </div>
                 <Link
                     to={{
                         pathname: `/cart/add/${_id}`
@@ -47,24 +49,22 @@ const ProductDetails = (props) => {
     return (
         <UserInfoConsumer>
             {(data) => {
-                // console.log(props.data)
-
                 return (
                     <div className='content-wrapper'>
-                        <div className="product-details-wrapper" >
+                        <div className="product-details-wrapper product-wrapper" >
                             {title
                                 ? <Fragment>
+                                    <img src={'data:image/png;base64, ' + image} alt={title} className="product-img-details" />
                                     <div className="product-title">{title}</div>
-                                    <img src={'data:image/png;base64, ' + image} alt={title} className="product-img" />
                                     <div className="product-description">{description}</div>
 
+                                    <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
+                                    <span className="product-likes">{likes ? likes.length : 0} ♥</span>
                                     <div className="product-actions">
-                                        <span className="product-price-details">Price: {price}<span className="price-sign">$</span></span>
-                                        <span className="product-likes">{likes ? likes.length : 0} ♥</span>
                                         {userFunctionalities(data, _id)}
                                     </div>
                                 </Fragment>
-                                : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img" />
+                                : <img src={require('../../static/images/loading-circle.gif')} alt="loading-img" className="product-img-details" />
                             }
                         </div>
                     </div>)
@@ -74,7 +74,6 @@ const ProductDetails = (props) => {
 }
 
 const initialData = {
-    // _id: props.match.params.productId,
     title: '',
     description: '',
     image: '',

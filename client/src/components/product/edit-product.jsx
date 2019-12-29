@@ -19,12 +19,12 @@ const EditProduct = (props) => {
 
                 {/* {console.log(titleClass, descriptionClass, priceClass)} */}
 
-                {image
+                {title
                     ? <div className="form-fields-wrapper">
                         <input autoFocus onChange={handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
 
                         <div className="update-img-container">
-                            <img src={uploadedImg ? uploadedImg : `data:image/png;base64, ${image}`} alt={title} className="product-img" />
+                            <img src={uploadedImg ? uploadedImg : `data:image/png;base64, ${image}`} alt={title} className="product-img-details" />
 
                             <div>
                                 <label className="input-file-container update-img-content" htmlFor="uploadedImg">
@@ -43,7 +43,7 @@ const EditProduct = (props) => {
                             <span className="price-sign">$</span>
                         </div>
                     </div>
-                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading-img'} className="product-img" />
+                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading-img'} className="product-img-details" />
                 }
                 <hr />
                 <button className="button" type="submit">Save changes</button>
