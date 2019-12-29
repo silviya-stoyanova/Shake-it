@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { UserInfoConsumer } from '../../App'
+import { filterProducts, onSearchChange } from '../search/helpers'
+import SearchField from '../search/search-field'
 import requester from '../../utilities/requests-util'
 import '../../static/css/products.css'
-import '../../static/css/search.css'
 
 class AllProducts extends Component {
     constructor(props) {
@@ -16,6 +17,9 @@ class AllProducts extends Component {
         }
 
         this.renderProducts = this.renderProducts.bind(this)
+        this.filterProducts = filterProducts.bind(this)
+        this.onSearchChange = onSearchChange.bind(this)
+        this.SearchField = SearchField.bind(this)
     }
 
     static defaultProps = {
@@ -36,27 +40,6 @@ class AllProducts extends Component {
             </div>
 
             <div className="no-products-img"></div>
-        </div>
-    )
-
-    filterProducts = async (query) => {
-        const { products } = this.state
-        const filteredProducts = products.filter(p => p.title.toLowerCase().includes(query.toLowerCase()))
-
-        await this.setState({
-            filteredProducts
-        })
-    }
-
-    onSearchChange = (e) => {
-        const querySearch = e.target.value
-        this.filterProducts(querySearch)
-    }
-
-    searchField = () => (
-        <div className="search">
-            <label htmlFor="search">Find milkshake: </label>
-            <input onChange={this.onSearchChange} name="search" placeholder="type here" type="text" id="search" />
         </div>
     )
 
@@ -105,7 +88,7 @@ class AllProducts extends Component {
                             <div className='img-container'>
                                 <img src={'data:image/png;base64, ' + p.image} alt={p.title} className="product-img" />
 
-                        <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
+                                <span className="product-likes">{p.likes ? p.likes.length : 0} ♥</span>
 
 
                             </div>
@@ -140,7 +123,7 @@ class AllProducts extends Component {
                             ? productsToRender.length
                                 ? (
                                     <Fragment>
-                                        {this.searchField()}
+                                        {this.SearchField(products)}
                                         {this.renderProducts(data, productsToRender)}
                                     </Fragment>)
                                 : (this.noProductsLeft())

@@ -1,7 +1,10 @@
 .content-wrapper {
-    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     text-align: center;
-    display: inline-block;
+    width: 100%;
 }
 
 .product-wrapper {
@@ -11,7 +14,7 @@
     margin: 35px;
     text-align: center;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 1px -1px 30px rgba(1,1,1,0.2);
 }
 
@@ -27,12 +30,12 @@
     color: black;
 }
 
-.product-wrapper  div.img-container {
+div.img-container {
     position: relative;
     overflow: hidden;
 }
 
-.product-wrapper  div.img-container:after {
+div.img-container:after {
     display: block;
     content: '';
     /* padding-top: 56.25%; */
@@ -100,7 +103,7 @@
 
 .product-actions-btn {
     font: inherit;
-    font-size: 1.255em;
+    font-size: 1em;
     color: #f3e6e6;
     background: rgb(85, 59, 59);
     transition: background 1s ease;

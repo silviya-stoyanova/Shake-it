@@ -81,7 +81,9 @@ class Cart extends Component {
                                 <Link to={{
                                     pathname: `/product/details/${p.product._id}`
                                 }}>
-                                    <img src={'data:image/png;base64, ' + p.product.image} alt='product' className="cart-img" />
+                                    <div className='img-container'>
+                                        <img src={'data:image/png;base64, ' + p.product.image} alt='product' className="cart-img" />
+                                    </div>
                                 </Link>
                             </td>
                             <td>

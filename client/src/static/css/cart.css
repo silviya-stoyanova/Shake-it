@@ -17,9 +17,15 @@
 }
 
 .cart-img{
-    max-width: 80px;
-    max-height: 80px;
-    border-radius: 7px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    
+    /* to center the img */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .cart-product-qty {
@@ -42,12 +48,12 @@
 }
 
 td {
-    width: 15%
+    width: 16%
+    /* width: 15% */
 }
 
 td:first-child {
-    width: 15%;
-    /* width: 35%; */
+    width: 8%;
 }
 
 td:nth-child(2){
