@@ -173,7 +173,7 @@ When you run this command, Jest will launch in *watch mode*. Every time you save
   
 # User experience
 
-When starting the application for the first time on the homepage you will see this "Sorry" message since there are no products offered by default. You need to login as an admin, then you will see that the header component have changed and a link to Add Product is now present. From there you may add some products. By doing so you will "unlock" the other functionalities...
+When starting the application for the first time on the homepage you will see this "Sorry" message since there are no products offered by default. You need to login as an admin, then you will see that the header component has changed and a link to Add Product is now present. From there you may add some products. By doing so you will "unlock" the other functionalities...
 
 [no-products-img](add-url-here)
   
