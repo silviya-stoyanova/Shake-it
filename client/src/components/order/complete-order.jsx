@@ -164,7 +164,7 @@ class CompleteOrder extends Component {
     }
 
     render() {
-        document.title = 'Shake it - Complete your order'
+        document.title = 'Complete your order - Shake it'
         const { productsInCart } = this.state
         const { firstName, lastName, phoneNumber, email, country, city, postcode, adress } = this.state.user
 

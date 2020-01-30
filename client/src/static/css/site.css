@@ -1,7 +1,12 @@
-body {    
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap&subset=cyrillic-ext');
+
+html {
+    font: normal 18px/1.6 "PT Sans", sans-serif;
+}
+
+body {
     margin: 0px 0px;
     background-color: rgb(186, 164, 169);
-    font: normal 16px 'Lobster Two';
 }
 
 div#root {
@@ -11,7 +16,7 @@ div#root {
     min-height: 100vh;
 }
 
-a {
+a, label[for="toggle-menu"] {
     text-decoration: none;
     color: rgb(109, 31, 31);
 }

@@ -22,7 +22,7 @@ const DeleteProduct = (props) => {
                     ? <div className="form-fields-wrapper">
                         <div className="product-title">{title}</div>
 
-                        <img src={'data:image/png;base64, ' + image} alt={title} className="product-img" />
+                        <img src={'data:image/png;base64, ' + image} alt={title} className="product-img-del" />
 
                         <label htmlFor="description">Description</label>
                         <textarea defaultValue={description} type="text" id="description" disabled></textarea>
@@ -34,7 +34,7 @@ const DeleteProduct = (props) => {
                         </div>
                     </div>
 
-                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading'} className="product-img" />
+                    : <img src={require('../../static/images/loading-circle.gif')} alt={'loading'} className="product-img-del" />
                 }
 
                 <hr />

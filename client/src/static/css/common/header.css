@@ -1,52 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two:400,400i,700,700i&display=swap');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css");
+/* @import url('https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i&display=swap&subset=cyrillic'); */
+
 header {
+    display: flex;
+    font-family: 'Lobster Two', serif;
     box-shadow: 0px 5px 8px 0px #0000005c;
 }
 
-header > ul > li {
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    padding-left: 3.5rem;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
     display: inline-block;
     list-style: none;
     padding: 10px;
 }
 
-/* .left-align {
-    float: left;
-} */
-
-.right-align {
-    float: right;
-    margin-left: 1em;
-}
-
-li > a {
+li > a, label[for="toggle-menu"] {
     text-decoration: none;
     font-size: 1.42em;
     text-transform: capitalize;
     font-weight: bold;
-    font-family: inherit
-}
-
-ul {
-    padding-left: 0px;
-    margin-top: -0.3%;
-    margin-left: 70px;
+    cursor: pointer;
 }
 
 .logo {
     background-image: url('../../images/fav-icon.ico');
     background-repeat: no-repeat;
     background-size: contain;
-    padding: 35px;
-    padding-top: 0px;
-    padding-bottom: 50px;
+    padding: 30px;
+    position: absolute;
 }
 
-.my-cart-img::before {
-    background: no-repeat url('../../images/my-cart.png');
-    position: absolute;
-    content: " ";
-    width: 40px;
-    height: 40px;
-    right: 4em;
-    /* right: 25%; */
-    filter: grayscale(1) contrast(5);
+#toggle-menu, label[for="toggle-menu"] {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+
+    label[for="toggle-menu"] {
+        display: inline-block;
+        padding-top: 0.6rem;
+        padding-left: 0.3rem;
+        height: 2rem;
+    }
+
+    ul.left-align {
+        display: none;
+    }
+
+    .fa-times, .fa-bars {
+        padding-right: 0.3rem;
+    }
+
+    .fa-times {
+        display: none;
+    }
+
+    #toggle-menu:checked + nav .fa-times {
+        display: inline;
+    }
+
+    #toggle-menu:checked + nav .fa-bars {
+        display: none;
+    }
+
+    #toggle-menu:checked + nav ul.left-align {
+        display: block;
+        padding-top: 2.5rem;
+    }
+
+    #toggle-menu:checked + nav ul.left-align li {
+        display: block;
+    }
+
+
 }

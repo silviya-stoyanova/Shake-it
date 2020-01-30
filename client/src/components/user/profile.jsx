@@ -133,7 +133,7 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        document.title = 'Shake it - My profile'
+        document.title = 'My profile - Shake it'
         const jwtToken = sessionManager.getUserInfo().authtoken
 
         const { serviceOnMount } = this.props

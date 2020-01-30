@@ -136,7 +136,7 @@ class AllProducts extends Component {
     }
 
     componentDidMount() {
-        document.title = 'Shake it - Your shake is a click away'
+        document.title = 'Your shake is a click away - Shake it'
         const { service } = this.props
 
         service()

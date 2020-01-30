@@ -14,7 +14,7 @@ form {
 
 input, label, textarea {
     display: inline-block;
-    width: 100%;
+    width: auto;
     /* border-radius: 10px; */
     font-size: 1.42em;
 
@@ -100,7 +100,7 @@ input[type="file"] {
 
 .update-img-content {
     text-decoration: black underline;
-    border-radius: 0px;
+    border: none;
     cursor: pointer;
     /* width: 50%; */
     font-size: 15px;

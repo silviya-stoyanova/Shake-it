@@ -10,6 +10,6 @@
 }
 
 .search label, .search input {
+    flex: 0 1 10rem;
     margin-top: 0.5rem;
-    flex: 0 1 7rem;
 }
