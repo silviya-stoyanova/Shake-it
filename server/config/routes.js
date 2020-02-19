@@ -19,11 +19,15 @@ module.exports = (app) => {
     app.post('/product/like/:productId', restrictedPages.isAuthed, controllers.product.like)
     app.get('/product/details/:productId', controllers.product.getDetails)
 
+    // cart routes
     app.get('/cart', restrictedPages.isAuthed, controllers.cart.getCart)
     app.post('/cart/add/:productId', restrictedPages.isAuthed, controllers.cart.addToCart)
     app.post('/cart/remove/all', restrictedPages.isAuthed, controllers.cart.emptyCart)
     app.post('/cart/remove/:productInfoId', restrictedPages.isAuthed, controllers.cart.removeFromCart)
     app.post('/cart/update-qty/:productInfoId', restrictedPages.isAuthed, controllers.cart.updateQty)
 
+    // blog routes
+    app.get('/blog', controllers.blog.getBlog)
+    app.post('/blog/create-article', restrictedPages.hasRole('Admin'), controllers.blog.createArticle)
 
 }

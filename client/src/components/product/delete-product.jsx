@@ -12,7 +12,7 @@ const DeleteProduct = (props) => {
     useTitle(`Delete ${title}`)
 
     return (
-        <div className="form" >
+        <section className="form" >
             <form onSubmit={handleFormSubmit}>
                 <div className="form-type">Are you sure you want</div>
                 <div className="form-type">to delete this product?</div>
@@ -41,7 +41,7 @@ const DeleteProduct = (props) => {
                 <button className="button btn-del" type="submit">Yes</button>
                 <Link to="/" className="button btn-del">No</Link>
             </form>
-        </div>
+        </section>
     )
 }
 

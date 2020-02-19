@@ -116,7 +116,6 @@ const productValidations = {
             }
         }))
 
-        // console.log(titleClass, descriptionClass, priceClass)
         return result
     },
 

@@ -11,7 +11,7 @@ const UserRegister = (props) => {
     const { username, password, repeatPassword, userClass, passClass, repeatPassClass } = props.data
 
     return (
-        <div className="form">
+        <section className="form">
             <form onSubmit={handleFormSubmit}>
                 <div className="form-type">Register</div>
                 <hr />
@@ -29,7 +29,7 @@ const UserRegister = (props) => {
 
                 <button className="button" type="submit">Submit</button>
             </form>
-        </div>
+        </section>
     )
 }
 

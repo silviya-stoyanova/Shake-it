@@ -118,7 +118,7 @@ class Cart extends Component {
 
     render() {
         return (
-            <div className="form" >
+            <section className="form" >
                 <form onSubmit={this.handleFormSubmit} encType="multipart/form-data" className="cart-form">
                     <div className="form-type">Shopping cart</div>
                     <hr />
@@ -133,7 +133,7 @@ class Cart extends Component {
                     <hr />
                     <button type="submit" className="button confirm-btn">Complete order</button>
                 </form>
-            </div>
+            </section>
         )
     }
 

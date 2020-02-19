@@ -16,6 +16,10 @@ import LikeProduct from '../product/like-product'
 import EditProduct from '../product/edit-product'
 import DeleteProduct from '../product/delete-product'
 
+// article components
+import AllArticles from '../article/all-articles'
+import CreateArticle from '../article/create-article'
+
 // cart components
 import Cart from '../cart/cart'
 import AddToCart from '../cart/add-to-cart'
@@ -48,12 +52,15 @@ function MyRoutes() {
             <Route path="/product/details/:productId" component={ProductDetails} />
             <AuthRoute path="/product/like/:productId" component={LikeProduct} role="User" />
 
+            <Route path="/blog" exact component={AllArticles} />
+            <AuthRoute path="/blog/create-article" component={CreateArticle} role="Admin" />
+
             <AuthRoute exact path="/cart" component={Cart} role="User" />
             <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />
             <AuthRoute path="/cart/remove/:productInfoId" component={RemoveFromCart} role="User" />
 
             <AuthRoute path="/order/complete" component={CompleteOrder} role="User" />
-            <AuthRoute path="/thanks-for-ordering" component={ThanksForOrder} role="User"/>
+            <AuthRoute path="/thanks-for-ordering" component={ThanksForOrder} role="User" />
 
             <Route path="/contacts" component={ContactForm} />
             <Route path="/about" component={About} />

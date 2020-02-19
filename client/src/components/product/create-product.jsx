@@ -11,7 +11,7 @@ const CreateProduct = (props) => {
         titleClass, descriptionClass, imageClass, priceClass, uploadedImg } = props.data
 
     return (
-        <div className="form" >
+        <section className="form" >
             <form onSubmit={handleFormSubmit} encType="multipart/form-data" >
                 <div className="form-type">Add a product</div>
                 <hr />
@@ -40,14 +40,6 @@ const CreateProduct = (props) => {
                         <input type="file" accept="image/*" onChange={handleInputChange} name="image" id="image" className={imageClass} />
                     </div>
 
-                    {/* <div>
-                            <label className="update-img-content" htmlFor="profilePic">
-                                <img className="update-img" src="" alt="update-your-profile-picture" />
-                            </label>
-                            <input onChange={handleInputChange} type="file" name="profilePic" id="profilePic" />
-                        </div> */}
-
-
                     <label htmlFor="price">Price</label>
                     <input type="number" value={price} onChange={handleInputChange} name="price" className={priceClass} id="price" min="0" step="0.01" />
                 </div>
@@ -55,7 +47,7 @@ const CreateProduct = (props) => {
                 <hr />
                 <button className="button" type="submit">Submit</button>
             </form>
-        </div>
+        </section>
     )
 }
 

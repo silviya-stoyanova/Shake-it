@@ -11,8 +11,8 @@ const isAuthed = (currRole, wantedRole) => {
         || currRole === 'Admin'                                         // if they are the Admin
         || currRole === wantedRole) {                                   // if they are authorized to accomplish this action
 
-
         pass = true
+
     } else {
         toast.info('You are unauthorized to view this page!', {
             className: 'error-toast'

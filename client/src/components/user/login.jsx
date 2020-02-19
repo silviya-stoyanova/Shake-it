@@ -13,7 +13,7 @@ const UserLogin = (props) => {
 
     return (
         <React.Fragment>
-            <div className="form">
+            <section className="form">
                 <form id="login-form" onSubmit={handleFormSubmit} >
                     <div className="form-type">Login</div>
                     <hr />
@@ -28,7 +28,7 @@ const UserLogin = (props) => {
 
                     <button className="button" type="submit">Submit</button>
                 </form>
-            </div>
+            </section>
         </React.Fragment>
     )
 }

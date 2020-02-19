@@ -41,6 +41,7 @@ class App extends Component {
       isLogged: false,
       username: '',
       role: []
+      // role: ''
     }))
   }
 

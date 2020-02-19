@@ -1,4 +1,4 @@
-div.form {
+.form {
     display: flex;
 }
 
@@ -7,19 +7,16 @@ form {
     display: inline-block;
     text-align: center;
     align-items: center;
-    /* width: 300px;*/
     width: 30%;
     margin: auto;
 }
 
 input, label, textarea {
     display: inline-block;
-    width: auto;
-    /* border-radius: 10px; */
     font-size: 1.42em;
-
-    background: none;
+    width: auto;
     border: none;
+    background: none;
 }
 
 input, textarea {
@@ -57,13 +54,11 @@ td {
     width: 100%;
     display: inline-block;
     font-family: inherit;
-    /* border-radius: 30px; */
-    border: none;
-    /* margin-top: 15px; */
     font-size: 1.42em;
-    background: none;
+    border: none;
     cursor: pointer;
     color: rgb(109, 31, 31);
+    background: none;
 }
 
 .btn-del {

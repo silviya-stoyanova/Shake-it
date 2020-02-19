@@ -11,7 +11,7 @@ const EditProduct = (props) => {
     useTitle(`Edit ${title}`)
 
     return (
-        <div className="form" >
+        <section className="form" >
 
             <form onSubmit={handleFormSubmit} encType="multipart/form-data">
                 <div className="form-type">Edit a product</div>
@@ -48,7 +48,7 @@ const EditProduct = (props) => {
                 <hr />
                 <button className="button" type="submit">Save changes</button>
             </form>
-        </div>
+        </section>
     )
 }
 

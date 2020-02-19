@@ -146,6 +146,15 @@ const requester = {
     updateQty: (productInfoId, actionType, jwtToken) => {
         return fetch(baseUrl + '/cart/update-qty/' + productInfoId,
             makeRequest('POST', JSON.stringify({ actionType }), false, jwtToken))
+    },
+
+
+
+    createArticle: (data, jwtToken) => {
+        const { articleName, articleContent } = data
+
+        return fetch(baseUrl + '/blog/create-article',
+            makeRequest('POST', JSON.stringify({ articleName, articleContent }), true, jwtToken))
     }
 }
 

@@ -1,0 +1,23 @@
+.link {
+    width: 16vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    color: rgb(71, 71, 71);
+}
+
+.createArticleField {
+    color: rgba(71, 71, 71, 0.657);
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+.plusSign {
+    width: 15vw;
+    height: 15vw;
+    font-size: 10vw;
+    text-align: center;
+    border: 1.5px dashed rgba(71, 71, 71, 0.657);
+}
