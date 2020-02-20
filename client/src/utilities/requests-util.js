@@ -171,7 +171,7 @@ const requester = {
     },
 
     deleteArticle: (articleId, jwtToken) => {
-        return fetch(baseUrl + `blog/article/delete/${articleId}`,
+        return fetch(baseUrl + `/blog/article/delete/${articleId}`,
             makeRequest('POST', null, true, jwtToken))
     },
 }

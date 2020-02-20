@@ -48,6 +48,14 @@ module.exports = {
     },
 
     deleteArticle: (req, res) => {
+        const articleId = req.params.articleId
 
+        Article.findByIdAndDelete(articleId, (err, response) => {
+            if (err) {
+                return res.status(400).send({ message: err.message })
+            }
+
+            return res.send({ success: 'Successfully deleted article! 🍹' })
+        })
     }
 }

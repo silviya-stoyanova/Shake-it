@@ -1,3 +1,5 @@
+// to transform this into a functional component
+
 import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import requester from '../../utilities/requests-util'
