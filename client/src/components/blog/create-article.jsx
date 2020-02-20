@@ -23,14 +23,12 @@ const CreateArticle = function (props) {
         if (isValid.title === 'valid') {
             setArticleTitleClass('correct')
         } else {
-            // console.log(isValid)
             setArticleTitleClass('error')
         }
 
         if (isValid.content === 'valid') {
             setArticleContentClass('correct')
         } else {
-            // console.log(isValid)
             setArticleContentClass('error')
         }
     }

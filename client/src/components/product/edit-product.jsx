@@ -17,8 +17,6 @@ const EditProduct = (props) => {
                 <div className="form-type">Edit a product</div>
                 <hr />
 
-                {/* {console.log(titleClass, descriptionClass, priceClass)} */}
-
                 {title
                     ? <div className="form-fields-wrapper">
                         <input autoFocus onChange={handleInputChange} name="title" defaultValue={title} type="text" className={titleClass} id="title" />
