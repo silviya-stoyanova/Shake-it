@@ -155,18 +155,15 @@ const articleValidations = {
     validateData: (data) => {
         const { title, content } = data
 
-        // let [titleClass, contentClass] = ['error', 'error']
         let result = {
             title: 'invalid',
             content: 'invalid',
         }
 
         if (title && title.length > 2 && title.length <= 50) {
-            // titleClass = 'correct'
             result.title = 'valid'
         }
         if (content && content.length > 9 && content.length <= 3000) {
-            // contentClass = 'correct'
             result.content = 'valid'
         }
 
@@ -188,6 +185,7 @@ const articleValidations = {
             toast.info(errorMsg, {
                 className: 'error-toast',
             })
+
             return isValid
         }
 

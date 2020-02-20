@@ -53,6 +53,8 @@ const Articles = (props) => {
                         <h3>{a.title}</h3>
                     </Link>
                     <div>{a.content.split(' ').slice(0, 20).join(' ')} ...</div>
+                    <Link to={`/blog/article/edit/${a._id}`}>Edit</Link>
+                    <Link to={`/blog/article/delete/${a._id}`}>Delete</Link>
                 </article>
             ))}
         </Fragment>

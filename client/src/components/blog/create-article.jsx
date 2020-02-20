@@ -79,7 +79,7 @@ const CreateArticle = function (props) {
             <textarea onChange={handleInputChange} className={articleContentClass} name="ArticleContent" id="article-content"></textarea>
 
             <hr />
-            <button className="button" type="submit">Publish me 😊</button>
+            <button className="button" type="submit">Publish me <span role="img">😊</span></button>
         </form>
     )
 }

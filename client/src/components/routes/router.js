@@ -20,6 +20,8 @@ import DeleteProduct from '../product/delete-product'
 import AllArticles from '../blog/all-articles'
 import ArticleDetails from '../blog/details-article'
 import CreateArticle from '../blog/create-article'
+import EditArticle from '../blog/edit-article'
+import DeleteArticle from '../blog/delete-article'
 
 // cart components
 import Cart from '../cart/cart'
@@ -55,6 +57,8 @@ function MyRoutes() {
 
             <Route path="/blog" exact component={AllArticles} />
             <AuthRoute path="/blog/article/create" component={CreateArticle} role="Admin" />
+            <AuthRoute path="/blog/article/edit/:articleId" component={EditArticle} role="Admin" />
+            <AuthRoute path="/blog/article/delete/:articleId" component={DeleteArticle} role="Admin" />
             <Route path="/blog/article/:articleId" component={ArticleDetails} />
 
             <AuthRoute exact path="/cart" component={Cart} role="User" />
