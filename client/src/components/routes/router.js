@@ -54,8 +54,8 @@ function MyRoutes() {
             <AuthRoute path="/product/like/:productId" component={LikeProduct} role="User" />
 
             <Route path="/blog" exact component={AllArticles} />
-            <Route path="/blog/article/:articleId" component={ArticleDetails} />
             <AuthRoute path="/blog/article/create" component={CreateArticle} role="Admin" />
+            <Route path="/blog/article/:articleId" component={ArticleDetails} />
 
             <AuthRoute exact path="/cart" component={Cart} role="User" />
             <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />
