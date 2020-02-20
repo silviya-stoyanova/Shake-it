@@ -150,5 +150,52 @@ const productValidations = {
     }
 }
 
+const articleValidations = {
+
+    validateData: (data) => {
+        const { title, content } = data
+
+        // let [titleClass, contentClass] = ['error', 'error']
+        let result = {
+            title: 'invalid',
+            content: 'invalid',
+        }
+
+        if (title && title.length > 2 && title.length <= 50) {
+            // titleClass = 'correct'
+            result.title = 'valid'
+        }
+        if (content && content.length > 9 && content.length <= 250) {
+            // contentClass = 'correct'
+            result.content = 'valid'
+        }
+
+        return result
+    },
+
+    validateOnSubmit: (data) => {
+        const isInputValid = articleValidations.validateData(data)
+        let isValid = false
+        let errorMsg = ''
+
+        if (isInputValid.content === 'invalid') {
+            errorMsg = 'The description length must be between 10 and 250 symbols including.'
+        }
+        if (isInputValid.title === 'invalid') {
+            errorMsg = 'The title length must be between 3 and 50 symbols including.'
+        }
+        if (errorMsg) {
+            toast.info(errorMsg, {
+                className: 'error-toast',
+            })
+            return isValid
+        }
+
+        isValid = true
+        return isValid
+    }
+}
+
 export { userValidations }
 export { productValidations }
+export { articleValidations }

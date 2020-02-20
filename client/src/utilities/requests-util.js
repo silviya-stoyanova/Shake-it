@@ -148,14 +148,32 @@ const requester = {
             makeRequest('POST', JSON.stringify({ actionType }), false, jwtToken))
     },
 
-
+    getBlog: () => {
+        return fetch(baseUrl + '/blog')
+    },
 
     createArticle: (data, jwtToken) => {
-        const { articleName, articleContent } = data
+        const { articleTitle, articleContent } = data
 
-        return fetch(baseUrl + '/blog/create-article',
-            makeRequest('POST', JSON.stringify({ articleName, articleContent }), true, jwtToken))
-    }
+        return fetch(baseUrl + '/blog/article/create',
+            makeRequest('POST', JSON.stringify({ articleTitle, articleContent }), true, jwtToken))
+    },
+
+    detailsArticle: (articleId) => {
+        return fetch(baseUrl + `/blog/article/${articleId}`)
+    },
+
+    editArticle: (data, articleId, jwtToken) => {
+        const { articleTitle, articleContent } = data
+
+        return fetch(baseUrl + `/blog/article/edit/${articleId}`,
+            makeRequest('POST', JSON.stringify({ articleTitle, articleContent }), true, jwtToken))
+    },
+
+    deleteArticle: (articleId, jwtToken) => {
+        return fetch(baseUrl + `blog/article/delete/${articleId}`,
+            makeRequest('POST', null, true, jwtToken))
+    },
 }
 
 export default requester

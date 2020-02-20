@@ -17,8 +17,9 @@ import EditProduct from '../product/edit-product'
 import DeleteProduct from '../product/delete-product'
 
 // article components
-import AllArticles from '../article/all-articles'
-import CreateArticle from '../article/create-article'
+import AllArticles from '../blog/all-articles'
+import ArticleDetails from '../blog/details-article'
+import CreateArticle from '../blog/create-article'
 
 // cart components
 import Cart from '../cart/cart'
@@ -53,7 +54,8 @@ function MyRoutes() {
             <AuthRoute path="/product/like/:productId" component={LikeProduct} role="User" />
 
             <Route path="/blog" exact component={AllArticles} />
-            <AuthRoute path="/blog/create-article" component={CreateArticle} role="Admin" />
+            <Route path="/blog/article/:articleId" component={ArticleDetails} />
+            <AuthRoute path="/blog/article/create" component={CreateArticle} role="Admin" />
 
             <AuthRoute exact path="/cart" component={Cart} role="User" />
             <AuthRoute path="/cart/add/:productId" component={AddToCart} role="User" />

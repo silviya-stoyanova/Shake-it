@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const articleSchema = new mongoose.Schema({
     // author: { type: mongoose.SchemaTypes.ObjectId },
-    name: { type: mongoose.SchemaTypes.String, required: true },
+    title: { type: mongoose.SchemaTypes.String, required: true },
     content: { type: mongoose.SchemaTypes.String, required: true },
 
     // to call Date.now() ??

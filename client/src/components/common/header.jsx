@@ -8,7 +8,7 @@ function Header() {
     return (
         <UserInfoConsumer>
             {data => (
-                <header>
+                <header className="site-header">
                     <Link to="/">
                         <span className="logo"></span>
                     </Link>

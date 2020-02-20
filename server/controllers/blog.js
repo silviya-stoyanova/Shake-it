@@ -11,22 +11,42 @@ module.exports = {
     createArticle: (req, res) => {
         const articleData = req.body
 
-        Article.create({ name: articleData.articleName, content: articleData.articleContent })
-            .then((data, err) => {
-                if (err) {
-                    return res.status(400).send({ message: err.message })
-                }
+        Article.create({
+            title: articleData.articleTitle,
+            content: articleData.articleContent
 
-                return res.send({ success: 'Successfully published article! 🍹' })
+        }).then((data, err) => {
+            return res.send({ success: 'Successfully published article! 🍹' })
+
+        }).catch(err => {
+            return res.status(400).send({ message: err.message })
+        })
+    },
+
+    detailsArticle: async (req, res) => {
+        const articleId = req.params.articleId
+
+        Article.findById(articleId)
+            .then(article => {
+                return res.send(article)
+            })
+            .catch(err => {
+                return res.status(400).send({ message: 'Oops! This article does not exist!' })
             })
     },
 
-    detailsArticle: (req, res) => {
-
-    },
-
     editArticle: (req, res) => {
+        const articleId = req.params.articleId
+        const articleData = req.body
 
+        Article.findByIdAndUpdate(articleId, articleData, (err, res) => {
+            if (err) {
+                return res.status(400).send({ message: err.message })
+            }
+
+            //! todo
+
+        })
     },
 
     deleteArticle: (req, res) => {

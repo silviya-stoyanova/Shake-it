@@ -28,6 +28,8 @@ module.exports = (app) => {
 
     // blog routes
     app.get('/blog', controllers.blog.getBlog)
-    app.post('/blog/create-article', restrictedPages.hasRole('Admin'), controllers.blog.createArticle)
-
+    app.get('/blog/article/:articleId', controllers.blog.detailsArticle)
+    app.post('/blog/article/create', restrictedPages.hasRole('Admin'), controllers.blog.createArticle)
+    app.post('/blog/article/edit/:articleId', restrictedPages.hasRole('Admin'), controllers.blog.editArticle)
+    app.post('/blog/article/delete/:articleId', restrictedPages.hasRole('Admin'), controllers.blog.deleteArticle)
 }
