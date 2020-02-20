@@ -179,7 +179,7 @@ const articleValidations = {
         let errorMsg = ''
 
         if (isInputValid.content === 'invalid') {
-            errorMsg = 'The description length must be between 10 and 250 symbols including.'
+            errorMsg = 'The description length must be between 10 and 1000 symbols including.'
         }
         if (isInputValid.title === 'invalid') {
             errorMsg = 'The title length must be between 3 and 50 symbols including.'
