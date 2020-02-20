@@ -49,7 +49,10 @@ class EditArticle extends Component {
                 return res.json()
             })
             .then(res => {
-
+                toast.info(res.success, {
+                    className: 'success-toast'
+                })
+                this.props.history.goBack()
             })
             .catch(error => {
                 error.json()

@@ -39,13 +39,11 @@ module.exports = {
         const articleId = req.params.articleId
         const articleData = req.body
 
-        Article.findByIdAndUpdate(articleId, articleData, (err, res) => {
+        Article.findByIdAndUpdate(articleId, articleData, (err, response) => {
             if (err) {
                 return res.status(400).send({ message: err.message })
             }
-
-            //! todo
-
+            return res.send({ success: 'Successfully editted article! 🍹' })
         })
     },
 

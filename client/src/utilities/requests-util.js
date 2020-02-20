@@ -164,10 +164,10 @@ const requester = {
     },
 
     editArticle: (data, articleId, jwtToken) => {
-        const { articleTitle, articleContent } = data
+        const { title, content } = data
 
         return fetch(baseUrl + `/blog/article/edit/${articleId}`,
-            makeRequest('POST', JSON.stringify({ articleTitle, articleContent }), true, jwtToken))
+            makeRequest('POST', JSON.stringify({ title, content }), true, jwtToken))
     },
 
     deleteArticle: (articleId, jwtToken) => {
