@@ -9,7 +9,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-session": "^1.14.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.7.7",
     "multiparty": "^4.2.1",
     "mv": "^2.1.1",
