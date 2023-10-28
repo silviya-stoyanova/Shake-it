@@ -133,12 +133,9 @@ class AllProducts extends Component {
                 this.setState({ products })
             })
             .catch(err => {
-                err.json()
-                    .then(res => {
-                        toast.info(res.message, {
-                            className: 'error-toast'
-                        })
-                    })
+                toast.info(err.message, {
+                    className: 'error-toast'
+                })
             })
     }
 }
